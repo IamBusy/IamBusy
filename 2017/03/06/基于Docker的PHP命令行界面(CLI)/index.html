@@ -71,7 +71,7 @@
 <link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Docker,PHP CLI," />
 
 
 
@@ -87,12 +87,19 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="I am Busy">
-<meta property="og:url" content="http://IamBusy.github.io/blog/tags/Docker/index.html">
+<meta name="description" content="前言在Jenkins持续集成环境中构建工程时，经常需要用到诸如PHP、Nodejs等环境，如果每增加一个依赖环境，就重构一次Jenkins，那么显然工作量会非常大，且违背了使用Docker的初衷。所以特地研究并记录了一下如何使用包含了所需环境的Docker镜像来提供命令行的访问方式，这里以PHP为例。
+基本原理将工作目录以volume的方式挂载到php容器内，再在容器内运行指定的脚本，脚本执行完成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Docker的PHP命令行界面(CLI)">
+<meta property="og:url" content="http://IamBusy.github.io/blog/2017/03/06/基于Docker的PHP命令行界面(CLI)/index.html">
 <meta property="og:site_name" content="I am Busy">
+<meta property="og:description" content="前言在Jenkins持续集成环境中构建工程时，经常需要用到诸如PHP、Nodejs等环境，如果每增加一个依赖环境，就重构一次Jenkins，那么显然工作量会非常大，且违背了使用Docker的初衷。所以特地研究并记录了一下如何使用包含了所需环境的Docker镜像来提供命令行的访问方式，这里以PHP为例。
+基本原理将工作目录以volume的方式挂载到php容器内，再在容器内运行指定的脚本，脚本执行完成">
+<meta property="og:updated_time" content="2017-03-06T09:31:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="I am Busy">
+<meta name="twitter:title" content="基于Docker的PHP命令行界面(CLI)">
+<meta name="twitter:description" content="前言在Jenkins持续集成环境中构建工程时，经常需要用到诸如PHP、Nodejs等环境，如果每增加一个依赖环境，就重构一次Jenkins，那么显然工作量会非常大，且违背了使用Docker的初衷。所以特地研究并记录了一下如何使用包含了所需环境的Docker镜像来提供命令行的访问方式，这里以PHP为例。
+基本原理将工作目录以volume的方式挂载到php容器内，再在容器内运行指定的脚本，脚本执行完成">
 
 
 
@@ -120,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://IamBusy.github.io/blog/tags/Docker/"/>
+  <link rel="canonical" href="http://IamBusy.github.io/blog/2017/03/06/基于Docker的PHP命令行界面(CLI)/"/>
 
 
 
 
 
-  <title> Tag: Docker | I am Busy </title>
+  <title> 基于Docker的PHP命令行界面(CLI) | I am Busy </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -161,7 +168,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -293,158 +300,199 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        Docker
-        <small>Tag</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/blog/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/" itemprop="url">
-              
-                <span itemprop="name">基于Docker版jenkins的持续集成环境搭建(二)</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-03-06T17:33:33+08:00"
-              content="2017-03-06" >
-          03-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/blog/2017/03/06/基于Docker版jenkins的持续集成环境搭建(一)/" itemprop="url">
-              
-                <span itemprop="name">基于Docker版jenkins的持续集成环境搭建(一)</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-03-06T17:31:36+08:00"
-              content="2017-03-06" >
-          03-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/blog/2017/03/06/基于Docker的PHP命令行界面(CLI)/" itemprop="url">
-              
-                <span itemprop="name">基于Docker的PHP命令行界面(CLI)</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-03-06T17:29:05+08:00"
-              content="2017-03-06" >
-          03-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/blog/2017/03/06/基于Docker与Nginx的简易高可用热备系统/" itemprop="url">
-              
-                <span itemprop="name">基于Docker与Nginx的简易高可用热备系统</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-03-06T17:25:35+08:00"
-              content="2017-03-06" >
-          03-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/blog/2017/03/04/Docker修改默认时区/" itemprop="url">
-              
-                <span itemprop="name">Docker修改默认时区</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-03-04T23:52:45+08:00"
-              content="2017-03-04" >
-          03-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </div>
 
   
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://IamBusy.github.io/blog/blog/2017/03/06/基于Docker的PHP命令行界面(CLI)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="William Wei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/WechatIMG32.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I am Busy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                基于Docker的PHP命令行界面(CLI)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-06T17:29:05+08:00">
+                2017-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/blog/2017/03/06/基于Docker的PHP命令行界面(CLI)/" class="leancloud_visitors" data-flag-title="基于Docker的PHP命令行界面(CLI)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在<a href="http://www.jianshu.com/p/33896fdaad77" target="_blank" rel="external">Jenkins持续集成环境</a>中构建工程时，经常需要用到诸如PHP、Nodejs等环境，如果每增加一个依赖环境，就重构一次Jenkins，那么显然工作量会非常大，且违背了使用Docker的初衷。所以特地研究并记录了一下如何使用包含了所需环境的Docker镜像来提供命令行的访问方式，这里以PHP为例。</p>
+<h1 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h1><p>将工作目录以volume的方式挂载到php容器内，再在容器内运行指定的脚本，脚本执行完成后，容器的生命周期也同时结束，并回收相关资源。</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><p>直接用运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -it --rm --name php -v $PWD:/usr/src/myapp -w /usr/src/myapp php:cli php</div></pre></td></tr></table></figure></p>
+<p>将需要运行的参数追加到该命令后面即可。需要注意的是，这里默认会把当前工作目录作为工作环境，如需要运行<code>/var/script.php</code>文件时，则应该先<code>cd /var</code>后在该目录内运行上述命令(追加script.php于命令后面)<br>显然这样的一个方式不够优雅，每次都需要输入一大长串，这里有两个解决方案:</p>
+<h4 id="1-Alias"><a href="#1-Alias" class="headerlink" title="1. Alias"></a>1. Alias</h4><p>为该命令起一个别名，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alias docker_php=&apos;docker run -it --rm --name php -v $PWD:/usr/src/myapp -w /usr/src/myapp php:cli php&apos;</div></pre></td></tr></table></figure></p>
+<h4 id="2-Shell-函数"><a href="#2-Shell-函数" class="headerlink" title="2. Shell 函数"></a>2. Shell 函数</h4><p>在你的<code>~/.bashrc</code>,<code>~/.zshrc</code>或者其他类似的文件中定义如下函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">docker_php () &#123;</div><div class="line">    tty=</div><div class="line">    tty -s &amp;&amp; tty=--tty</div><div class="line">    docker run \</div><div class="line">        $tty \</div><div class="line">        --interactive \</div><div class="line">        --rm \</div><div class="line">        --volume $PWD:/usr/src/myapp \</div><div class="line">        --workdir /usr/src/myapp \</div><div class="line">        php:cli php &quot;$@&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>通过这两种方式都可以随时在主机上面使用docker_php命令来执行一些php相关操作。但是这种方式只是提供了一个运行php文件的环境还是存在不少弊端的。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://hub.docker.com/_/php/" target="_blank" rel="external">https://hub.docker.com/_/php/</a></li>
+<li><a href="https://hub.docker.com/_/composer/" target="_blank" rel="external">https://hub.docker.com/_/composer/</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Docker/" rel="tag"># Docker</a>
+          
+            <a href="/blog/tags/PHP-CLI/" rel="tag"># PHP CLI</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2017/03/06/基于Docker与Nginx的简易高可用热备系统/" rel="next" title="基于Docker与Nginx的简易高可用热备系统">
+                <i class="fa fa-chevron-left"></i> 基于Docker与Nginx的简易高可用热备系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2017/03/06/基于Docker版jenkins的持续集成环境搭建(一)/" rel="prev" title="基于Docker版jenkins的持续集成环境搭建(一)">
+                基于Docker版jenkins的持续集成环境搭建(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
           
           </div>
@@ -452,6 +500,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -471,8 +523,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://ojiqea97q.bkt.clouddn.com/jianshu/WechatIMG32.jpeg"
@@ -534,6 +595,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本原理"><span class="nav-number">2.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Code"><span class="nav-number">3.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Alias"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">1. Alias</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Shell-函数"><span class="nav-number">3.0.0.2.</span> <span class="nav-text">2. Shell 函数</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -639,6 +716,10 @@
   
 
   
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 

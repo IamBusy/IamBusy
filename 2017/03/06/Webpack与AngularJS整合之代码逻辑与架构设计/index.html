@@ -1,0 +1,942 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Angular,Webpack," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="前言公司项目的前端使用Ionic开发，但是代码的组织方式略显臃肿，代码的书写规范性不佳。一方面造成了严重的性能瓶颈，另一方面也无法应对未来频繁的需求变更，所以准备结合构建工具对前端做设计重构。考察了各个构建工具包括Glup、Grunt、Webpack之后还是决定使用Webpack（最新的主流一般都不会有错的）。查阅了不少资料，大部分是关注的技术细节，对于如何进行代码的组织设计较少，所以本文更多的关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack与AngularJS整合之代码逻辑与架构设计">
+<meta property="og:url" content="http://IamBusy.github.io/blog/2017/03/06/Webpack与AngularJS整合之代码逻辑与架构设计/index.html">
+<meta property="og:site_name" content="I am Busy">
+<meta property="og:description" content="前言公司项目的前端使用Ionic开发，但是代码的组织方式略显臃肿，代码的书写规范性不佳。一方面造成了严重的性能瓶颈，另一方面也无法应对未来频繁的需求变更，所以准备结合构建工具对前端做设计重构。考察了各个构建工具包括Glup、Grunt、Webpack之后还是决定使用Webpack（最新的主流一般都不会有错的）。查阅了不少资料，大部分是关注的技术细节，对于如何进行代码的组织设计较少，所以本文更多的关">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-cc40a6bf4e502215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-c887d72dcacd7a47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-95816bb208052823.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-03-06T09:24:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Webpack与AngularJS整合之代码逻辑与架构设计">
+<meta name="twitter:description" content="前言公司项目的前端使用Ionic开发，但是代码的组织方式略显臃肿，代码的书写规范性不佳。一方面造成了严重的性能瓶颈，另一方面也无法应对未来频繁的需求变更，所以准备结合构建工具对前端做设计重构。考察了各个构建工具包括Glup、Grunt、Webpack之后还是决定使用Webpack（最新的主流一般都不会有错的）。查阅了不少资料，大部分是关注的技术细节，对于如何进行代码的组织设计较少，所以本文更多的关">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4226917-cc40a6bf4e502215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'U04ORV9A7O',
+      apiKey: '630a8d1051b462e07bb3d070b4e39602',
+      indexName: 'HexoBlog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://IamBusy.github.io/blog/2017/03/06/Webpack与AngularJS整合之代码逻辑与架构设计/"/>
+
+
+
+
+
+  <title> Webpack与AngularJS整合之代码逻辑与架构设计 | I am Busy </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?10fbf90598e79454e15ab63420e6f77b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">I am Busy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://IamBusy.github.io/blog/blog/2017/03/06/Webpack与AngularJS整合之代码逻辑与架构设计/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="William Wei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/WechatIMG32.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I am Busy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Webpack与AngularJS整合之代码逻辑与架构设计
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-06T17:23:12+08:00">
+                2017-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/blog/2017/03/06/Webpack与AngularJS整合之代码逻辑与架构设计/" class="leancloud_visitors" data-flag-title="Webpack与AngularJS整合之代码逻辑与架构设计">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>公司项目的前端使用Ionic开发，但是代码的组织方式略显臃肿，代码的书写规范性不佳。一方面造成了严重的性能瓶颈，另一方面也无法应对未来频繁的需求变更，所以准备结合构建工具对前端做设计重构。考察了各个构建工具包括Glup、Grunt、Webpack之后还是决定使用Webpack（最新的主流一般都不会有错的）。查阅了不少资料，大部分是关注的技术细节，对于如何进行代码的组织设计较少，所以本文更多的关注的可能是代码的组织方式，探索一个比较好的组织方案</p>
+<a id="more"></a>
+<h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h1><ul>
+<li>AMD/CMD</li>
+<li>npm</li>
+<li>AngularJS</li>
+<li>Webpack</li>
+</ul>
+<h1 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h1><p>Webpack通过一个入口文件(当然可以多入口，不是重点)，将所有依赖文件打包到一个文件中，从而减少SAP应用初次加载时http请求到个数。并且可以通过各种loader去处理优化不同的文件，如js、css、svg等。一般一个通行的做法是将webpack构建时的配置信息写入到一个名为 “webpack.config.js”的文件中。这部分的基础知识以及demo一般稍作学习便可掌握。<a href="http://webpack.github.io/docs/motivation.html" target="_blank" rel="external">官网文档</a>本身很不错。</p>
+<p>所以目录可以这样组织：<br><img src="http://upload-images.jianshu.io/upload_images/4226917-cc40a6bf4e502215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<ul>
+<li>app:存放源代码</li>
+<li>build: 存放webpack构建完成的代码</li>
+<li>node_modules: npm管理的包库</li>
+<li>webpack.config.js： webpack构建配置<br>这个是webpack视角下大的框架</li>
+</ul>
+<h1 id="组织结构"><a href="#组织结构" class="headerlink" title="组织结构"></a>组织结构</h1><h2 id="1-Module"><a href="#1-Module" class="headerlink" title="1. Module"></a>1. Module</h2><p>关于module，angular的官方Developer Guide是这样写的：</p>
+<blockquote>
+<p>You can think of a module as a container for the different parts of your app – controllers, services, filters, directives, etc.</p>
+</blockquote>
+<p>所以在angular中module是一个层次相对较高的聚合，把相关的controller、service等封装到一个module，以实现一组特定的相对完备的功能。<br>对一个中大型的项目理想情况下是拆分为几个相对比较独立的module。</p>
+<p>以passport模块为例，包含登录注册等功能，组织形式如下：<br><img src="http://upload-images.jianshu.io/upload_images/4226917-c887d72dcacd7a47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<ul>
+<li>index.js:将该模块内各个部分联系在一起</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">angular = require(&apos;angular&apos;);</div><div class="line">uirouter = require(&apos;uirouter&apos;);</div><div class="line"></div><div class="line">service = require(&apos;../services&apos;);</div><div class="line"></div><div class="line">//define the app.passport module</div><div class="line">module.exports = angular.module(&apos;app.passport&apos;, [uirouter, service.AuthService, service.Request])</div><div class="line">    .config(require(&apos;./passport.routes&apos;))</div><div class="line">    .controller(&apos;SigninController&apos;, require(&apos;./signin.controller&apos;))</div><div class="line">    .controller(&apos;SignupController&apos;, require(&apos;./signup.controller&apos;))</div><div class="line">    .service(&apos;passportService&apos;, require(&apos;./passport.service&apos;))</div><div class="line">    .name;</div></pre></td></tr></table></figure>
+<ul>
+<li>routes.js:定义该模块的路由</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">module.exports = [&apos;$stateProvider&apos;,</div><div class="line">function($stateProvider) &#123;</div><div class="line">    $stateProvider</div><div class="line">        .state(&apos;signup&apos;, &#123;</div><div class="line">            url: &apos;/signup&apos;,</div><div class="line">            name: &apos;signup&apos;,</div><div class="line">            template: require(&apos;./signup.html&apos;),</div><div class="line">            controller: &apos;SignupController&apos;</div><div class="line">        &#125;)</div><div class="line">        .state(&apos;signin&apos;, &#123;</div><div class="line">            url: &apos;/signin&apos;,</div><div class="line">            name: &apos;signin&apos;,</div><div class="line">            template: require(&apos;./signin.html&apos;),</div><div class="line">            controller: &apos;SigninController&apos;</div><div class="line">        &#125;);</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<ul>
+<li><p>signin.controller.js: 登录控制器，这里export controller的定义函数，在index中完成最终定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">module.exports = [&apos;$scope&apos;,&apos;authService&apos;,&apos;request&apos;,&apos;$state&apos;,</div><div class="line">function($scope, authService,request,$state) &#123;</div><div class="line"></div><div class="line">    $scope.user = &#123;</div><div class="line">        phone : &quot;&quot;,</div><div class="line">        password:&quot;&quot;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    //执行用户登录操作</div><div class="line">    $scope.signin = function() &#123;</div><div class="line">        request.post(&apos;signin&apos;, $scope.user)</div><div class="line">            .then(</div><div class="line">                function(data) &#123;</div><div class="line">                    authService.setToken(data.token, data.expire_in * 1000);</div><div class="line">                    $state.go(&apos;home&apos;);</div><div class="line">                &#125;,</div><div class="line">                function(error) &#123;</div><div class="line">                    console.log(error);</div><div class="line">                &#125;</div><div class="line">            );</div><div class="line">    &#125;;</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+</li>
+<li><p>signin.html 登录页面模版</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;ion-view&gt;</div><div class="line">    &lt;ion-content class=&quot;padding&quot;&gt;</div><div class="line">        &lt;div style=&quot;margin-top: 120px;&quot;&gt;</div><div class="line">            &lt;form name=&quot;myForm&quot; novalidate=&quot;&quot;&gt;</div><div class="line">                &lt;div class=&quot;list list-inset&quot; style=&quot;background-color:transparent;&quot;&gt;</div><div class="line">                    &lt;label class=&quot;item item-input&quot;&gt;</div><div class="line">                        &lt;input name=&quot;phone&quot; ng-maxlength=&quot;11&quot; ng-minlength=&quot;11&quot; ng-model=&quot;user.phone&quot; ng-pattern=&quot;/^(((1[0-9]&#123;2&#125;)|159|153)+\d&#123;8&#125;)$/&quot; placeholder=&quot;输入手机号&quot; required=&quot;&quot; type=&quot;number&quot;/&gt;</div><div class="line">                    &lt;/label&gt;</div><div class="line">                    &lt;label class=&quot;item item-input&quot;&gt;</div><div class="line">                        &lt;input name=&quot;password&quot; ng-maxlength=&quot;32&quot; ng-minlength=&quot;6&quot; ng-model=&quot;user.password&quot; placeholder=&quot;6-32位字母数字组合&quot; required=&quot;&quot; type=&quot;password&quot;&gt;</div><div class="line">                        &lt;/input&gt;</div><div class="line">                    &lt;/label&gt;</div><div class="line">                    &lt;input class=&quot;button button-block button-small button-positive&quot; ng-click=&quot;signin()&quot; ng-disabled=&quot;myForm.$invalid&quot; type=&quot;submit&quot; value=&quot;登录&quot; /&gt;</div><div class="line">                    &lt;div class=&quot;row&quot;&gt;</div><div class="line">                        &lt;div class=&quot;col button button-clear button-positive&quot; ui-sref=&quot;register&quot; style=&quot;color:#7b7b7b;&quot;&gt;</div><div class="line">                            用户注册</div><div class="line">                        &lt;/div&gt;</div><div class="line">                        &lt;button class=&quot;col button button-clear button-positive&quot; style=&quot;color:#7b7b7b;&quot;&gt;</div><div class="line">                            重置密码</div><div class="line">                        &lt;/button&gt;</div><div class="line">                    &lt;/div&gt;</div><div class="line">                &lt;/div&gt;</div><div class="line">            &lt;/form&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">    &lt;/ion-content&gt;</div><div class="line">&lt;/ion-view&gt;</div></pre></td></tr></table></figure>
+<p><em>主要思想就是对于模块内的无论是controller、config也好，将它们的定义放到单独文件中，通过index.js文件，将它们组装定义成目标module</em></p>
+<p><strong> <em> 这边的定义都采用数组的方式进行，是为了以后进行代码混淆，函数的参数名即使被替换，依然不影响正常的inject </em> </strong></p>
+<p>通过这种模式我们就完成了一个模块的定义。</p>
+<h2 id="2-项目"><a href="#2-项目" class="headerlink" title="2.项目"></a>2.项目</h2><p>完成了一个模块的定义，那么整个项目的integration也就比较明了了。大致结构如下图：<br><img src="http://upload-images.jianshu.io/upload_images/4226917-95816bb208052823.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>首先是各个模块的定义，然后将跨模块的复用代码以service的形式提取出来，作为通用模块。这里我是放置在services目录下。整合时，定义app module作为项目的主模块，然后将其他module作为依赖的方式注入到app module中，从而完成整合。</p>
+<ul>
+<li>app.module.js</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">angular = require(&apos;angular&apos;);</div><div class="line">uirouter = require(&apos;uirouter&apos;);</div><div class="line">ionic    = require(&apos;ionic&apos;);</div><div class="line"></div><div class="line">ngCache = require(&apos;angular-cache&apos;);</div><div class="line">config = require(&apos;./app.config&apos;);</div><div class="line">home = require(&apos;./home&apos;);</div><div class="line">passport = require(&apos;./passport&apos;);</div><div class="line"></div><div class="line">angular.module(&apos;app&apos;, [ionic,uirouter, ngCache,home,passport])</div><div class="line">    .config(config.routing)</div><div class="line">    .config(config.providerConfig)</div><div class="line">    .constant(&apos;ENV&apos;, require(&apos;./app.env&apos;));</div></pre></td></tr></table></figure>
+<ul>
+<li>app.ENV.js 环境配置</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">    version: 1.0,</div><div class="line">    api: &apos;http://xxx.com/v1/&apos;,</div><div class="line">    appPath: &apos;http://localhost:8080/&apos;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>app.config.js 配置信息</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">module.exports.providerConfig = [&apos;$httpProvider&apos;, &apos;CacheFactoryProvider&apos;,</div><div class="line">    function($httpProvider, CacheFactoryProvider) &#123;</div><div class="line"></div><div class="line">        var param = function(obj) &#123;</div><div class="line">            var query = &apos;&apos;,</div><div class="line">                name, value, fullSubName, subName, subValue, innerObj, i;</div><div class="line">            for (name in obj) &#123;</div><div class="line">                value = obj[name];</div><div class="line">                if (value instanceof Array) &#123;</div><div class="line">                    for (i = 0; i &lt; value.length; ++i) &#123;</div><div class="line">                        subValue = value[i];</div><div class="line">                        fullSubName = name + &apos;[&apos; + i + &apos;]&apos;;</div><div class="line">                        innerObj = &#123;&#125;;</div><div class="line">                        innerObj[fullSubName] = subValue;</div><div class="line">                        query += param(innerObj) + &apos;&amp;&apos;;</div><div class="line">                    &#125;</div><div class="line">                &#125; else if (value instanceof Object) &#123;</div><div class="line">                    for (subName in value) &#123;</div><div class="line">                        subValue = value[subName];</div><div class="line">                        fullSubName = name + &apos;[&apos; + subName + &apos;]&apos;;</div><div class="line">                        innerObj = &#123;&#125;;</div><div class="line">                        innerObj[fullSubName] = subValue;</div><div class="line">                        query += param(innerObj) + &apos;&amp;&apos;;</div><div class="line">                    &#125;</div><div class="line">                &#125; else if (value !== undefined &amp;&amp; value !== null) query += encodeURIComponent(name) + &apos;=&apos; + encodeURIComponent(value) + &apos;&amp;&apos;;</div><div class="line">            &#125;</div><div class="line">            return query.length ? query.substr(0, query.length - 1) : query;</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        $httpProvider.defaults.transformRequest = function(obj) &#123;</div><div class="line">            return angular.isObject(obj) &amp;&amp; String(obj) !== &apos;[object File]&apos; ? param(obj) : obj;</div><div class="line">        &#125;;</div><div class="line">        $httpProvider.defaults.headers.post = &#123;</div><div class="line">            &apos;Content-Type&apos;: &apos;application/x-www-form-urlencoded&apos;</div><div class="line">        &#125;</div><div class="line">        $httpProvider.defaults.headers.put = &#123;</div><div class="line">            &apos;Content-Type&apos;: &apos;application/x-www-form-urlencoded&apos;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        angular.extend(CacheFactoryProvider.defaults, &#123;</div><div class="line">            maxAge: 15 * 60 * 1000,</div><div class="line"></div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">];</div><div class="line"></div><div class="line">module.exports.routing = [&apos;$urlRouterProvider&apos;, &apos;$locationProvider&apos;,</div><div class="line">    function($urlRouterProvider, $locationProvider) &#123;</div><div class="line">        $locationProvider.html5Mode(true);</div><div class="line"></div><div class="line">        $urlRouterProvider.otherwise(&apos;/signin&apos;);</div><div class="line">    &#125;</div><div class="line">];</div></pre></td></tr></table></figure>
+<h1 id="More"><a href="#More" class="headerlink" title="More"></a>More</h1><p>这篇文章主要讲个大致思路，项目<a href="https://github.com/IamBusy/webpack-angular" target="_blank" rel="external">webpack-angular</a>的完整代码已经放到github上面，有需要可以参考。代码的组织方式本身就是仁者见仁，智者见智，没有最好一说，所以还是希望可以一起探讨。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Angular/" rel="tag"># Angular</a>
+          
+            <a href="/blog/tags/Webpack/" rel="tag"># Webpack</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2017/03/06/基于图像处理(HOG)与数据分布特征的水位识别/" rel="next" title="基于图像处理(HOG)与数据分布特征的水位识别">
+                <i class="fa fa-chevron-left"></i> 基于图像处理(HOG)与数据分布特征的水位识别
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2017/03/06/基于Docker与Nginx的简易高可用热备系统/" rel="prev" title="基于Docker与Nginx的简易高可用热备系统">
+                基于Docker与Nginx的简易高可用热备系统 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ojiqea97q.bkt.clouddn.com/jianshu/WechatIMG32.jpeg"
+               alt="William Wei" />
+          <p class="site-author-name" itemprop="name">William Wei</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags/index.html">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#预备知识"><span class="nav-number">2.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Webpack"><span class="nav-number">3.</span> <span class="nav-text">Webpack</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组织结构"><span class="nav-number">4.</span> <span class="nav-text">组织结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Module"><span class="nav-number">4.1.</span> <span class="nav-text">1. Module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-项目"><span class="nav-number">4.2.</span> <span class="nav-text">2.项目</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#More"><span class="nav-number">5.</span> <span class="nav-text">More</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">William Wei</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("SvhbRSH61C2BynVJhG6qel9L-gzGzoHsz", "pB7o0CGUwVxHqQKrG4cyRv6L");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/blog/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/blog/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/blog/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+</body>
+</html>

@@ -71,7 +71,7 @@
 <link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Java,Mybatis," />
+  <meta name="keywords" content="Docker,Jenkins,CI,DooD," />
 
 
 
@@ -87,44 +87,19 @@
 
 
 
-<meta name="description" content="目录
-
-入门
-Mybatis Generator
-
-
-
-是什么Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。
-怎么做其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一">
+<meta name="description" content="前言前一篇对jenkins的环境搭建做了简单介绍，这一篇内容主要是如何借助jenkins，自动构建并run一个目标docker。基本流程是当gitlab上有新的push产生时，触发jenkins构建任务，jenkins在pull项目并完成如build／make等上线前的准备工作后，将build／make后的文件打包到docker中，并将其run起来。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入浅出Mybatis－Mybatis-Generator">
-<meta property="og:url" content="http://IamBusy.github.io/blog/2017/03/04/深入浅出Mybatis－Mybatis-Generator/index.html">
+<meta property="og:title" content="基于Docker版jenkins的持续集成环境搭建(二)">
+<meta property="og:url" content="http://IamBusy.github.io/blog/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/index.html">
 <meta property="og:site_name" content="I am Busy">
-<meta property="og:description" content="目录
-
-入门
-Mybatis Generator
-
-
-
-是什么Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。
-怎么做其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-d0d4671d83983842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-dfee16711e64ba33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-ba0a8555b6a45f68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-03-06T08:49:21.000Z">
+<meta property="og:description" content="前言前一篇对jenkins的环境搭建做了简单介绍，这一篇内容主要是如何借助jenkins，自动构建并run一个目标docker。基本流程是当gitlab上有新的push产生时，触发jenkins构建任务，jenkins在pull项目并完成如build／make等上线前的准备工作后，将build／make后的文件打包到docker中，并将其run起来。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-783723e3524cedc7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-9eacc3a2b6f26a87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-03-06T09:34:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入浅出Mybatis－Mybatis-Generator">
-<meta name="twitter:description" content="目录
-
-入门
-Mybatis Generator
-
-
-
-是什么Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。
-怎么做其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4226917-d0d4671d83983842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="基于Docker版jenkins的持续集成环境搭建(二)">
+<meta name="twitter:description" content="前言前一篇对jenkins的环境搭建做了简单介绍，这一篇内容主要是如何借助jenkins，自动构建并run一个目标docker。基本流程是当gitlab上有新的push产生时，触发jenkins构建任务，jenkins在pull项目并完成如build／make等上线前的准备工作后，将build／make后的文件打包到docker中，并将其run起来。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4226917-783723e3524cedc7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -152,13 +127,13 @@ Mybatis Generator
 
 
 
-  <link rel="canonical" href="http://IamBusy.github.io/blog/2017/03/04/深入浅出Mybatis－Mybatis-Generator/"/>
+  <link rel="canonical" href="http://IamBusy.github.io/blog/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/"/>
 
 
 
 
 
-  <title> 深入浅出Mybatis－Mybatis-Generator | I am Busy </title>
+  <title> 基于Docker版jenkins的持续集成环境搭建(二) | I am Busy </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -335,7 +310,7 @@ Mybatis Generator
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://IamBusy.github.io/blog/blog/2017/03/04/深入浅出Mybatis－Mybatis-Generator/">
+    <link itemprop="mainEntityOfPage" href="http://IamBusy.github.io/blog/blog/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="William Wei">
@@ -356,7 +331,7 @@ Mybatis Generator
             
             
               
-                深入浅出Mybatis－Mybatis-Generator
+                基于Docker版jenkins的持续集成环境搭建(二)
               
             
           </h1>
@@ -371,8 +346,8 @@ Mybatis Generator
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-04T23:50:25+08:00">
-                2017-03-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-06T17:33:33+08:00">
+                2017-03-06
               </time>
             
 
@@ -394,8 +369,8 @@ Mybatis Generator
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/blog/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -411,7 +386,7 @@ Mybatis Generator
 
           
           
-             <span id="/blog/2017/03/04/深入浅出Mybatis－Mybatis-Generator/" class="leancloud_visitors" data-flag-title="深入浅出Mybatis－Mybatis-Generator">
+             <span id="/blog/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/" class="leancloud_visitors" data-flag-title="基于Docker版jenkins的持续集成环境搭建(二)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -440,33 +415,45 @@ Mybatis Generator
       
 
       
-        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><blockquote>
-<ol>
-<li><a href="http://www.jianshu.com/p/06f68617fc04" target="_blank" rel="external">入门</a></li>
-<li>Mybatis Generator</li>
-</ol>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/4226917-d0d4671d83983842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Mybatis"></p>
-<h1 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h1><p>Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。</p>
-<h1 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h1><p>其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一个配置文件即可。以如下官网样例为例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;!DOCTYPE generatorConfiguration</div><div class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</div><div class="line">  &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</div><div class="line"></div><div class="line">&lt;generatorConfiguration&gt;</div><div class="line">  &lt;classPathEntry location=&quot;/Program Files/IBM/SQLLIB/java/db2java.zip&quot; /&gt;</div><div class="line"></div><div class="line">  &lt;context id=&quot;DB2Tables&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</div><div class="line">    &lt;jdbcConnection driverClass=&quot;COM.ibm.db2.jdbc.app.DB2Driver&quot;</div><div class="line">        connectionURL=&quot;jdbc:db2:TEST&quot;</div><div class="line">        userId=&quot;db2admin&quot;</div><div class="line">        password=&quot;db2admin&quot;&gt;</div><div class="line">    &lt;/jdbcConnection&gt;</div><div class="line"></div><div class="line">    &lt;javaTypeResolver &gt;</div><div class="line">      &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;</div><div class="line">    &lt;/javaTypeResolver&gt;</div><div class="line"></div><div class="line">    &lt;javaModelGenerator targetPackage=&quot;test.model&quot; targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">      &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/javaModelGenerator&gt;</div><div class="line"></div><div class="line">    &lt;sqlMapGenerator targetPackage=&quot;test.xml&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/sqlMapGenerator&gt;</div><div class="line"></div><div class="line">    &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;test.dao&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/javaClientGenerator&gt;</div><div class="line"></div><div class="line">    &lt;table schema=&quot;DB2ADMIN&quot; tableName=&quot;ALLTYPES&quot; domainObjectName=&quot;Customer&quot; &gt;</div><div class="line">      &lt;property name=&quot;useActualColumnNames&quot; value=&quot;true&quot;/&gt;</div><div class="line">      &lt;generatedKey column=&quot;ID&quot; sqlStatement=&quot;DB2&quot; identity=&quot;true&quot; /&gt;</div><div class="line">      &lt;columnOverride column=&quot;DATE_FIELD&quot; property=&quot;startDate&quot; /&gt;</div><div class="line">      &lt;ignoreColumn column=&quot;FRED&quot; /&gt;</div><div class="line">      &lt;columnOverride column=&quot;LONG_VARCHAR_FIELD&quot; jdbcType=&quot;VARCHAR&quot; /&gt;</div><div class="line">    &lt;/table&gt;</div><div class="line"></div><div class="line">  &lt;/context&gt;</div><div class="line">&lt;/generatorConfiguration&gt;</div></pre></td></tr></table></figure>
-<p>配置好了配置文件后，可以通过ant、maven等方式运行，当然也可以通过命令行的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -jar mybatis-generator-core-x.x.x.jar -configfile generatorConfig.xml</div></pre></td></tr></table></figure></p>
-<p>运行之后，就可以自动在对应位置生成相关文件。</p>
-<h1 id="Model、Client、sqlMap"><a href="#Model、Client、sqlMap" class="headerlink" title="Model、Client、sqlMap:"></a>Model、Client、sqlMap:</h1><p>配置文件中的<code>jdbcConnection</code>是数据库链接的一些配置信息，包括用户名、密码、驱动等</p>
-<p>每一个<code>&lt;table/&gt;</code>标签对应一张表，代码生成时，Mybatis Generator会扫描对应数据库中的这些表，不在配置文件中的表是会被忽略的。</p>
-<p><code>javaModelGenerator</code>,<code>sqlMapGenerator</code>,<code>javaClientGenerator</code>这三个是比较有疑惑的。需要结合他们具体的使用方式才能知道各自的作用。</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前一篇对jenkins的环境搭建做了简单介绍，这一篇内容主要是如何借助jenkins，自动构建并run一个目标docker。基本流程是当gitlab上有新的push产生时，触发jenkins构建任务，jenkins在pull项目并完成如build／make等上线前的准备工作后，将build／make后的文件打包到docker中，并将其run起来。<br><a id="more"></a></p>
+<h1 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h1><p>Docker、DooD(Docker outside of Docker)、CI、Jenkins</p>
+<h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h1><ul>
+<li>Docker / <a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="external">Dockerfile</a> / <a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="external">Docker Compose</a></li>
+</ul>
+<h1 id="重构Jenkins镜像"><a href="#重构Jenkins镜像" class="headerlink" title="重构Jenkins镜像"></a>重构Jenkins镜像</h1><p>新建Dockerfile，以官方Jenkins为基本镜像(不建议使用alpine的版本，虽然镜像文件比较小，但是后面的过程中遇到了很多问题，最好还是果断弃坑回到ubuntu)，将jenkins用户加入到docker的group中，原因后面会说，并安装nodejs（这个可选）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">FROM jenkins</div><div class="line"></div><div class="line">USER root</div><div class="line">ARG dockerGid=978</div><div class="line"></div><div class="line"></div><div class="line">ENV NODE_VERSION 6.9.4</div><div class="line"></div><div class="line">#add jenkins to docker group and install nodejs/npm</div><div class="line"></div><div class="line">RUN echo &quot;docker:x:$&#123;dockerGid&#125;:jenkins&quot; &gt;&gt; /etc/group \</div><div class="line">	&amp;&amp; cd /home \</div><div class="line">	&amp;&amp; curl -SLO &quot;https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz&quot; \</div><div class="line">	&amp;&amp; xz -d &quot;node-v$NODE_VERSION-linux-x64.tar.xz&quot; \</div><div class="line">	&amp;&amp; tar xvf &quot;node-v$NODE_VERSION-linux-x64.tar&quot; \</div><div class="line">	&amp;&amp; ln -s /home/node-v$NODE_VERSION-linux-x64/bin/node /usr/local/bin/node \</div><div class="line">	&amp;&amp; ln -s /home/node-v$NODE_VERSION-linux-x64/bin/npm /usr/local/bin/npm \</div><div class="line">	&amp;&amp; rm -rf &quot;node-v$NODE_VERSION-linux-x64.tar&quot;</div><div class="line"></div><div class="line"></div><div class="line">USER jenkins</div></pre></td></tr></table></figure></p>
+<p>这里的dockerGid参数为host上docker用户组的groupid，运行命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker build -t local_jenkins .</div></pre></td></tr></table></figure></p>
+<p>构建自己的本地jenkins镜像</p>
+<h1 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h1><p>这里选择使用docker compose工具，将各项参数写到文件中。</p>
+<p><strong> <em> 这里相比上一篇多了两个挂载点，一个是/bin/docker，一个是/var/run/docker.sock。实现DooD（Docker outside of Docker)的关键就在这里，通过将docker、docker.scok暴露到jenkins的容器中，由于jenkins用户已在docker的组中，故有权限使用docker命令，且run起来的container实际上就是是运行在host主机上。</em> </strong></p>
 <ul>
-<li><p>Model<br>主要包含4类，表名为<code>Table</code>时有如下结构。<br><img src="http://upload-images.jianshu.io/upload_images/4226917-dfee16711e64ba33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>如果该表存在联合主键，则会生成该主键类(TableKey)。余下字段除<code>BLOB</code>类型外均会在记录类(Table)中，该类会继承<code>TableKey</code>（如果主键仅包含一个字段，由于不存在TableKey，该类不存在父类），<code>BLOB</code>类型的其余字段单独一个<code>TableWithBLOBs</code>类。<br>对于<code>TableExample</code>类，通过<code>Criteria</code>提供一套通用的查询接口，与<code>Laravel</code>的<code>Query Builder</code>类似，但是这里是不执行具体查询操作的，相当于只是将所需要的操作转换为对应的SQL</p>
+<li>docker-compose.yml文件：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">version: &apos;2&apos;</div><div class="line">services:</div><div class="line">  my_jenkins:</div><div class="line">    image: local_jenkins</div><div class="line">    volumes:</div><div class="line">      - /root/docker/jenkins:/var/jenkins_home</div><div class="line">      - /bin/docker:/usr/bin/docker</div><div class="line">      - /var/run/docker.sock:/var/run/docker.sock</div><div class="line"></div><div class="line">    ports:</div><div class="line">      - &quot;9000:8080&quot;</div></pre></td></tr></table></figure>
+<p>运行命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker-compose up</div></pre></td></tr></table></figure></p>
+<p>我们定制好的jenkins container就可以正常工作了。</p>
+<h1 id="构建任务"><a href="#构建任务" class="headerlink" title="构建任务"></a>构建任务</h1><p>首先是一些准备工作。目标任务是一个AngularJS的前端项目(可以参看我的另一篇文章<a href="http://www.jianshu.com/p/e45ace90d77c" target="_blank" rel="external">webpack-angular</a>，基本类似)，需要nodejs／npm准备环境，由于全部为静态文件，所以选用nginx作为服务器。</p>
+<p>目标Container的Dockerfile：将webpack构建后的文件（位于build目录）拷贝到容器的html目录内。不推荐使用挂载点的方式进行，尽量减少容器的依赖。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">FROM nginx:stable-alpine</div><div class="line"></div><div class="line">COPY ./build/* /usr/share/nginx/html/</div></pre></td></tr></table></figure></p>
+<p>我这里是直接把Dockerfile文件放在了前端项目的根目录下。</p>
+<ol>
+<li>登录Jenkins，新建一个自由风格的软件项目。</li>
+<li>源码管理选择git，并添加Repository URL、Credentials</li>
+<li>构建触发器选择Gitlab trigger(如果不存在该选项，则自行到jenkins的插件管理页面安装该插件)<br><img src="http://upload-images.jianshu.io/upload_images/4226917-783723e3524cedc7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
+<li>构建选择 Execute Shell，命令如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">npm update;</div><div class="line">npm start test;</div><div class="line">docker stop front_dev || true;</div><div class="line">docker rm front_dev || true;</div><div class="line">docker build -t front_dev .;</div><div class="line">docker run --name front_dev -p 10080:80 -d front_dev;</div></pre></td></tr></table></figure>
 </li>
-<li><p>Client<br>每个table会生成一个对应TableMapper接口以及TableSqlMapper的”实现类”，通过在TableMapper接口的方法上的SelectProvider注解，将接口对应的实现映射到TableSqlMapper。这个包更像是DAO，Example类各种查询最后是要通过这里的Mapper去执行真正的查询操作。<br><img src="http://upload-images.jianshu.io/upload_images/4226917-ba0a8555b6a45f68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+</ol>
+<p>这里有几个注意点：</p>
+<ul>
+<li><strong> docker stop／rm 命令后加上 || true</strong><br>当shell中有命令执行失败时，jenkins会判定构建失败，从而结束构建工作。加上||true，无论当前front_dev 是否在运行，是否有，该命令都返回执行成功，使shell可以继续执行下去</li>
+<li><p><strong>docker run -d </strong><br>-d 表示容器以daemon状态运行，有些镜像run之后会处于挂起状态，使得构建的shell脚本一直无法结束</p>
 </li>
-<li><p>sqlMap<br>Mybaits3.X后，如果Client是选择Mapper接口＋注解方式，则不会有该包。该包作用是将查询对应SQL影射到xml配置文件中。</p>
+<li><p>shell中的front_dev为镜像、容器名字，可以自行重命名</p>
 </li>
 </ul>
-<p>大致这些内容。关于配置具体内容与含义可以看文末的参考文档，参考性质的内容就不写在这里了。</p>
-<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ul>
-<li><a href="http://www.mybatis.org/generator/index.html" target="_blank" rel="external">官方文档</a></li>
-<li><a href="http://blog.csdn.net/isea533/article/details/42102297" target="_blank" rel="external">配置详解</a></li>
+<h1 id="Gitlab-Trigger"><a href="#Gitlab-Trigger" class="headerlink" title="Gitlab Trigger"></a>Gitlab Trigger</h1><p>登录gitlab，进入项目页面。右上角选择Webhooks：<br><img src="http://upload-images.jianshu.io/upload_images/4226917-9eacc3a2b6f26a87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>在设置页面的URL中填写 <strong>在构建Jenkins任务选择Gitlab Triggers上方出现的Service URL</strong>。点击Add。<br>添加完成后可以点击Test按钮或者进行git push操作，查看是否可以触发自动构建任务。</p>
+<p>至此，持续集成环境的主流程基本完成。流程中后续可以继续添加测试等环节。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://container-solutions.com/running-docker-in-jenkins-in-docker/" target="_blank" rel="external">http://container-solutions.com/running-docker-in-jenkins-in-docker/</a></li>
+<li><a href="http://container-solutions.com/continuous-delivery-with-docker-on-mesos-in-less-than-a-minute/" target="_blank" rel="external">http://container-solutions.com/continuous-delivery-with-docker-on-mesos-in-less-than-a-minute/</a></li>
 </ul>
 
       
@@ -491,9 +478,13 @@ Mybatis Generator
       
         <div class="post-tags">
           
-            <a href="/blog/tags/Java/" rel="tag"># Java</a>
+            <a href="/blog/tags/Docker/" rel="tag"># Docker</a>
           
-            <a href="/blog/tags/Mybatis/" rel="tag"># Mybatis</a>
+            <a href="/blog/tags/Jenkins/" rel="tag"># Jenkins</a>
+          
+            <a href="/blog/tags/CI/" rel="tag"># CI</a>
+          
+            <a href="/blog/tags/DooD/" rel="tag"># DooD</a>
           
         </div>
       
@@ -506,8 +497,8 @@ Mybatis Generator
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2017/03/04/深入浅出Mybatis－入门/" rel="next" title="深入浅出Mybatis－入门">
-                <i class="fa fa-chevron-left"></i> 深入浅出Mybatis－入门
+              <a href="/blog/2017/03/06/基于Docker版jenkins的持续集成环境搭建(一)/" rel="next" title="基于Docker版jenkins的持续集成环境搭建(一)">
+                <i class="fa fa-chevron-left"></i> 基于Docker版jenkins的持续集成环境搭建(一)
               </a>
             
           </div>
@@ -515,10 +506,6 @@ Mybatis Generator
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2017/03/04/Docker修改默认时区/" rel="prev" title="Docker修改默认时区">
-                Docker修改默认时区 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -647,7 +634,7 @@ Mybatis Generator
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#是什么"><span class="nav-number">2.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怎么做"><span class="nav-number">3.</span> <span class="nav-text">怎么做</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Model、Client、sqlMap"><span class="nav-number">4.</span> <span class="nav-text">Model、Client、sqlMap:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档"><span class="nav-number">5.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键字"><span class="nav-number">2.</span> <span class="nav-text">关键字</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#预备知识"><span class="nav-number">3.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重构Jenkins镜像"><span class="nav-number">4.</span> <span class="nav-text">重构Jenkins镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动容器"><span class="nav-number">5.</span> <span class="nav-text">启动容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构建任务"><span class="nav-number">6.</span> <span class="nav-text">构建任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Gitlab-Trigger"><span class="nav-number">7.</span> <span class="nav-text">Gitlab Trigger</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>

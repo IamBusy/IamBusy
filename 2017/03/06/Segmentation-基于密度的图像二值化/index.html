@@ -71,7 +71,7 @@
 <link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Java,Mybatis," />
+  <meta name="keywords" content="ComputerVision,Python," />
 
 
 
@@ -87,44 +87,25 @@
 
 
 
-<meta name="description" content="目录
-
-入门
-Mybatis Generator
-
-
-
-是什么Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。
-怎么做其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一">
+<meta name="description" content="前言之前处理图像二值化时使用的是经典的Otsu算法，这次要求使用Fuzzy Density Model去做一个图像二值化处理，网上参考文档除了作者的论文，几乎为零，可参考代码都没有。所以读完论文后特地记录一下。 先声明：这篇论文还没有完全理解吸收，记录自己学习过程，如果有误，欢迎交流">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入浅出Mybatis－Mybatis-Generator">
-<meta property="og:url" content="http://IamBusy.github.io/blog/2017/03/04/深入浅出Mybatis－Mybatis-Generator/index.html">
+<meta property="og:title" content="Segmentation-基于密度的图像二值化">
+<meta property="og:url" content="http://IamBusy.github.io/blog/2017/03/06/Segmentation-基于密度的图像二值化/index.html">
 <meta property="og:site_name" content="I am Busy">
-<meta property="og:description" content="目录
-
-入门
-Mybatis Generator
-
-
-
-是什么Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。
-怎么做其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-d0d4671d83983842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-dfee16711e64ba33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-ba0a8555b6a45f68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-03-06T08:49:21.000Z">
+<meta property="og:description" content="前言之前处理图像二值化时使用的是经典的Otsu算法，这次要求使用Fuzzy Density Model去做一个图像二值化处理，网上参考文档除了作者的论文，几乎为零，可参考代码都没有。所以读完论文后特地记录一下。 先声明：这篇论文还没有完全理解吸收，记录自己学习过程，如果有误，欢迎交流">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-4a6483526c39dfaa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-e4a6cd5ed5cf3f09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-cce5692617aeadc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-0d1821ff5540c668.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-66735b471fae1bdb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-b61850bb19bcd955.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-ac13a934041664dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-1801b2ecc5de57e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-03-06T09:18:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入浅出Mybatis－Mybatis-Generator">
-<meta name="twitter:description" content="目录
-
-入门
-Mybatis Generator
-
-
-
-是什么Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。
-怎么做其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4226917-d0d4671d83983842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="Segmentation-基于密度的图像二值化">
+<meta name="twitter:description" content="前言之前处理图像二值化时使用的是经典的Otsu算法，这次要求使用Fuzzy Density Model去做一个图像二值化处理，网上参考文档除了作者的论文，几乎为零，可参考代码都没有。所以读完论文后特地记录一下。 先声明：这篇论文还没有完全理解吸收，记录自己学习过程，如果有误，欢迎交流">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4226917-4a6483526c39dfaa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -152,13 +133,13 @@ Mybatis Generator
 
 
 
-  <link rel="canonical" href="http://IamBusy.github.io/blog/2017/03/04/深入浅出Mybatis－Mybatis-Generator/"/>
+  <link rel="canonical" href="http://IamBusy.github.io/blog/2017/03/06/Segmentation-基于密度的图像二值化/"/>
 
 
 
 
 
-  <title> 深入浅出Mybatis－Mybatis-Generator | I am Busy </title>
+  <title> Segmentation-基于密度的图像二值化 | I am Busy </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -335,7 +316,7 @@ Mybatis Generator
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://IamBusy.github.io/blog/blog/2017/03/04/深入浅出Mybatis－Mybatis-Generator/">
+    <link itemprop="mainEntityOfPage" href="http://IamBusy.github.io/blog/blog/2017/03/06/Segmentation-基于密度的图像二值化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="William Wei">
@@ -356,7 +337,7 @@ Mybatis Generator
             
             
               
-                深入浅出Mybatis－Mybatis-Generator
+                Segmentation-基于密度的图像二值化
               
             
           </h1>
@@ -371,8 +352,8 @@ Mybatis Generator
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-04T23:50:25+08:00">
-                2017-03-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-06T17:17:31+08:00">
+                2017-03-06
               </time>
             
 
@@ -394,8 +375,8 @@ Mybatis Generator
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/blog/categories/ComputerVison/" itemprop="url" rel="index">
+                    <span itemprop="name">ComputerVison</span>
                   </a>
                 </span>
 
@@ -411,7 +392,7 @@ Mybatis Generator
 
           
           
-             <span id="/blog/2017/03/04/深入浅出Mybatis－Mybatis-Generator/" class="leancloud_visitors" data-flag-title="深入浅出Mybatis－Mybatis-Generator">
+             <span id="/blog/2017/03/06/Segmentation-基于密度的图像二值化/" class="leancloud_visitors" data-flag-title="Segmentation-基于密度的图像二值化">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -440,34 +421,28 @@ Mybatis Generator
       
 
       
-        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><blockquote>
-<ol>
-<li><a href="http://www.jianshu.com/p/06f68617fc04" target="_blank" rel="external">入门</a></li>
-<li>Mybatis Generator</li>
-</ol>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/4226917-d0d4671d83983842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Mybatis"></p>
-<h1 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h1><p>Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。</p>
-<h1 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h1><p>其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一个配置文件即可。以如下官网样例为例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;!DOCTYPE generatorConfiguration</div><div class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</div><div class="line">  &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</div><div class="line"></div><div class="line">&lt;generatorConfiguration&gt;</div><div class="line">  &lt;classPathEntry location=&quot;/Program Files/IBM/SQLLIB/java/db2java.zip&quot; /&gt;</div><div class="line"></div><div class="line">  &lt;context id=&quot;DB2Tables&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</div><div class="line">    &lt;jdbcConnection driverClass=&quot;COM.ibm.db2.jdbc.app.DB2Driver&quot;</div><div class="line">        connectionURL=&quot;jdbc:db2:TEST&quot;</div><div class="line">        userId=&quot;db2admin&quot;</div><div class="line">        password=&quot;db2admin&quot;&gt;</div><div class="line">    &lt;/jdbcConnection&gt;</div><div class="line"></div><div class="line">    &lt;javaTypeResolver &gt;</div><div class="line">      &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;</div><div class="line">    &lt;/javaTypeResolver&gt;</div><div class="line"></div><div class="line">    &lt;javaModelGenerator targetPackage=&quot;test.model&quot; targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">      &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/javaModelGenerator&gt;</div><div class="line"></div><div class="line">    &lt;sqlMapGenerator targetPackage=&quot;test.xml&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/sqlMapGenerator&gt;</div><div class="line"></div><div class="line">    &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;test.dao&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/javaClientGenerator&gt;</div><div class="line"></div><div class="line">    &lt;table schema=&quot;DB2ADMIN&quot; tableName=&quot;ALLTYPES&quot; domainObjectName=&quot;Customer&quot; &gt;</div><div class="line">      &lt;property name=&quot;useActualColumnNames&quot; value=&quot;true&quot;/&gt;</div><div class="line">      &lt;generatedKey column=&quot;ID&quot; sqlStatement=&quot;DB2&quot; identity=&quot;true&quot; /&gt;</div><div class="line">      &lt;columnOverride column=&quot;DATE_FIELD&quot; property=&quot;startDate&quot; /&gt;</div><div class="line">      &lt;ignoreColumn column=&quot;FRED&quot; /&gt;</div><div class="line">      &lt;columnOverride column=&quot;LONG_VARCHAR_FIELD&quot; jdbcType=&quot;VARCHAR&quot; /&gt;</div><div class="line">    &lt;/table&gt;</div><div class="line"></div><div class="line">  &lt;/context&gt;</div><div class="line">&lt;/generatorConfiguration&gt;</div></pre></td></tr></table></figure>
-<p>配置好了配置文件后，可以通过ant、maven等方式运行，当然也可以通过命令行的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -jar mybatis-generator-core-x.x.x.jar -configfile generatorConfig.xml</div></pre></td></tr></table></figure></p>
-<p>运行之后，就可以自动在对应位置生成相关文件。</p>
-<h1 id="Model、Client、sqlMap"><a href="#Model、Client、sqlMap" class="headerlink" title="Model、Client、sqlMap:"></a>Model、Client、sqlMap:</h1><p>配置文件中的<code>jdbcConnection</code>是数据库链接的一些配置信息，包括用户名、密码、驱动等</p>
-<p>每一个<code>&lt;table/&gt;</code>标签对应一张表，代码生成时，Mybatis Generator会扫描对应数据库中的这些表，不在配置文件中的表是会被忽略的。</p>
-<p><code>javaModelGenerator</code>,<code>sqlMapGenerator</code>,<code>javaClientGenerator</code>这三个是比较有疑惑的。需要结合他们具体的使用方式才能知道各自的作用。</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前处理图像二值化时使用的是经典的Otsu算法，这次要求使用<a href="http://link.springer.com/content/pdf/10.1007%2F978-3-642-35326-0_13.pdf" target="_blank" rel="external">Fuzzy Density Model</a>去做一个图像二值化处理，网上参考文档除了作者的论文，几乎为零，可参考代码都没有。所以读完论文后特地记录一下。<br> <em>先声明：这篇论文还没有完全理解吸收，记录自己学习过程，如果有误，欢迎交流</em></p>
+ <a id="more"></a>
+<h1 id="论文简介"><a href="#论文简介" class="headerlink" title="论文简介"></a>论文简介</h1><p>一般图像二值化的处理是对图像灰度化后，处理其直方图，取其中的一个点作为threshold，以此为界，将图片中灰度小于该点的值、大于该点的值分成两部分。</p>
+<h3 id="Fuzzy-Set-Theory"><a href="#Fuzzy-Set-Theory" class="headerlink" title="Fuzzy Set Theory"></a>Fuzzy Set Theory</h3><p>作者先介绍了一个称作Fuzzy Set的理论。令X＝｛X1,X2….Xn｝，函数μ，它将X中的每个元素映射到［0，1］区间上，即对于X中元素Xi，有： 0&lt;=μ（Xi）&lt;＝1，令A＝｛（ Xi , μ(Xi) ）｝，A即为X上的Fuzzy Set。相当于对于X中的每个元素给予了一个0－1的权重。这里的μ特别地被称为membership function。</p>
+<h3 id="Fuzzy-Set-Model"><a href="#Fuzzy-Set-Model" class="headerlink" title="Fuzzy Set Model"></a>Fuzzy Set Model</h3><p>何为图像密度？以下图为例，假设点距离圆心越近，则拥有越高的权重，那么我们可以得出（a）图中点权重之和比上以r为半径的圆面积，大于，（b）图中点权重之后比上以r为半径的圆面积</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4226917-4a6483526c39dfaa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>论文里提到了三个membership function，分别为</p>
 <ul>
-<li><p>Model<br>主要包含4类，表名为<code>Table</code>时有如下结构。<br><img src="http://upload-images.jianshu.io/upload_images/4226917-dfee16711e64ba33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>如果该表存在联合主键，则会生成该主键类(TableKey)。余下字段除<code>BLOB</code>类型外均会在记录类(Table)中，该类会继承<code>TableKey</code>（如果主键仅包含一个字段，由于不存在TableKey，该类不存在父类），<code>BLOB</code>类型的其余字段单独一个<code>TableWithBLOBs</code>类。<br>对于<code>TableExample</code>类，通过<code>Criteria</code>提供一套通用的查询接口，与<code>Laravel</code>的<code>Query Builder</code>类似，但是这里是不执行具体查询操作的，相当于只是将所需要的操作转换为对应的SQL</p>
-</li>
-<li><p>Client<br>每个table会生成一个对应TableMapper接口以及TableSqlMapper的”实现类”，通过在TableMapper接口的方法上的SelectProvider注解，将接口对应的实现映射到TableSqlMapper。这个包更像是DAO，Example类各种查询最后是要通过这里的Mapper去执行真正的查询操作。<br><img src="http://upload-images.jianshu.io/upload_images/4226917-ba0a8555b6a45f68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-</li>
-<li><p>sqlMap<br>Mybaits3.X后，如果Client是选择Mapper接口＋注解方式，则不会有该包。该包作用是将查询对应SQL影射到xml配置文件中。</p>
-</li>
+<li>Zadeh’s S-membership function<br><img src="http://upload-images.jianshu.io/upload_images/4226917-e4a6cd5ed5cf3f09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
+<li>Gamma membership function<br><img src="http://upload-images.jianshu.io/upload_images/4226917-cce5692617aeadc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
+<li>Gaussian membership function<br><img src="http://upload-images.jianshu.io/upload_images/4226917-0d1821ff5540c668.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
 </ul>
-<p>大致这些内容。关于配置具体内容与含义可以看文末的参考文档，参考性质的内容就不写在这里了。</p>
-<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ul>
-<li><a href="http://www.mybatis.org/generator/index.html" target="_blank" rel="external">官方文档</a></li>
-<li><a href="http://blog.csdn.net/isea533/article/details/42102297" target="_blank" rel="external">配置详解</a></li>
+<p>这里引入fdm(r,p)函数，用于计算fuzzy density，r为计算的图像区域，p为区域内的点。fdm计算结果越高，则相似度越大。</p>
+<h3 id="Threshold-Selection-Method"><a href="#Threshold-Selection-Method" class="headerlink" title="Threshold Selection Method"></a>Threshold Selection Method</h3><p>对于图像的直方图有明、暗两部分，对于Object（亮部），显然有灰度越小，越暗，权重越低，对于Background则反之，所以如果我们分别选取灰度图中最大、最小作为明暗中心，做出他们的fdm函数，大致如图<br><img src="http://upload-images.jianshu.io/upload_images/4226917-66735b471fae1bdb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>交界处即为所需要的threshold。</p>
+<h3 id="The-Rest"><a href="#The-Rest" class="headerlink" title="The Rest"></a>The Rest</h3><p>论文剩余部分对左右两个初始区域、以及threshold的适当调整做了更近一步探讨，这里暂时不记录了（主要是没有看大明白。。。），有兴趣读者可以查看作者原论文</p>
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><p>Lang：Python<br>Package：PIL<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line">#  Created by william wei on 17/1/7.</div><div class="line">#  Copyright © 2017年. All rights reserved.</div><div class="line"></div><div class="line">import PIL</div><div class="line">import math</div><div class="line"></div><div class="line"></div><div class="line">from PIL import Image</div><div class="line"></div><div class="line">Xmin=0</div><div class="line">Xmax=0</div><div class="line">hist = []</div><div class="line"></div><div class="line">def membership_function(x):</div><div class="line">	b = (Xmin+Xmax)/2</div><div class="line">	x = x*1.0</div><div class="line">	if x &lt;= Xmin:</div><div class="line">		return 0</div><div class="line">	if x&gt;Xmin and x&lt;=b:</div><div class="line">		return 2*math.pow( (x-Xmin)/(Xmax-Xmin), 2 )</div><div class="line">	if x&gt;b and x&lt;Xmax:</div><div class="line">		return 1-2*math.pow( (x-Xmax)/(Xmax-Xmin), 2 )</div><div class="line">	if x&gt;=Xmax:</div><div class="line">		return 1</div><div class="line">	return 0</div><div class="line"></div><div class="line">def fdm(x,y,inverse=0):</div><div class="line">	global Xmin,Xmax</div><div class="line">	result = 0</div><div class="line">	num = 0</div><div class="line">	for i in xrange(x,y):</div><div class="line">		num = num+hist[i]</div><div class="line">		if inverse==1:</div><div class="line">			result = result+hist[i]*membership_function(Xmax-(i-Xmin))</div><div class="line">		else:</div><div class="line">			result = result+hist[i]*(membership_function(i))</div><div class="line"></div><div class="line">	return result/num</div><div class="line"></div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line"></div><div class="line">	im=Image.open(&apos;cherry.png&apos;)</div><div class="line">	im = im.convert(&apos;L&apos;)</div><div class="line">	hist = im.histogram()</div><div class="line"></div><div class="line">	threshold = 0</div><div class="line"></div><div class="line">	for i in xrange(0,256):</div><div class="line">		if hist[i] &gt; 0:</div><div class="line">			Xmin = i</div><div class="line">			break;</div><div class="line">		</div><div class="line">	for i in xrange(0,256):</div><div class="line">		if hist[255-i] &gt; 0:</div><div class="line">			Xmax = 255-i</div><div class="line">			break;</div><div class="line"></div><div class="line">	for x in xrange(Xmin+1,Xmax):</div><div class="line">		left = fdm(Xmin,x,1)</div><div class="line">		right = fdm(x,Xmax)</div><div class="line"></div><div class="line">		if left&lt;right and threshold == 0:</div><div class="line">			threshold = x</div><div class="line">			print threshold</div><div class="line"></div><div class="line"></div><div class="line">	height,width = im.size</div><div class="line">	bkg = im.convert(&apos;L&apos;)</div><div class="line">	obj = im.convert(&apos;L&apos;)</div><div class="line"></div><div class="line"></div><div class="line">	for x in xrange(0,height):</div><div class="line">		for y in xrange(0,width):</div><div class="line">			pixel = im.getpixel((x,y))</div><div class="line">			print (threshold)</div><div class="line">			if pixel&lt;threshold :</div><div class="line">				obj.putpixel((x,y),0)</div><div class="line">			else:</div><div class="line">				bkg.putpixel((x,y),0)</div><div class="line"></div><div class="line">	bkg.save(&apos;bkg.png&apos;)	</div><div class="line">	obj.save(&apos;obj.png&apos;)</div></pre></td></tr></table></figure></p>
+<p>效果如图：</p>
+<ul>
+<li>原图<br><img src="http://upload-images.jianshu.io/upload_images/4226917-b61850bb19bcd955.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
+<li>Object<br><img src="http://upload-images.jianshu.io/upload_images/4226917-ac13a934041664dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
+<li>Background<br><img src="http://upload-images.jianshu.io/upload_images/4226917-1801b2ecc5de57e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
 </ul>
+<h1 id="再说点"><a href="#再说点" class="headerlink" title="再说点"></a>再说点</h1><p>效果说实话，确实不是很好，比Otsu差不少，不过这倒不是作者的问题，应该是把论文剩余部分读完的原因吧，姑且先这样，后面有时间再回来研究一下。</p>
 
       
     </div>
@@ -491,9 +466,9 @@ Mybatis Generator
       
         <div class="post-tags">
           
-            <a href="/blog/tags/Java/" rel="tag"># Java</a>
+            <a href="/blog/tags/ComputerVision/" rel="tag"># ComputerVision</a>
           
-            <a href="/blog/tags/Mybatis/" rel="tag"># Mybatis</a>
+            <a href="/blog/tags/Python/" rel="tag"># Python</a>
           
         </div>
       
@@ -506,8 +481,8 @@ Mybatis Generator
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2017/03/04/深入浅出Mybatis－入门/" rel="next" title="深入浅出Mybatis－入门">
-                <i class="fa fa-chevron-left"></i> 深入浅出Mybatis－入门
+              <a href="/blog/2017/03/06/Go-起步/" rel="next" title="Go-起步">
+                <i class="fa fa-chevron-left"></i> Go-起步
               </a>
             
           </div>
@@ -516,8 +491,8 @@ Mybatis Generator
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2017/03/04/Docker修改默认时区/" rel="prev" title="Docker修改默认时区">
-                Docker修改默认时区 <i class="fa fa-chevron-right"></i>
+              <a href="/blog/2017/03/06/基于图像处理(HOG)与数据分布特征的水位识别/" rel="prev" title="基于图像处理(HOG)与数据分布特征的水位识别">
+                基于图像处理(HOG)与数据分布特征的水位识别 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -647,7 +622,7 @@ Mybatis Generator
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#是什么"><span class="nav-number">2.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怎么做"><span class="nav-number">3.</span> <span class="nav-text">怎么做</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Model、Client、sqlMap"><span class="nav-number">4.</span> <span class="nav-text">Model、Client、sqlMap:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档"><span class="nav-number">5.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#论文简介"><span class="nav-number">2.</span> <span class="nav-text">论文简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Fuzzy-Set-Theory"><span class="nav-number">2.0.1.</span> <span class="nav-text">Fuzzy Set Theory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fuzzy-Set-Model"><span class="nav-number">2.0.2.</span> <span class="nav-text">Fuzzy Set Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Threshold-Selection-Method"><span class="nav-number">2.0.3.</span> <span class="nav-text">Threshold Selection Method</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Rest"><span class="nav-number">2.0.4.</span> <span class="nav-text">The Rest</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践"><span class="nav-number">3.</span> <span class="nav-text">实践</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#再说点"><span class="nav-number">4.</span> <span class="nav-text">再说点</span></a></li></ol></div>
             
 
           </div>

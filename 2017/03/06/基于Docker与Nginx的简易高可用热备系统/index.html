@@ -71,7 +71,7 @@
 <link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Java,Mybatis," />
+  <meta name="keywords" content="Docker,Nginx,Reverse Proxy,Jenkins," />
 
 
 
@@ -87,44 +87,19 @@
 
 
 
-<meta name="description" content="目录
-
-入门
-Mybatis Generator
-
-
-
-是什么Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。
-怎么做其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一">
+<meta name="description" content="前言持续构建环境基于Docker版jenkins的持续集成环境搭建在使用过程中不可避免的需要docker stop服务容器，以完成新的版本部署。如果系统有着较高的可用性方面的要求，那么构建过程这一时间段内的”宕机”自然是无法忍受的。本文使用两层代理的方式建立一个简单的热备系统，实现新版本的无缝升级。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入浅出Mybatis－Mybatis-Generator">
-<meta property="og:url" content="http://IamBusy.github.io/blog/2017/03/04/深入浅出Mybatis－Mybatis-Generator/index.html">
+<meta property="og:title" content="基于Docker与Nginx的简易高可用热备系统">
+<meta property="og:url" content="http://IamBusy.github.io/blog/2017/03/06/基于Docker与Nginx的简易高可用热备系统/index.html">
 <meta property="og:site_name" content="I am Busy">
-<meta property="og:description" content="目录
-
-入门
-Mybatis Generator
-
-
-
-是什么Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。
-怎么做其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-d0d4671d83983842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-dfee16711e64ba33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-ba0a8555b6a45f68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-03-06T08:49:21.000Z">
+<meta property="og:description" content="前言持续构建环境基于Docker版jenkins的持续集成环境搭建在使用过程中不可避免的需要docker stop服务容器，以完成新的版本部署。如果系统有着较高的可用性方面的要求，那么构建过程这一时间段内的”宕机”自然是无法忍受的。本文使用两层代理的方式建立一个简单的热备系统，实现新版本的无缝升级。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-bc584414e3a6e283.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-f7504afff7ce3daf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-03-06T09:28:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入浅出Mybatis－Mybatis-Generator">
-<meta name="twitter:description" content="目录
-
-入门
-Mybatis Generator
-
-
-
-是什么Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。
-怎么做其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4226917-d0d4671d83983842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="基于Docker与Nginx的简易高可用热备系统">
+<meta name="twitter:description" content="前言持续构建环境基于Docker版jenkins的持续集成环境搭建在使用过程中不可避免的需要docker stop服务容器，以完成新的版本部署。如果系统有着较高的可用性方面的要求，那么构建过程这一时间段内的”宕机”自然是无法忍受的。本文使用两层代理的方式建立一个简单的热备系统，实现新版本的无缝升级。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4226917-bc584414e3a6e283.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -152,13 +127,13 @@ Mybatis Generator
 
 
 
-  <link rel="canonical" href="http://IamBusy.github.io/blog/2017/03/04/深入浅出Mybatis－Mybatis-Generator/"/>
+  <link rel="canonical" href="http://IamBusy.github.io/blog/2017/03/06/基于Docker与Nginx的简易高可用热备系统/"/>
 
 
 
 
 
-  <title> 深入浅出Mybatis－Mybatis-Generator | I am Busy </title>
+  <title> 基于Docker与Nginx的简易高可用热备系统 | I am Busy </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -335,7 +310,7 @@ Mybatis Generator
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://IamBusy.github.io/blog/blog/2017/03/04/深入浅出Mybatis－Mybatis-Generator/">
+    <link itemprop="mainEntityOfPage" href="http://IamBusy.github.io/blog/blog/2017/03/06/基于Docker与Nginx的简易高可用热备系统/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="William Wei">
@@ -356,7 +331,7 @@ Mybatis Generator
             
             
               
-                深入浅出Mybatis－Mybatis-Generator
+                基于Docker与Nginx的简易高可用热备系统
               
             
           </h1>
@@ -371,8 +346,8 @@ Mybatis Generator
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-04T23:50:25+08:00">
-                2017-03-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-06T17:25:35+08:00">
+                2017-03-06
               </time>
             
 
@@ -394,8 +369,8 @@ Mybatis Generator
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/blog/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -411,7 +386,7 @@ Mybatis Generator
 
           
           
-             <span id="/blog/2017/03/04/深入浅出Mybatis－Mybatis-Generator/" class="leancloud_visitors" data-flag-title="深入浅出Mybatis－Mybatis-Generator">
+             <span id="/blog/2017/03/06/基于Docker与Nginx的简易高可用热备系统/" class="leancloud_visitors" data-flag-title="基于Docker与Nginx的简易高可用热备系统">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -440,34 +415,15 @@ Mybatis Generator
       
 
       
-        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><blockquote>
-<ol>
-<li><a href="http://www.jianshu.com/p/06f68617fc04" target="_blank" rel="external">入门</a></li>
-<li>Mybatis Generator</li>
-</ol>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/4226917-d0d4671d83983842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Mybatis"></p>
-<h1 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h1><p>Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。</p>
-<h1 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h1><p>其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一个配置文件即可。以如下官网样例为例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;!DOCTYPE generatorConfiguration</div><div class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</div><div class="line">  &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</div><div class="line"></div><div class="line">&lt;generatorConfiguration&gt;</div><div class="line">  &lt;classPathEntry location=&quot;/Program Files/IBM/SQLLIB/java/db2java.zip&quot; /&gt;</div><div class="line"></div><div class="line">  &lt;context id=&quot;DB2Tables&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</div><div class="line">    &lt;jdbcConnection driverClass=&quot;COM.ibm.db2.jdbc.app.DB2Driver&quot;</div><div class="line">        connectionURL=&quot;jdbc:db2:TEST&quot;</div><div class="line">        userId=&quot;db2admin&quot;</div><div class="line">        password=&quot;db2admin&quot;&gt;</div><div class="line">    &lt;/jdbcConnection&gt;</div><div class="line"></div><div class="line">    &lt;javaTypeResolver &gt;</div><div class="line">      &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;</div><div class="line">    &lt;/javaTypeResolver&gt;</div><div class="line"></div><div class="line">    &lt;javaModelGenerator targetPackage=&quot;test.model&quot; targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">      &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/javaModelGenerator&gt;</div><div class="line"></div><div class="line">    &lt;sqlMapGenerator targetPackage=&quot;test.xml&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/sqlMapGenerator&gt;</div><div class="line"></div><div class="line">    &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;test.dao&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/javaClientGenerator&gt;</div><div class="line"></div><div class="line">    &lt;table schema=&quot;DB2ADMIN&quot; tableName=&quot;ALLTYPES&quot; domainObjectName=&quot;Customer&quot; &gt;</div><div class="line">      &lt;property name=&quot;useActualColumnNames&quot; value=&quot;true&quot;/&gt;</div><div class="line">      &lt;generatedKey column=&quot;ID&quot; sqlStatement=&quot;DB2&quot; identity=&quot;true&quot; /&gt;</div><div class="line">      &lt;columnOverride column=&quot;DATE_FIELD&quot; property=&quot;startDate&quot; /&gt;</div><div class="line">      &lt;ignoreColumn column=&quot;FRED&quot; /&gt;</div><div class="line">      &lt;columnOverride column=&quot;LONG_VARCHAR_FIELD&quot; jdbcType=&quot;VARCHAR&quot; /&gt;</div><div class="line">    &lt;/table&gt;</div><div class="line"></div><div class="line">  &lt;/context&gt;</div><div class="line">&lt;/generatorConfiguration&gt;</div></pre></td></tr></table></figure>
-<p>配置好了配置文件后，可以通过ant、maven等方式运行，当然也可以通过命令行的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -jar mybatis-generator-core-x.x.x.jar -configfile generatorConfig.xml</div></pre></td></tr></table></figure></p>
-<p>运行之后，就可以自动在对应位置生成相关文件。</p>
-<h1 id="Model、Client、sqlMap"><a href="#Model、Client、sqlMap" class="headerlink" title="Model、Client、sqlMap:"></a>Model、Client、sqlMap:</h1><p>配置文件中的<code>jdbcConnection</code>是数据库链接的一些配置信息，包括用户名、密码、驱动等</p>
-<p>每一个<code>&lt;table/&gt;</code>标签对应一张表，代码生成时，Mybatis Generator会扫描对应数据库中的这些表，不在配置文件中的表是会被忽略的。</p>
-<p><code>javaModelGenerator</code>,<code>sqlMapGenerator</code>,<code>javaClientGenerator</code>这三个是比较有疑惑的。需要结合他们具体的使用方式才能知道各自的作用。</p>
-<ul>
-<li><p>Model<br>主要包含4类，表名为<code>Table</code>时有如下结构。<br><img src="http://upload-images.jianshu.io/upload_images/4226917-dfee16711e64ba33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>如果该表存在联合主键，则会生成该主键类(TableKey)。余下字段除<code>BLOB</code>类型外均会在记录类(Table)中，该类会继承<code>TableKey</code>（如果主键仅包含一个字段，由于不存在TableKey，该类不存在父类），<code>BLOB</code>类型的其余字段单独一个<code>TableWithBLOBs</code>类。<br>对于<code>TableExample</code>类，通过<code>Criteria</code>提供一套通用的查询接口，与<code>Laravel</code>的<code>Query Builder</code>类似，但是这里是不执行具体查询操作的，相当于只是将所需要的操作转换为对应的SQL</p>
-</li>
-<li><p>Client<br>每个table会生成一个对应TableMapper接口以及TableSqlMapper的”实现类”，通过在TableMapper接口的方法上的SelectProvider注解，将接口对应的实现映射到TableSqlMapper。这个包更像是DAO，Example类各种查询最后是要通过这里的Mapper去执行真正的查询操作。<br><img src="http://upload-images.jianshu.io/upload_images/4226917-ba0a8555b6a45f68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-</li>
-<li><p>sqlMap<br>Mybaits3.X后，如果Client是选择Mapper接口＋注解方式，则不会有该包。该包作用是将查询对应SQL影射到xml配置文件中。</p>
-</li>
-</ul>
-<p>大致这些内容。关于配置具体内容与含义可以看文末的参考文档，参考性质的内容就不写在这里了。</p>
-<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ul>
-<li><a href="http://www.mybatis.org/generator/index.html" target="_blank" rel="external">官方文档</a></li>
-<li><a href="http://blog.csdn.net/isea533/article/details/42102297" target="_blank" rel="external">配置详解</a></li>
-</ul>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>持续构建环境<a href="http://www.jianshu.com/p/33896fdaad77" target="_blank" rel="external">基于Docker版jenkins的持续集成环境搭建</a>在使用过程中不可避免的需要<code>docker stop</code>服务容器，以完成新的版本部署。如果系统有着较高的可用性方面的要求，那么构建过程这一时间段内的”宕机”自然是无法忍受的。本文使用两层代理的方式建立一个简单的热备系统，实现新版本的无缝升级。<br><a id="more"></a></p>
+<h1 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h1><p>Nginx、反向代理、热备、Docker</p>
+<p>#架构<br>项目中我们以API项目为例。需要部署<code>API</code>、<code>API_BACKUP</code>，二个服务容器，分别用做生产环境、生产环境的热备份。<code>API_BACKUP</code>会在<code>API</code>进行更新这段不可用期间自动提供服务。架构如图：<br><img src="http://upload-images.jianshu.io/upload_images/4226917-bc584414e3a6e283.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h4><p><code>nginx-proxy</code>服务将作为所有其他服务的入口，承担流量分发的任务。部署一个nginx容器并监听<code>80</code>端口。并为<code>API</code>服务在<code>nginx-proxy</code>中增加如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">upstream api &#123;</div><div class="line">      server [YOUR-IP]:8080;</div><div class="line">	  server [YOUR-IP]:8081 backup; </div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">server &#123; </div><div class="line">  </div><div class="line">	listen       80; </div><div class="line">	server_name  [YOUR-SERVER-NAME]; </div><div class="line"></div><div class="line">	access_log  logs/[YOUR-SERVER-NAME]  main;</div><div class="line"></div><div class="line">	location / &#123; </div><div class="line">		proxy_pass http://api;</div><div class="line">		proxy_set_header   Host    $host; </div><div class="line">		proxy_set_header   X-Real-IP   $remote_addr; </div><div class="line">		proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for; </div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>其中<code>API</code>运行在<code>[YOUR-IP]:8080</code>，<code>API_BACKUP</code>运行在<code>[YOUR-IP]:8081</code>。当项目在测试环境通过测试后，首先升级<code>API_BACKUP</code>，再升级<code>API</code>。在构建过程中，由于<code>API</code>不可用，Nginx将自动启用作为<code>backup</code>的<code>API_BACKUP</code>提供服务，直到<code>API</code>升级完成，从而达到提供不间断服务的目标。</p>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>如果服务器上提供的服务个数以及服务地址较为稳定，即不需要频繁修改反向代理服务器，那么这一架构模式尚足以应付。但是如果对水平扩展有一定要求，这一模式就会显得捉襟见肘了，例如增加一个<code>API_DEV</code>服务来提供测试环境，那么就必须为代理服务器增加配置后重启，服务必然在重启过程中中断。</p>
+<p>####两层代理<br>为了避免代理服务器升级带来的服务中断，我们将为代理服务器设置热备份，下面是利用两层代理的一个高可用架构：<br><img src="http://upload-images.jianshu.io/upload_images/4226917-f7504afff7ce3daf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br><code>nginx-proxy-backup</code>是<code>nginx-proxy</code>的热备份，引入<code>observer</code>作为新的入口反向代理服务器。配置如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">upstream nginx-proxy &#123;</div><div class="line">      server [YOUR-IP]:10080;</div><div class="line">	  server [YOUR-IP]:10081 backup; </div><div class="line">&#125;</div><div class="line"></div><div class="line">server &#123; </div><div class="line">  </div><div class="line">	listen       80; </div><div class="line">	server_name  [YOUR-SERVER-NAME]; </div><div class="line"></div><div class="line">	access_log  logs/[YOUR-SERVER-NAME]  main;</div><div class="line"></div><div class="line">	location / &#123; </div><div class="line">		proxy_pass http://nginx-proxy;</div><div class="line">		proxy_set_header   Host    $host; </div><div class="line">		proxy_set_header   X-Real-IP   $remote_addr; </div><div class="line">		proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for; </div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>与上文配置并无太多不同，其中<code>nginx-proxy</code>运行在<code>[YOUR-IP]:10080</code>，<code>nginx-proxy-backup</code>运行在<code>[YOUR-IP]:10081</code>。当需要水平增加<code>API_DEV</code>时，先升级配置<code>nginx-proxy-backup</code>，后升级<code>nginx-proxy</code>，其他服务的流量在此期间依然可以走<code>nginx-proxy-backup</code>，从而正常工作。</p>
+<h1 id="More"><a href="#More" class="headerlink" title="More"></a>More</h1><p>整个架构只能说是简易高可用，跟<code>Kubernetes</code>或者<code>Swarm</code>这种基于容器集群带来的服务高可用显示是无法比的。不过对于小项目还是有一定裨益的（毕竟不值得部署这些大家伙）</p>
 
       
     </div>
@@ -491,9 +447,13 @@ Mybatis Generator
       
         <div class="post-tags">
           
-            <a href="/blog/tags/Java/" rel="tag"># Java</a>
+            <a href="/blog/tags/Docker/" rel="tag"># Docker</a>
           
-            <a href="/blog/tags/Mybatis/" rel="tag"># Mybatis</a>
+            <a href="/blog/tags/Nginx/" rel="tag"># Nginx</a>
+          
+            <a href="/blog/tags/Reverse-Proxy/" rel="tag"># Reverse Proxy</a>
+          
+            <a href="/blog/tags/Jenkins/" rel="tag"># Jenkins</a>
           
         </div>
       
@@ -506,8 +466,8 @@ Mybatis Generator
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2017/03/04/深入浅出Mybatis－入门/" rel="next" title="深入浅出Mybatis－入门">
-                <i class="fa fa-chevron-left"></i> 深入浅出Mybatis－入门
+              <a href="/blog/2017/03/06/Webpack与AngularJS整合之代码逻辑与架构设计/" rel="next" title="Webpack与AngularJS整合之代码逻辑与架构设计">
+                <i class="fa fa-chevron-left"></i> Webpack与AngularJS整合之代码逻辑与架构设计
               </a>
             
           </div>
@@ -516,8 +476,8 @@ Mybatis Generator
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2017/03/04/Docker修改默认时区/" rel="prev" title="Docker修改默认时区">
-                Docker修改默认时区 <i class="fa fa-chevron-right"></i>
+              <a href="/blog/2017/03/06/基于Docker的PHP命令行界面(CLI)/" rel="prev" title="基于Docker的PHP命令行界面(CLI)">
+                基于Docker的PHP命令行界面(CLI) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -647,7 +607,7 @@ Mybatis Generator
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#是什么"><span class="nav-number">2.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怎么做"><span class="nav-number">3.</span> <span class="nav-text">怎么做</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Model、Client、sqlMap"><span class="nav-number">4.</span> <span class="nav-text">Model、Client、sqlMap:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档"><span class="nav-number">5.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键字"><span class="nav-number">2.</span> <span class="nav-text">关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#反向代理"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">反向代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">问题</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#More"><span class="nav-number">3.</span> <span class="nav-text">More</span></a></li></ol></div>
             
 
           </div>

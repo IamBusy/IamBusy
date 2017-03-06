@@ -1,0 +1,941 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ComputerVision,C++," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Update代码已经上传到github上了，可以点这里
+
+Cutting一直说这要整理一下Computer Vision课程的大作业，拖了好久。这两天忙着写一个订单处理的第三方库，陷入了僵局，所以换个口味，把根据图像中的标尺识别水位深度的大作业整理一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于图像处理(HOG)与数据分布特征的水位识别">
+<meta property="og:url" content="http://IamBusy.github.io/blog/2017/03/06/基于图像处理(HOG)与数据分布特征的水位识别/index.html">
+<meta property="og:site_name" content="I am Busy">
+<meta property="og:description" content="Update代码已经上传到github上了，可以点这里
+
+Cutting一直说这要整理一下Computer Vision课程的大作业，拖了好久。这两天忙着写一个订单处理的第三方库，陷入了僵局，所以换个口味，把根据图像中的标尺识别水位深度的大作业整理一下。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-a326ddde8e81ca8f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-94d3d32f0e578fd1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-352b423a6fe28fce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-ad9de5fa21002e55.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-f4533134bf330931.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-189e58e2d34e6d43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-f16d28327d63765b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-04fc65556d4314a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-72a0bb668cacee82.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-df03414798e0fbfb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-7ab20518a698d2fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-03-06T09:22:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于图像处理(HOG)与数据分布特征的水位识别">
+<meta name="twitter:description" content="Update代码已经上传到github上了，可以点这里
+
+Cutting一直说这要整理一下Computer Vision课程的大作业，拖了好久。这两天忙着写一个订单处理的第三方库，陷入了僵局，所以换个口味，把根据图像中的标尺识别水位深度的大作业整理一下。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4226917-a326ddde8e81ca8f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'U04ORV9A7O',
+      apiKey: '630a8d1051b462e07bb3d070b4e39602',
+      indexName: 'HexoBlog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://IamBusy.github.io/blog/2017/03/06/基于图像处理(HOG)与数据分布特征的水位识别/"/>
+
+
+
+
+
+  <title> 基于图像处理(HOG)与数据分布特征的水位识别 | I am Busy </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?10fbf90598e79454e15ab63420e6f77b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">I am Busy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://IamBusy.github.io/blog/blog/2017/03/06/基于图像处理(HOG)与数据分布特征的水位识别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="William Wei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/WechatIMG32.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I am Busy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                基于图像处理(HOG)与数据分布特征的水位识别
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-06T17:20:31+08:00">
+                2017-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/ComputerVison/" itemprop="url" rel="index">
+                    <span itemprop="name">ComputerVison</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/blog/2017/03/06/基于图像处理(HOG)与数据分布特征的水位识别/" class="leancloud_visitors" data-flag-title="基于图像处理(HOG)与数据分布特征的水位识别">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h4><p>代码已经上传到github上了，可以点<a href="https://github.com/IamBusy/WaterLevelRecognition" target="_blank" rel="external">这里</a></p>
+<hr>
+<h1 id="Cutting"><a href="#Cutting" class="headerlink" title="Cutting"></a>Cutting</h1><p>一直说这要整理一下Computer Vision课程的大作业，拖了好久。这两天忙着写一个订单处理的第三方库，陷入了僵局，所以换个口味，把根据图像中的标尺识别水位深度的大作业整理一下。<br><a id="more"></a></p>
+<h1 id="Requirement"><a href="#Requirement" class="headerlink" title="Requirement"></a>Requirement</h1><blockquote>
+<p>Water depth measurement.<br>实现目标：通过使用计算机视觉及图像处理技术，通过正确检测插入水体的标尺和水体水平面的刻度值来确定水位高度。图像数据见附件。<br>可允许用户输入标尺最上端的高度值、照相机镜头距离标尺最上端的和水平面形成的夹角、刻度尺正面和照相机之间夹角值，以及标尺每个刻度的高度值。 </p>
+<p>评分标准： </p>
+<ol>
+<li>能否解决存在的多种问题，其中包括：<br>a. 标尺刻度靠近水面的部分可能由于长期浸泡在污水中出现污渍而无法识别。<br>b. 水面可能出现的雾气，造成识别困难。<br>c. 标尺可能有一定的弧度，造成精确度量存在问题。 </li>
+<li>计算效率：使用任意目前流行的Intel i3处理器及更快的处理器，每个4096*4096像素分辨率以内的图像测量时间不超过20秒（包含图像读取及数据值输出）。<br>3.系统完整性。 </li>
+</ol>
+<p>使用语言：Visual C++（可使用OpenCV）<br><a href="http://ojiqea97q.bkt.clouddn.com/computerVision/measure_imgs1130.zip" target="_blank" rel="external">部分附件</a></p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/4226917-a326ddde8e81ca8f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="样例图"></p>
+<h1 id="Train-of-Thought"><a href="#Train-of-Thought" class="headerlink" title="Train of Thought"></a>Train of Thought</h1><p>整个过程大致分为四个阶段：图像预处理、识别、过滤、数据处理</p>
+<p>####1.  预处理<br>首先会进行一个直方图均衡化的操作。再由于输入的图像差别较大，有如上图这种十分清晰的，也存在模糊到人工识别也比较吃力的。所以显然不同的清晰度应该有不同的处理方式。这里简单的将清晰度分为<code>清晰</code>、<code>模糊</code>两类。</p>
+<p>对于<code>清晰</code>的图片，进行适度腐蚀膨胀操作，以进一步提高图片中标尺的对比度。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//腐蚀、膨胀</div><div class="line">int erosion_size = 3;</div><div class="line">Mat element = getStructuringElement( MORPH_RECT,</div><div class="line">                                    Size( 2*erosion_size + 1, 2*erosion_size+1 ),</div><div class="line">                                    Point( erosion_size, erosion_size ) );</div><div class="line">/// 腐蚀操作</div><div class="line">erode( origin, origin, element );</div><div class="line">dilate(origin, origin, element);</div></pre></td></tr></table></figure></p>
+<p>对于<code>模糊</code>的图片数据，先进行滤波，再提高对比度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">//创建并初始化滤波模板</div><div class="line">cv::Mat kernel(3,3,CV_32F,cv::Scalar(0));</div><div class="line">kernel.at&lt;float&gt;(1,1) = 5.0;</div><div class="line">kernel.at&lt;float&gt;(0,1) = -1.0;</div><div class="line">kernel.at&lt;float&gt;(1,0) = -1.0;</div><div class="line">kernel.at&lt;float&gt;(1,2) = -1.0;</div><div class="line">kernel.at&lt;float&gt;(2,1) = -1.0;</div><div class="line"></div><div class="line">cv::filter2D(origin,origin,origin.depth(),kernel);</div><div class="line"></div><div class="line">int alpha = 1.5;</div><div class="line">int beta = 50;</div><div class="line">for( int y = 0; y &lt; origin.rows; y++ )</div><div class="line">&#123;</div><div class="line">    for( int x = 0; x &lt; origin.cols; x++ )</div><div class="line">    &#123;</div><div class="line">        for( int c = 0; c &lt; 3; c++ )</div><div class="line">        &#123;</div><div class="line">            origin.at&lt;Vec3b&gt;(y,x)[c] = saturate_cast&lt;uchar&gt;( alpha*( origin.at&lt;Vec3b&gt;(y,x)[c] ) + beta );</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>对比效果：<br><img src="http://upload-images.jianshu.io/upload_images/4226917-94d3d32f0e578fd1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="腐蚀膨胀"></p>
+<p>####2. 识别<br>考查了<code>Haar Like</code>、<code>SIFT</code>、<code>LBP</code>、<code>HOG</code>等算法。<code>Haar Like</code>多用于人脸识别，<code>LBP</code>多用于基于纹理特征的监测，所以不是很适合。<code>SIFT</code>做了简单测试，识别效果如下：<br><img src="http://upload-images.jianshu.io/upload_images/4226917-352b423a6fe28fce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SIFT识别效果"><br>不是很理想，所以最后选定了<code>HOG</code>算法。</p>
+<ul>
+<li>训练素材准备<br>由于检测的目标多位于水边，环境多为山、天空、水、泥土等，所以额外加入了这些素材作为负样本。由于负样本创建有一定规格要求，所以使用Python脚本，批量裁剪，最后共得到负样本42360个。</li>
+<li>训练识别过程<br>这一过程网上有不少代码可供参考，主要是对于参数等选择比较重要。这里我们定义部分参数如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//识别与检测的参数</div><div class="line">#define WIN_SIZE Size(64,64)</div><div class="line">#define BLOCK_SIZE Size(8,8)</div><div class="line">#define BLOCK_STRIDE Size(4,4)</div><div class="line">#define CELL_SIZE Size(4,4)</div><div class="line">#define BIN 12</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-过滤"><a href="#2-过滤" class="headerlink" title="2. 过滤"></a>2. 过滤</h4><p>对于识别结果需要进行过滤。这里我们定义了一个<code>Mask</code>算法，用以合并多个过滤算法多结果。<br><em>对于每一种过滤算法，都会有各自的保留区域，将它们叠加，通过某个大小的矩形扫描，如果该矩形区域内，每一层的保留区域面积占比大于一个可调参数<code>Threshold</code>，则认为该矩形区域应该保留。</em></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4226917-ad9de5fa21002e55.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="示意图"></p>
+<p>这里我们使用了两种过滤算法：</p>
+<ul>
+<li><p>ColorFilter<br>基于颜色特征的过滤。由于标尺上的颜色固定，故可以丢弃与之无关的颜色区域<br><img src="http://upload-images.jianshu.io/upload_images/4226917-f4533134bf330931.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="颜色过滤"></p>
+</li>
+<li><p>Canny边缘检测过滤<br>Canny算子多用于检测物体的边缘，我们通过保留边缘区域后，并将边缘铺展开来，以得到保留区域。<img src="http://upload-images.jianshu.io/upload_images/4226917-189e58e2d34e6d43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="边缘检测过滤"><br>最后运用上面提到的多层Mask合并算法，得到最终的过滤保留区域。<br><img src="http://upload-images.jianshu.io/upload_images/4226917-f16d28327d63765b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Mask叠加"></p>
+</li>
+</ul>
+<p>可以看到将过滤结果应用于识别结果时，大量的误识别被过滤掉了。原图非常大，绿色的框框即为识别结果。<br><img src="http://upload-images.jianshu.io/upload_images/4226917-04fc65556d4314a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<ul>
+<li>单峰过滤<br>由于一张图中仅有一个标尺，所以通过前面的过滤后，我们认为，矩形在图片上的分布应该如图所示。将除最高峰以外的矩形丢弃。<br><img src="http://upload-images.jianshu.io/upload_images/4226917-72a0bb668cacee82.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
+<li>Rectangle修正<br>标尺中的”E”标示实际分布是均匀的，所以即使无法完全识别，也可以通过算法进行一个修正，自动补全出未被识别的”E”<br>效果如下：<br><img src="http://upload-images.jianshu.io/upload_images/4226917-df03414798e0fbfb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修正效果"></li>
+</ul>
+<h4 id="4-数据处理"><a href="#4-数据处理" class="headerlink" title="4. 数据处理"></a>4. 数据处理</h4><p>最后的处理是针对识别结果进行纯数值分析的优化。我们认为识别系统稳定后，会存在一定的固有误差，可以通过线性拟合的方式进行一个修正。将识别数据与真实数据进行拟合（这一点老师不是很赞成，认为没有必要）。<br><img src="http://upload-images.jianshu.io/upload_images/4226917-7ab20518a698d2fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="数据拟合"></p>
+<h1 id="Closing"><a href="#Closing" class="headerlink" title="Closing"></a>Closing</h1><p>这个大作业感觉还是很有难度的，部分的结果识别还是比较满意的，但是也有一些图片是偏差蛮大的。而且由于是直接调用的<code>OpenCV</code>的库，实际上对图像处理的一些算法还是没有很深入，有机会再回来搞搞视觉吧。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/ComputerVision/" rel="tag"># ComputerVision</a>
+          
+            <a href="/blog/tags/C/" rel="tag"># C++</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2017/03/06/Segmentation-基于密度的图像二值化/" rel="next" title="Segmentation-基于密度的图像二值化">
+                <i class="fa fa-chevron-left"></i> Segmentation-基于密度的图像二值化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2017/03/06/Webpack与AngularJS整合之代码逻辑与架构设计/" rel="prev" title="Webpack与AngularJS整合之代码逻辑与架构设计">
+                Webpack与AngularJS整合之代码逻辑与架构设计 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ojiqea97q.bkt.clouddn.com/jianshu/WechatIMG32.jpeg"
+               alt="William Wei" />
+          <p class="site-author-name" itemprop="name">William Wei</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags/index.html">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Update"><span class="nav-number">1.</span> <span class="nav-text">Update</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cutting"><span class="nav-number"></span> <span class="nav-text">Cutting</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Requirement"><span class="nav-number"></span> <span class="nav-text">Requirement</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Train-of-Thought"><span class="nav-number"></span> <span class="nav-text">Train of Thought</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-过滤"><span class="nav-number">1.</span> <span class="nav-text">2. 过滤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-数据处理"><span class="nav-number">2.</span> <span class="nav-text">4. 数据处理</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Closing"><span class="nav-number"></span> <span class="nav-text">Closing</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">William Wei</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("SvhbRSH61C2BynVJhG6qel9L-gzGzoHsz", "pB7o0CGUwVxHqQKrG4cyRv6L");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/blog/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/blog/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/blog/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+</body>
+</html>
