@@ -305,6 +305,206 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/03/09/浅谈laravel Container及其项目实践/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="William Wei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/WechatIMG32.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I am Busy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/09/浅谈laravel Container及其项目实践/" itemprop="url">
+                  浅谈laravel Container及其项目实践
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-09T00:41:02+08:00">
+                2017-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/09/浅谈laravel Container及其项目实践/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/09/浅谈laravel Container及其项目实践/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/03/09/浅谈laravel Container及其项目实践/" class="leancloud_visitors" data-flag-title="浅谈laravel Container及其项目实践">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>公司的后台是使用Laravel框架写的，最近在把其中的订单处理部分抽出来，准备写个单独的Library。特地好好的研究了一下设计模式，<a href="http://laravelacademy.org" target="_blank" rel="external">Laravel学院</a>上面有一个专题，便是谈<a href="http://laravelacademy.org/resources/design-patterns" target="_blank" rel="external">设计模式</a>的，甚好！<br><img src="http://ojiqea97q.bkt.clouddn.com/jianshu/f042bb68eee7047e06410001c7ac368b.jpg" alt=""><br>为了降低耦合性，在我的项目中使用了Laravel Container以支持IoC(控制反转)。但是就如何在Laravel之外使用<code>illuminate/container</code>这方面资料寥寥无几，所以这篇文章记录一下自己的学习心得。</p>
+<p>#背景知识</p>
+<ul>
+<li>php/composer</li>
+<li>IoC</li>
+</ul>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>直接使用composer：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">composer require illuminate/container</div></pre></td></tr></table></figure>
+<h1 id="Laravel之外使用Illuminate-Container"><a href="#Laravel之外使用Illuminate-Container" class="headerlink" title="Laravel之外使用Illuminate/Container"></a>Laravel之外使用Illuminate/Container</h1><p>还是以我的Order项目为例，用其中的部分作为讲解。先看一下部分架构图。<br><img src="http://ojiqea97q.bkt.clouddn.com/jianshu/QQ%E6%88%AA%E5%9B%BE20170220141335.jpg" alt="架构图"><br>订单生成的主要流程：<code>Cashier</code>通过<code>OrderFactory</code>来生成订单，<code>OrderFactory</code>内部存在一条<code>Pipeline</code>，数据以流的形式在<code>Pipeline</code>中流经各个<code>PipeWorker</code>，通过不同的加工阶段最终生成订单。</p>
+<ul>
+<li><h4 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h4></li>
+</ul>
+<p>首先需要在自己项目中定义一个容器对象，来“容纳”所有的实例或者方法等。这里我将<code>Cashier</code>类作为统一的对外处理对象，它继承自<code>Illuminate\Container\Container</code>。</p>
+<p>一般配置信息会作为容器的构造函数的参数。在<code>Laravel</code>中，由于配置内容较多，这一形式表现为<code>__construct</code>函数中的<code>$basePath</code>参数。通过约定的目录结构结合<code>$appPath</code>动态读取配置信息。本项目则选择直接给予一个<code>Config</code>类的形式，注入配置信息。<code>Config</code>类实质是一个键值对的数组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">class Cashier extends Container implements \WilliamWei\FancyOrder\Contracts\Cashier</div><div class="line">&#123;</div><div class="line">    protected $providers = [</div><div class="line">        OrderServiceProvider::class,</div><div class="line">        PipelineServiceProvider::class,</div><div class="line">    ];</div><div class="line"></div><div class="line"></div><div class="line">    public function __construct($config)</div><div class="line">    &#123;</div><div class="line">        $this[&apos;config&apos;] = function () use ($config) &#123;</div><div class="line">            return new Config($config);</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        //register the provider</div><div class="line">        foreach ($this-&gt;providers as $provider)</div><div class="line">        &#123;</div><div class="line">            $provider = new $provider();</div><div class="line">            $provider-&gt;register($this);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>Illuminate\Container\Container</code>已经实现了<code>ArrayAccess</code>接口，可以直接以数组方式访问容器中的对象。构造时，首先为<code>config</code>对象定义实例化的闭包函数。然后依次将各个模块对应的<code>ServiceProvider</code>进行注册。</p>
+<ul>
+<li><h4 id="ServiceProvider"><a href="#ServiceProvider" class="headerlink" title="ServiceProvider"></a>ServiceProvider</h4></li>
+</ul>
+<p>将项目划分为更小的子模块有助于控制规模，可以大大提高可维护性以及可测试性。每个子模块都有一个<code>ServiceProvider</code>，用于暴露本模块可提供的服务对象。自定义的<code>ServiceProvider</code>可以继承<code>Illuminate\Support\ServiceProvider</code>，这里我是选择自己实现的<code>ServiceProvider</code>。<br>接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">interface ServiceProvider</div><div class="line">&#123;</div><div class="line">    public function register(Container $app);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以PipelineServiceProvider为例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">class PipelineServiceProvider implements ServiceProvider</div><div class="line">&#123;</div><div class="line">    public function register(Container $app)</div><div class="line">    &#123;</div><div class="line">        $workers = [];</div><div class="line"></div><div class="line">        foreach ($app[&apos;config&apos;][&apos;pipeline_workers&apos;] as $name =&gt; $worker)</div><div class="line">        &#123;</div><div class="line">            $app-&gt;bind($name,function($app) use ($worker) &#123;</div><div class="line">                return new $worker();</div><div class="line">            &#125;);</div><div class="line"></div><div class="line">            array_push($workers,$app[$name]);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        $app-&gt;bind(&apos;pipeline&apos;,function($app) use ($workers) &#123;</div><div class="line">            return new Pipeline($workers);</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>PipelineServiceProvider</code>在<code>register</code>方法中，将特定函数与实例的名字进行绑定，当通过该名字访问实例时，若对象不存在，则容器会调用被绑定的函数来实例化一个对象，并将其置于容器，以供后续调用使用。对于<code>Pipeline</code>，他并不需要关心是哪些<code>Pipeworker</code>在工作，只需要知道他们存在，并且可以正常工作就好，从而以这种形式达到解耦目的。</p>
+<p>当然有可能有时候需要访问容器内其他对象，则可以将容器本身作为构造函数的参数传入，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$app-&gt;bind(&apos;pipeline&apos;,function($app) use ($workers) &#123;</div><div class="line">    return new Pipeline($app,$workers);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>那么在<code>Pipeline</code>内部就可以通过<br><code>$this-&gt;app[&#39;XXX&#39;]</code>的形式访问<code>XXX</code>对象，同时也无需关心<code>XXX</code>是如何构造的。</p>
+<h1 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h1><p><img src="http://ojiqea97q.bkt.clouddn.com/jianshu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-02-20%20%E4%B8%8A%E5%8D%8812.18.19.png" alt=""></p>
+<p>这里的代码分析部分只关注主体部分，不会面面具到的分析到每个函数。</p>
+<p>可以看到整个包一共就3个PHP文件，最核心的是<code>Container.php</code>，它定义了容器类，并实现了其中绝大多数功能。当我们<code>bind</code>一个实例到通过<code>[]</code>下标访问时发生了什么？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Register a binding with the container.</div><div class="line"> *</div><div class="line"> * @param  string|array  $abstract</div><div class="line"> * @param  \Closure|string|null  $concrete</div><div class="line"> * @param  bool  $shared</div><div class="line"> * @return void</div><div class="line"> */</div><div class="line">public function bind($abstract, $concrete = null, $shared = false)</div><div class="line">&#123;</div><div class="line">    // If no concrete type was given, we will simply set the concrete type to the</div><div class="line">    // abstract type. After that, the concrete type to be registered as shared</div><div class="line">    // without being forced to state their classes in both of the parameters.</div><div class="line">    $this-&gt;dropStaleInstances($abstract);</div><div class="line"></div><div class="line">    if (is_null($concrete)) &#123;</div><div class="line">        $concrete = $abstract;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // If the factory is not a Closure, it means it is just a class name which is</div><div class="line">    // bound into this container to the abstract type and we will just wrap it</div><div class="line">    // up inside its own Closure to give us more convenience when extending.</div><div class="line">    if (! $concrete instanceof Closure) &#123;</div><div class="line">        $concrete = $this-&gt;getClosure($abstract, $concrete);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    $this-&gt;bindings[$abstract] = compact(&apos;concrete&apos;, &apos;shared&apos;);</div><div class="line"></div><div class="line">    // If the abstract type was already resolved in this container we&apos;ll fire the</div><div class="line">    // rebound listener so that any objects which have already gotten resolved</div><div class="line">    // can have their copy of the object updated via the listener callbacks.</div><div class="line">    if ($this-&gt;resolved($abstract)) &#123;</div><div class="line">        $this-&gt;rebound($abstract);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是<code>bind</code>函数，当我们执行一个绑定操作时，容器首先会把该名字之前绑定的实例与别名清除掉，即<code>$this-&gt;dropStaleInstances($abstract);</code>如果该名字对应实例是已经解析过的，则会触发<code>rebound</code>,执行对应回调。对于第一次绑定则不会出现这种情况。到此<code>bind</code>就结束了。</p>
+<p>当通过下标方式获取实例时</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public function offsetGet($key)</div><div class="line">&#123;</div><div class="line">    return $this-&gt;make($key);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到调用了<code>make</code>方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Resolve the given type from the container.</div><div class="line"> *</div><div class="line"> * @param  string  $abstract</div><div class="line"> * @return mixed</div><div class="line"> */</div><div class="line">public function make($abstract)</div><div class="line">&#123;</div><div class="line">    $needsContextualBuild = ! is_null(</div><div class="line">        $this-&gt;getContextualConcrete($abstract = $this-&gt;getAlias($abstract))</div><div class="line">    );</div><div class="line"></div><div class="line">    // If an instance of the type is currently being managed as a singleton we&apos;ll</div><div class="line">    // just return an existing instance instead of instantiating new instances</div><div class="line">    // so the developer can keep using the same objects instance every time.</div><div class="line">    if (isset($this-&gt;instances[$abstract]) &amp;&amp; ! $needsContextualBuild) &#123;</div><div class="line">        return $this-&gt;instances[$abstract];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    $concrete = $this-&gt;getConcrete($abstract);</div><div class="line"></div><div class="line">    // We&apos;re ready to instantiate an instance of the concrete type registered for</div><div class="line">    // the binding. This will instantiate the types, as well as resolve any of</div><div class="line">    // its &quot;nested&quot; dependencies recursively until all have gotten resolved.</div><div class="line">    if ($this-&gt;isBuildable($concrete, $abstract)) &#123;</div><div class="line">        $object = $this-&gt;build($concrete);</div><div class="line">    &#125; else &#123;</div><div class="line">        $object = $this-&gt;make($concrete);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // If we defined any extenders for this type, we&apos;ll need to spin through them</div><div class="line">    // and apply them to the object being built. This allows for the extension</div><div class="line">    // of services, such as changing configuration or decorating the object.</div><div class="line">    foreach ($this-&gt;getExtenders($abstract) as $extender) &#123;</div><div class="line">        $object = $extender($object, $this);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // If the requested type is registered as a singleton we&apos;ll want to cache off</div><div class="line">    // the instances in &quot;memory&quot; so we can return it later without creating an</div><div class="line">    // entirely new instance of an object on each subsequent request for it.</div><div class="line">    if ($this-&gt;isShared($abstract) &amp;&amp; ! $needsContextualBuild) &#123;</div><div class="line">        $this-&gt;instances[$abstract] = $object;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    $this-&gt;fireResolvingCallbacks($abstract, $object);</div><div class="line"></div><div class="line">    $this-&gt;resolved[$abstract] = true;</div><div class="line"></div><div class="line">    return $object;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>略有些复杂，大致流程是先检查实例数组中该实例是否存在，存在的话则返回。对于不存在的情况，由于我们是实用闭包的方式进行<code>bind</code>，所以会调用该闭包，即<code>$object = $this-&gt;build($concrete);</code>得到$object。后面会通知该实例对应类的子类，告知他们该实例已被创建。注册该实例到实例数组，（如果存在解析完成回调函数则会去执行），返回实例。</p>
+<p>这个便是容器内部的一个流程。</p>
+<p><code>BoundMethod.php</code>主要以静态的形式实现了直接调用某个类的某一方法的目标。</p>
+<p><code>ContextualBindingBuilder.php</code>则主要是用于将实例与一个上下文情景进行绑定。这两部分都是比较高级的内容，这里不作展开了。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1790,194 +1990,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/03/04/深入浅出Mybatis－Mybatis-Generator/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="William Wei">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/WechatIMG32.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I am Busy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/04/深入浅出Mybatis－Mybatis-Generator/" itemprop="url">
-                  深入浅出Mybatis－Mybatis-Generator
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-04T23:50:25+08:00">
-                2017-03-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/03/04/深入浅出Mybatis－Mybatis-Generator/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/04/深入浅出Mybatis－Mybatis-Generator/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/03/04/深入浅出Mybatis－Mybatis-Generator/" class="leancloud_visitors" data-flag-title="深入浅出Mybatis－Mybatis-Generator">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><blockquote>
-<ol>
-<li><a href="http://www.jianshu.com/p/06f68617fc04" target="_blank" rel="external">入门</a></li>
-<li>Mybatis Generator</li>
-</ol>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/4226917-d0d4671d83983842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Mybatis"></p>
-<h1 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h1><p>Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。</p>
-<h1 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h1><p>其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一个配置文件即可。以如下官网样例为例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;!DOCTYPE generatorConfiguration</div><div class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</div><div class="line">  &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</div><div class="line"></div><div class="line">&lt;generatorConfiguration&gt;</div><div class="line">  &lt;classPathEntry location=&quot;/Program Files/IBM/SQLLIB/java/db2java.zip&quot; /&gt;</div><div class="line"></div><div class="line">  &lt;context id=&quot;DB2Tables&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</div><div class="line">    &lt;jdbcConnection driverClass=&quot;COM.ibm.db2.jdbc.app.DB2Driver&quot;</div><div class="line">        connectionURL=&quot;jdbc:db2:TEST&quot;</div><div class="line">        userId=&quot;db2admin&quot;</div><div class="line">        password=&quot;db2admin&quot;&gt;</div><div class="line">    &lt;/jdbcConnection&gt;</div><div class="line"></div><div class="line">    &lt;javaTypeResolver &gt;</div><div class="line">      &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;</div><div class="line">    &lt;/javaTypeResolver&gt;</div><div class="line"></div><div class="line">    &lt;javaModelGenerator targetPackage=&quot;test.model&quot; targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">      &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/javaModelGenerator&gt;</div><div class="line"></div><div class="line">    &lt;sqlMapGenerator targetPackage=&quot;test.xml&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/sqlMapGenerator&gt;</div><div class="line"></div><div class="line">    &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;test.dao&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/javaClientGenerator&gt;</div><div class="line"></div><div class="line">    &lt;table schema=&quot;DB2ADMIN&quot; tableName=&quot;ALLTYPES&quot; domainObjectName=&quot;Customer&quot; &gt;</div><div class="line">      &lt;property name=&quot;useActualColumnNames&quot; value=&quot;true&quot;/&gt;</div><div class="line">      &lt;generatedKey column=&quot;ID&quot; sqlStatement=&quot;DB2&quot; identity=&quot;true&quot; /&gt;</div><div class="line">      &lt;columnOverride column=&quot;DATE_FIELD&quot; property=&quot;startDate&quot; /&gt;</div><div class="line">      &lt;ignoreColumn column=&quot;FRED&quot; /&gt;</div><div class="line">      &lt;columnOverride column=&quot;LONG_VARCHAR_FIELD&quot; jdbcType=&quot;VARCHAR&quot; /&gt;</div><div class="line">    &lt;/table&gt;</div><div class="line"></div><div class="line">  &lt;/context&gt;</div><div class="line">&lt;/generatorConfiguration&gt;</div></pre></td></tr></table></figure>
-<p>配置好了配置文件后，可以通过ant、maven等方式运行，当然也可以通过命令行的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -jar mybatis-generator-core-x.x.x.jar -configfile generatorConfig.xml</div></pre></td></tr></table></figure></p>
-<p>运行之后，就可以自动在对应位置生成相关文件。</p>
-<h1 id="Model、Client、sqlMap"><a href="#Model、Client、sqlMap" class="headerlink" title="Model、Client、sqlMap:"></a>Model、Client、sqlMap:</h1><p>配置文件中的<code>jdbcConnection</code>是数据库链接的一些配置信息，包括用户名、密码、驱动等</p>
-<p>每一个<code>&lt;table/&gt;</code>标签对应一张表，代码生成时，Mybatis Generator会扫描对应数据库中的这些表，不在配置文件中的表是会被忽略的。</p>
-<p><code>javaModelGenerator</code>,<code>sqlMapGenerator</code>,<code>javaClientGenerator</code>这三个是比较有疑惑的。需要结合他们具体的使用方式才能知道各自的作用。</p>
-<ul>
-<li><p>Model<br>主要包含4类，表名为<code>Table</code>时有如下结构。<br><img src="http://upload-images.jianshu.io/upload_images/4226917-dfee16711e64ba33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>如果该表存在联合主键，则会生成该主键类(TableKey)。余下字段除<code>BLOB</code>类型外均会在记录类(Table)中，该类会继承<code>TableKey</code>（如果主键仅包含一个字段，由于不存在TableKey，该类不存在父类），<code>BLOB</code>类型的其余字段单独一个<code>TableWithBLOBs</code>类。<br>对于<code>TableExample</code>类，通过<code>Criteria</code>提供一套通用的查询接口，与<code>Laravel</code>的<code>Query Builder</code>类似，但是这里是不执行具体查询操作的，相当于只是将所需要的操作转换为对应的SQL</p>
-</li>
-<li><p>Client<br>每个table会生成一个对应TableMapper接口以及TableSqlMapper的”实现类”，通过在TableMapper接口的方法上的SelectProvider注解，将接口对应的实现映射到TableSqlMapper。这个包更像是DAO，Example类各种查询最后是要通过这里的Mapper去执行真正的查询操作。<br><img src="http://upload-images.jianshu.io/upload_images/4226917-ba0a8555b6a45f68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-</li>
-<li><p>sqlMap<br>Mybaits3.X后，如果Client是选择Mapper接口＋注解方式，则不会有该包。该包作用是将查询对应SQL影射到xml配置文件中。</p>
-</li>
-</ul>
-<p>大致这些内容。关于配置具体内容与含义可以看文末的参考文档，参考性质的内容就不写在这里了。</p>
-<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ul>
-<li><a href="http://www.mybatis.org/generator/index.html" target="_blank" rel="external">官方文档</a></li>
-<li><a href="http://blog.csdn.net/isea533/article/details/42102297" target="_blank" rel="external">配置详解</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2027,7 +2039,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -2038,7 +2050,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -2049,7 +2061,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
