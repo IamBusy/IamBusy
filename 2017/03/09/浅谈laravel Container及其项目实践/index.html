@@ -87,19 +87,19 @@
 
 
 
-<meta name="description" content="前言公司的后台是使用Laravel框架写的，最近在把其中的订单处理部分抽出来，准备写个单独的Library。特地好好的研究了一下设计模式，Laravel学院上面有一个专题，便是谈设计模式的，甚好！为了降低耦合性，在我的项目中使用了Laravel Container以支持IoC(控制反转)。但是就如何在Laravel之外使用illuminate/container这方面资料寥寥无几，所以这篇文章记录">
+<meta name="description" content="前言公司的后台是使用Laravel框架写的，最近在把其中的订单处理部分抽出来，准备写个单独的Library。特地好好的研究了一下设计模式，Laravel学院上面有一个专题，便是谈设计模式的，甚好！">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈laravel Container及其项目实践">
 <meta property="og:url" content="http://www.xiaolewei.com/2017/03/09/浅谈laravel Container及其项目实践/index.html">
 <meta property="og:site_name" content="I am Busy">
-<meta property="og:description" content="前言公司的后台是使用Laravel框架写的，最近在把其中的订单处理部分抽出来，准备写个单独的Library。特地好好的研究了一下设计模式，Laravel学院上面有一个专题，便是谈设计模式的，甚好！为了降低耦合性，在我的项目中使用了Laravel Container以支持IoC(控制反转)。但是就如何在Laravel之外使用illuminate/container这方面资料寥寥无几，所以这篇文章记录">
+<meta property="og:description" content="前言公司的后台是使用Laravel框架写的，最近在把其中的订单处理部分抽出来，准备写个单独的Library。特地好好的研究了一下设计模式，Laravel学院上面有一个专题，便是谈设计模式的，甚好！">
 <meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/f042bb68eee7047e06410001c7ac368b.jpg">
 <meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/QQ%E6%88%AA%E5%9B%BE20170220141335.jpg">
 <meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-02-20%20%E4%B8%8A%E5%8D%8812.18.19.png">
-<meta property="og:updated_time" content="2017-03-08T16:43:49.000Z">
+<meta property="og:updated_time" content="2017-03-09T00:15:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈laravel Container及其项目实践">
-<meta name="twitter:description" content="前言公司的后台是使用Laravel框架写的，最近在把其中的订单处理部分抽出来，准备写个单独的Library。特地好好的研究了一下设计模式，Laravel学院上面有一个专题，便是谈设计模式的，甚好！为了降低耦合性，在我的项目中使用了Laravel Container以支持IoC(控制反转)。但是就如何在Laravel之外使用illuminate/container这方面资料寥寥无几，所以这篇文章记录">
+<meta name="twitter:description" content="前言公司的后台是使用Laravel框架写的，最近在把其中的订单处理部分抽出来，准备写个单独的Library。特地好好的研究了一下设计模式，Laravel学院上面有一个专题，便是谈设计模式的，甚好！">
 <meta name="twitter:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/f042bb68eee7047e06410001c7ac368b.jpg">
 
 
@@ -426,7 +426,9 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>公司的后台是使用Laravel框架写的，最近在把其中的订单处理部分抽出来，准备写个单独的Library。特地好好的研究了一下设计模式，<a href="http://laravelacademy.org" target="_blank" rel="external">Laravel学院</a>上面有一个专题，便是谈<a href="http://laravelacademy.org/resources/design-patterns" target="_blank" rel="external">设计模式</a>的，甚好！<br><img src="http://ojiqea97q.bkt.clouddn.com/jianshu/f042bb68eee7047e06410001c7ac368b.jpg" alt=""><br>为了降低耦合性，在我的项目中使用了Laravel Container以支持IoC(控制反转)。但是就如何在Laravel之外使用<code>illuminate/container</code>这方面资料寥寥无几，所以这篇文章记录一下自己的学习心得。</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>公司的后台是使用Laravel框架写的，最近在把其中的订单处理部分抽出来，准备写个单独的Library。特地好好的研究了一下设计模式，<a href="http://laravelacademy.org" target="_blank" rel="external">Laravel学院</a>上面有一个专题，便是谈<a href="http://laravelacademy.org/resources/design-patterns" target="_blank" rel="external">设计模式</a>的，甚好！<br><img src="http://ojiqea97q.bkt.clouddn.com/jianshu/f042bb68eee7047e06410001c7ac368b.jpg" alt=""></p>
+<a id="more"></a>
+<p>为了降低耦合性，在我的项目中使用了Laravel Container以支持IoC(控制反转)。但是就如何在Laravel之外使用<code>illuminate/container</code>这方面资料寥寥无几，所以这篇文章记录一下自己的学习心得。</p>
 <p>#背景知识</p>
 <ul>
 <li>php/composer</li>
