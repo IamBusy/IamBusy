@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Docker,Jenkins,CI,DooD," />
+  <meta name="keywords" content="PHP,Laravel," />
 
 
 
@@ -87,19 +87,16 @@
 
 
 
-<meta name="description" content="前言前一篇对jenkins的环境搭建做了简单介绍，这一篇内容主要是如何借助jenkins，自动构建并run一个目标docker。基本流程是当gitlab上有新的push产生时，触发jenkins构建任务，jenkins在pull项目并完成如build／make等上线前的准备工作后，将build／make后的文件打包到docker中，并将其run起来。">
+<meta name="description" content="IntroductionWhat would happen if delete() is called on a model using SoftDeletes in Laravel framework. This is the question I am asked on stackoverflow,  How to create the conditions on the model of e">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于Docker版jenkins的持续集成环境搭建(二)">
-<meta property="og:url" content="http://www.xiaolewei.com/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/index.html">
+<meta property="og:title" content="浅谈Laravel之探秘SoftDeletes">
+<meta property="og:url" content="http://www.xiaolewei.com/2017/03/15/浅谈Laravel之探秘SoftDeletes/index.html">
 <meta property="og:site_name" content="I am Busy">
-<meta property="og:description" content="前言前一篇对jenkins的环境搭建做了简单介绍，这一篇内容主要是如何借助jenkins，自动构建并run一个目标docker。基本流程是当gitlab上有新的push产生时，触发jenkins构建任务，jenkins在pull项目并完成如build／make等上线前的准备工作后，将build／make后的文件打包到docker中，并将其run起来。">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-783723e3524cedc7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-9eacc3a2b6f26a87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-03-06T09:34:55.000Z">
+<meta property="og:description" content="IntroductionWhat would happen if delete() is called on a model using SoftDeletes in Laravel framework. This is the question I am asked on stackoverflow,  How to create the conditions on the model of e">
+<meta property="og:updated_time" content="2017-03-15T14:55:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="基于Docker版jenkins的持续集成环境搭建(二)">
-<meta name="twitter:description" content="前言前一篇对jenkins的环境搭建做了简单介绍，这一篇内容主要是如何借助jenkins，自动构建并run一个目标docker。基本流程是当gitlab上有新的push产生时，触发jenkins构建任务，jenkins在pull项目并完成如build／make等上线前的准备工作后，将build／make后的文件打包到docker中，并将其run起来。">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4226917-783723e3524cedc7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="浅谈Laravel之探秘SoftDeletes">
+<meta name="twitter:description" content="IntroductionWhat would happen if delete() is called on a model using SoftDeletes in Laravel framework. This is the question I am asked on stackoverflow,  How to create the conditions on the model of e">
 
 
 
@@ -127,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xiaolewei.com/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/"/>
+  <link rel="canonical" href="http://www.xiaolewei.com/2017/03/15/浅谈Laravel之探秘SoftDeletes/"/>
 
 
 
 
 
-  <title> 基于Docker版jenkins的持续集成环境搭建(二) | I am Busy </title>
+  <title> 浅谈Laravel之探秘SoftDeletes | I am Busy </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -310,7 +307,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/">
+    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/03/15/浅谈Laravel之探秘SoftDeletes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="William Wei">
@@ -331,7 +328,7 @@
             
             
               
-                基于Docker版jenkins的持续集成环境搭建(二)
+                浅谈Laravel之探秘SoftDeletes
               
             
           </h1>
@@ -346,8 +343,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-06T17:33:33+08:00">
-                2017-03-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-15T22:53:57+08:00">
+                2017-03-15
               </time>
             
 
@@ -369,8 +366,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
                   </a>
                 </span>
 
@@ -387,8 +384,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/" itemprop="commentCount"></span>
+                <a href="/2017/03/15/浅谈Laravel之探秘SoftDeletes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/15/浅谈Laravel之探秘SoftDeletes/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -396,7 +393,7 @@
 
           
           
-             <span id="/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/" class="leancloud_visitors" data-flag-title="基于Docker版jenkins的持续集成环境搭建(二)">
+             <span id="/2017/03/15/浅谈Laravel之探秘SoftDeletes/" class="leancloud_visitors" data-flag-title="浅谈Laravel之探秘SoftDeletes">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -425,46 +422,83 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前一篇对jenkins的环境搭建做了简单介绍，这一篇内容主要是如何借助jenkins，自动构建并run一个目标docker。基本流程是当gitlab上有新的push产生时，触发jenkins构建任务，jenkins在pull项目并完成如build／make等上线前的准备工作后，将build／make后的文件打包到docker中，并将其run起来。<br><a id="more"></a></p>
-<h1 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h1><p>Docker、DooD(Docker outside of Docker)、CI、Jenkins</p>
-<h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h1><ul>
-<li>Docker / <a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="external">Dockerfile</a> / <a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="external">Docker Compose</a></li>
-</ul>
-<h1 id="重构Jenkins镜像"><a href="#重构Jenkins镜像" class="headerlink" title="重构Jenkins镜像"></a>重构Jenkins镜像</h1><p>新建Dockerfile，以官方Jenkins为基本镜像(不建议使用alpine的版本，虽然镜像文件比较小，但是后面的过程中遇到了很多问题，最好还是果断弃坑回到ubuntu)，将jenkins用户加入到docker的group中，原因后面会说，并安装nodejs（这个可选）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">FROM jenkins</div><div class="line"></div><div class="line">USER root</div><div class="line">ARG dockerGid=978</div><div class="line"></div><div class="line"></div><div class="line">ENV NODE_VERSION 6.9.4</div><div class="line"></div><div class="line">#add jenkins to docker group and install nodejs/npm</div><div class="line"></div><div class="line">RUN echo &quot;docker:x:$&#123;dockerGid&#125;:jenkins&quot; &gt;&gt; /etc/group \</div><div class="line">	&amp;&amp; cd /home \</div><div class="line">	&amp;&amp; curl -SLO &quot;https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz&quot; \</div><div class="line">	&amp;&amp; xz -d &quot;node-v$NODE_VERSION-linux-x64.tar.xz&quot; \</div><div class="line">	&amp;&amp; tar xvf &quot;node-v$NODE_VERSION-linux-x64.tar&quot; \</div><div class="line">	&amp;&amp; ln -s /home/node-v$NODE_VERSION-linux-x64/bin/node /usr/local/bin/node \</div><div class="line">	&amp;&amp; ln -s /home/node-v$NODE_VERSION-linux-x64/bin/npm /usr/local/bin/npm \</div><div class="line">	&amp;&amp; rm -rf &quot;node-v$NODE_VERSION-linux-x64.tar&quot;</div><div class="line"></div><div class="line"></div><div class="line">USER jenkins</div></pre></td></tr></table></figure></p>
-<p>这里的dockerGid参数为host上docker用户组的groupid，运行命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker build -t local_jenkins .</div></pre></td></tr></table></figure></p>
-<p>构建自己的本地jenkins镜像</p>
-<h1 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h1><p>这里选择使用docker compose工具，将各项参数写到文件中。</p>
-<p><strong> <em> 这里相比上一篇多了两个挂载点，一个是/bin/docker，一个是/var/run/docker.sock。实现DooD（Docker outside of Docker)的关键就在这里，通过将docker、docker.scok暴露到jenkins的容器中，由于jenkins用户已在docker的组中，故有权限使用docker命令，且run起来的container实际上就是是运行在host主机上。</em> </strong></p>
-<ul>
-<li>docker-compose.yml文件：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">version: &apos;2&apos;</div><div class="line">services:</div><div class="line">  my_jenkins:</div><div class="line">    image: local_jenkins</div><div class="line">    volumes:</div><div class="line">      - /root/docker/jenkins:/var/jenkins_home</div><div class="line">      - /bin/docker:/usr/bin/docker</div><div class="line">      - /var/run/docker.sock:/var/run/docker.sock</div><div class="line"></div><div class="line">    ports:</div><div class="line">      - &quot;9000:8080&quot;</div></pre></td></tr></table></figure>
-<p>运行命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker-compose up</div></pre></td></tr></table></figure></p>
-<p>我们定制好的jenkins container就可以正常工作了。</p>
-<h1 id="构建任务"><a href="#构建任务" class="headerlink" title="构建任务"></a>构建任务</h1><p>首先是一些准备工作。目标任务是一个AngularJS的前端项目(可以参看我的另一篇文章<a href="http://www.jianshu.com/p/e45ace90d77c" target="_blank" rel="external">webpack-angular</a>，基本类似)，需要nodejs／npm准备环境，由于全部为静态文件，所以选用nginx作为服务器。</p>
-<p>目标Container的Dockerfile：将webpack构建后的文件（位于build目录）拷贝到容器的html目录内。不推荐使用挂载点的方式进行，尽量减少容器的依赖。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">FROM nginx:stable-alpine</div><div class="line"></div><div class="line">COPY ./build/* /usr/share/nginx/html/</div></pre></td></tr></table></figure></p>
-<p>我这里是直接把Dockerfile文件放在了前端项目的根目录下。</p>
-<ol>
-<li>登录Jenkins，新建一个自由风格的软件项目。</li>
-<li>源码管理选择git，并添加Repository URL、Credentials</li>
-<li>构建触发器选择Gitlab trigger(如果不存在该选项，则自行到jenkins的插件管理页面安装该插件)<br><img src="http://upload-images.jianshu.io/upload_images/4226917-783723e3524cedc7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
-<li>构建选择 Execute Shell，命令如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">npm update;</div><div class="line">npm start test;</div><div class="line">docker stop front_dev || true;</div><div class="line">docker rm front_dev || true;</div><div class="line">docker build -t front_dev .;</div><div class="line">docker run --name front_dev -p 10080:80 -d front_dev;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>这里有几个注意点：</p>
-<ul>
-<li><strong> docker stop／rm 命令后加上 || true</strong><br>当shell中有命令执行失败时，jenkins会判定构建失败，从而结束构建工作。加上||true，无论当前front_dev 是否在运行，是否有，该命令都返回执行成功，使shell可以继续执行下去</li>
-<li><p><strong>docker run -d </strong><br>-d 表示容器以daemon状态运行，有些镜像run之后会处于挂起状态，使得构建的shell脚本一直无法结束</p>
-</li>
-<li><p>shell中的front_dev为镜像、容器名字，可以自行重命名</p>
-</li>
-</ul>
-<h1 id="Gitlab-Trigger"><a href="#Gitlab-Trigger" class="headerlink" title="Gitlab Trigger"></a>Gitlab Trigger</h1><p>登录gitlab，进入项目页面。右上角选择Webhooks：<br><img src="http://upload-images.jianshu.io/upload_images/4226917-9eacc3a2b6f26a87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>在设置页面的URL中填写 <strong>在构建Jenkins任务选择Gitlab Triggers上方出现的Service URL</strong>。点击Add。<br>添加完成后可以点击Test按钮或者进行git push操作，查看是否可以触发自动构建任务。</p>
-<p>至此，持续集成环境的主流程基本完成。流程中后续可以继续添加测试等环节。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="http://container-solutions.com/running-docker-in-jenkins-in-docker/" target="_blank" rel="external">http://container-solutions.com/running-docker-in-jenkins-in-docker/</a></li>
-<li><a href="http://container-solutions.com/continuous-delivery-with-docker-on-mesos-in-less-than-a-minute/" target="_blank" rel="external">http://container-solutions.com/continuous-delivery-with-docker-on-mesos-in-less-than-a-minute/</a></li>
-</ul>
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>What would happen if <code>delete()</code> is called on a model using <code>SoftDeletes</code> in <code>Laravel</code> framework. This is the question I am asked on stackoverflow,  <a href="http://stackoverflow.com/questions/42756671/how-to-create-the-conditions-on-the-model-of-eloquent-laravel-5-3/42756929#42756929" target="_blank" rel="external">How to create the conditions on the model of eloquent? (Laravel 5.3)</a>. So I write down this article.</p>
+<h1 id="SoftDeletes-Trait"><a href="#SoftDeletes-Trait" class="headerlink" title="SoftDeletes Trait"></a>SoftDeletes Trait</h1><p>In laravel, we define our own model by extending <code>Illuminate\Database\Eloquent\Model</code>. To delete a model instance softly, we should use <code>Illuminate\Database\Eloquent\SoftDeletes</code> trait in our model. <code>runSoftDelete()</code> is the key function in <code>SoftDeletes</code> trait building a sql query, getting the column which is used to mark whether the record has been deleted or not and then update the column with current timestamps.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">    protected function runSoftDelete()</div><div class="line">    &#123;</div><div class="line">        $query = $this-&gt;newQueryWithoutScopes()-&gt;where($this-&gt;getKeyName(), $this-&gt;getKey());</div><div class="line"></div><div class="line">        $this-&gt;&#123;$this-&gt;getDeletedAtColumn()&#125; = $time = $this-&gt;freshTimestamp();</div><div class="line"></div><div class="line">        $query-&gt;update([$this-&gt;getDeletedAtColumn() =&gt; $this-&gt;fromDateTime($time)]);</div><div class="line">    &#125;</div><div class="line">``` </div><div class="line"></div><div class="line"># Procedure of Delete()</div><div class="line">What happens when we call `delete()` function on a model? </div><div class="line"></div><div class="line">Since our own model extends the `Illuminate\Database\Eloquent\Model`, we take a glance at it. Here is the `delete()` function:</div></pre></td></tr></table></figure>
+<p>public function delete()<br>    {<br>        if (is_null($this-&gt;getKeyName())) {<br>            throw new Exception(‘No primary key defined on model.’);<br>        }</p>
+<pre><code>    if ($this-&gt;exists) {
+        if ($this-&gt;fireModelEvent(&apos;deleting&apos;) === false) {
+            return false;
+        }
+
+        // Here, we&apos;ll touch the owning models, verifying these timestamps get updated
+        // for the models. This will allow any caching to get broken on the parents
+        // by the timestamp. Then we will go ahead and delete the model instance.
+        $this-&gt;touchOwners();
+
+        $this-&gt;performDeleteOnModel();
+
+        $this-&gt;exists = false;
+
+        // Once the model has been deleted, we will fire off the deleted event so that
+        // the developers may hook into post-delete operations. We will then return
+        // a boolean true as the delete is presumably successful on the database.
+        $this-&gt;fireModelEvent(&apos;deleted&apos;, false);
+
+        return true;
+    }
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">The code is clear. It ensures the model has a `primaryKey` and the instance exists in database firstly. Then call `performDeleteOnModel()` function to perform deletion opreation. Attention should be paid!</div><div class="line"></div><div class="line">Here we should know:</div><div class="line"></div><div class="line">&gt; An inherited member from a base class is overridden by a member inserted by a Trait. The precedence order is that members from the current class override Trait methods, which in turn override inherited methods.</div><div class="line"></div><div class="line">So the exact function executes when `performDeleteOnModel()` called is the one with the same name in `SoftDeletes` trait but not the one in `Model` class. And now we turn back to the trait:</div></pre></td></tr></table></figure>
+<pre><code>protected function performDeleteOnModel()
+{
+    if ($this-&gt;forceDeleting) {
+        return $this-&gt;newQueryWithoutScopes()-&gt;where($this-&gt;getKeyName(), $this-&gt;getKey())-&gt;forceDelete();
+    }
+
+    return $this-&gt;runSoftDelete();
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Well, it calls `runSoftDelete()` we have talked about in the beginning. And this is procedure of soft detetion.</div><div class="line"></div><div class="line"># Problems on Getting</div><div class="line">The asker wants to use different `DELETED_AT` columns when deleting. It leaves much to be desired to keep soft deletion mechanism working well by overridding `getDeletedAtColumn()` only. Why the deleted models are still in results even if they have been deleted softly?</div><div class="line"></div><div class="line"></div><div class="line">When `Model` class is constructed, it will boot traits by calling their their `boot[TraitName]` method. Thus here is `bootSoftDelete()` method.</div></pre></td></tr></table></figure>
+<p>   protected static function bootTraits()<br>    {<br>        foreach (class_uses_recursive(get_called_class()) as $trait) {<br>            if (method_exists(get_called_class(), $method = ‘boot’.class_basename($trait))) {<br>                forward_static_call([get_called_class(), $method]);<br>            }<br>        }<br>    }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Now let&apos;s pour attention on the `SoftDeletes` trait again.</div></pre></td></tr></table></figure></p>
+<pre><code>public static function bootSoftDeletes()
+{
+    static::addGlobalScope(new SoftDeletingScope);
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Here the trait registers a `SoftDeletingScope` class having an `apply()` method by calling `static::addGlobalScope()`. The method, which located in `Model` class stores it into `$globalScopes` array.</div></pre></td></tr></table></figure>
+<pre><code>public static function addGlobalScope(ScopeInterface $scope)
+{
+    static::$globalScopes[get_called_class()][get_class($scope)] = $scope;
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">When a query is built on a model, `applyGlobalScopes()` method will be called automatically, visiting instances in `$globalScopes` array one by one and call their `apply()` method.</div></pre></td></tr></table></figure>
+<pre><code>public function applyGlobalScopes($builder)
+{
+    foreach ($this-&gt;getGlobalScopes() as $scope) {
+        $scope-&gt;apply($builder, $this);
+    }
+
+    return $builder;
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">We will lift the veil of problem now. In `SoftDeletingScope` class:</div></pre></td></tr></table></figure>
+<pre><code>public function apply(Builder $builder, Model $model)
+{
+    $builder-&gt;whereNull($model-&gt;getQualifiedDeletedAtColumn());
+
+    $this-&gt;extend($builder);
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">It will add a constraint on every query to select those records whose `DELETED_AT` column is null. And this is the secret of `SoftDeletes`. </div><div class="line"></div><div class="line"># Dynamic DELETED_AT Column</div><div class="line">Firstly, I need to reaffirm that I don&apos;t recommend such behaviour of using dynamic `DELETED_AT` column.</div><div class="line"></div><div class="line">In order to solve the asker&apos;s problems of dynamic `DELETED_AT` column, you need to implement your own `SoftDeletingScope` class with such `apply()` function:</div></pre></td></tr></table></figure>
+<pre><code>public function apply(Builder $builder, Model $model)
+{
+    $builder-&gt;where(function ($query){
+        $query-&gt;where(&apos;DELETED_AT_COLUMN_1&apos;,null)-&gt;orWhere(&apos;DELETED_AT_COLUMN_2&apos;,null);
+    });
+
+    $this-&gt;extend($builder);
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">And then overide `bootSoftDeletes()` with it</div></pre></td></tr></table></figure>
+<pre><code>public static function bootSoftDeletes()
+{
+    static::addGlobalScope(new YourOwnSoftDeletingScope);
+}
+</code></pre><p>```</p>
 
       
     </div>
@@ -488,13 +522,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Docker/" rel="tag"># Docker</a>
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
           
-            <a href="/tags/Jenkins/" rel="tag"># Jenkins</a>
-          
-            <a href="/tags/CI/" rel="tag"># CI</a>
-          
-            <a href="/tags/DooD/" rel="tag"># DooD</a>
+            <a href="/tags/Laravel/" rel="tag"># Laravel</a>
           
         </div>
       
@@ -507,8 +537,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/06/基于Docker版jenkins的持续集成环境搭建(一)/" rel="next" title="基于Docker版jenkins的持续集成环境搭建(一)">
-                <i class="fa fa-chevron-left"></i> 基于Docker版jenkins的持续集成环境搭建(一)
+              <a href="/2017/03/09/浅谈laravel Container及其项目实践/" rel="next" title="浅谈laravel Container及其项目实践">
+                <i class="fa fa-chevron-left"></i> 浅谈laravel Container及其项目实践
               </a>
             
           </div>
@@ -516,10 +546,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/09/浅谈laravel Container及其项目实践/" rel="prev" title="浅谈laravel Container及其项目实践">
-                浅谈laravel Container及其项目实践 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -534,10 +560,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/"
-     data-title="基于Docker版jenkins的持续集成环境搭建(二)"
+        <div class="ds-share flat" data-thread-key="2017/03/15/浅谈Laravel之探秘SoftDeletes/"
+     data-title="浅谈Laravel之探秘SoftDeletes"
      data-content=""
-     data-url="http://www.xiaolewei.com/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/">
+     data-url="http://www.xiaolewei.com/2017/03/15/浅谈Laravel之探秘SoftDeletes/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -564,8 +590,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/"
-           data-title="基于Docker版jenkins的持续集成环境搭建(二)" data-url="http://www.xiaolewei.com/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/">
+      <div class="ds-thread" data-thread-key="2017/03/15/浅谈Laravel之探秘SoftDeletes/"
+           data-title="浅谈Laravel之探秘SoftDeletes" data-url="http://www.xiaolewei.com/2017/03/15/浅谈Laravel之探秘SoftDeletes/">
       </div>
     
   </div>
@@ -671,7 +697,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键字"><span class="nav-number">2.</span> <span class="nav-text">关键字</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#预备知识"><span class="nav-number">3.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重构Jenkins镜像"><span class="nav-number">4.</span> <span class="nav-text">重构Jenkins镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动容器"><span class="nav-number">5.</span> <span class="nav-text">启动容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构建任务"><span class="nav-number">6.</span> <span class="nav-text">构建任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Gitlab-Trigger"><span class="nav-number">7.</span> <span class="nav-text">Gitlab Trigger</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SoftDeletes-Trait"><span class="nav-number">2.</span> <span class="nav-text">SoftDeletes Trait</span></a></li></ol></div>
             
 
           </div>
