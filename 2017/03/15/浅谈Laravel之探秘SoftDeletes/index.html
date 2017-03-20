@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Laravel,PHP," />
+  <meta name="keywords" content="PHP,Laravel," />
 
 
 
@@ -93,7 +93,7 @@
 <meta property="og:url" content="http://www.xiaolewei.com/2017/03/15/浅谈Laravel之探秘SoftDeletes/index.html">
 <meta property="og:site_name" content="I am Busy">
 <meta property="og:description" content="IntroductionWhat would happen if delete() is called on a model using SoftDeletes in Laravel framework. This is the question I am asked on stackoverflow,  How to create the conditions on the model of e">
-<meta property="og:updated_time" content="2017-03-15T14:55:20.000Z">
+<meta property="og:updated_time" content="2017-03-15T15:30:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈Laravel之探秘SoftDeletes">
 <meta name="twitter:description" content="IntroductionWhat would happen if delete() is called on a model using SoftDeletes in Laravel framework. This is the question I am asked on stackoverflow,  How to create the conditions on the model of e">
@@ -423,82 +423,37 @@
 
       
         <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>What would happen if <code>delete()</code> is called on a model using <code>SoftDeletes</code> in <code>Laravel</code> framework. This is the question I am asked on stackoverflow,  <a href="http://stackoverflow.com/questions/42756671/how-to-create-the-conditions-on-the-model-of-eloquent-laravel-5-3/42756929#42756929" target="_blank" rel="external">How to create the conditions on the model of eloquent? (Laravel 5.3)</a>. So I write down this article.</p>
+<a id="more"></a>
 <h1 id="SoftDeletes-Trait"><a href="#SoftDeletes-Trait" class="headerlink" title="SoftDeletes Trait"></a>SoftDeletes Trait</h1><p>In laravel, we define our own model by extending <code>Illuminate\Database\Eloquent\Model</code>. To delete a model instance softly, we should use <code>Illuminate\Database\Eloquent\SoftDeletes</code> trait in our model. <code>runSoftDelete()</code> is the key function in <code>SoftDeletes</code> trait building a sql query, getting the column which is used to mark whether the record has been deleted or not and then update the column with current timestamps.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">    protected function runSoftDelete()</div><div class="line">    &#123;</div><div class="line">        $query = $this-&gt;newQueryWithoutScopes()-&gt;where($this-&gt;getKeyName(), $this-&gt;getKey());</div><div class="line"></div><div class="line">        $this-&gt;&#123;$this-&gt;getDeletedAtColumn()&#125; = $time = $this-&gt;freshTimestamp();</div><div class="line"></div><div class="line">        $query-&gt;update([$this-&gt;getDeletedAtColumn() =&gt; $this-&gt;fromDateTime($time)]);</div><div class="line">    &#125;</div><div class="line">``` </div><div class="line"></div><div class="line"># Procedure of Delete()</div><div class="line">What happens when we call `delete()` function on a model? </div><div class="line"></div><div class="line">Since our own model extends the `Illuminate\Database\Eloquent\Model`, we take a glance at it. Here is the `delete()` function:</div></pre></td></tr></table></figure>
-<p>public function delete()<br>    {<br>        if (is_null($this-&gt;getKeyName())) {<br>            throw new Exception(‘No primary key defined on model.’);<br>        }</p>
-<pre><code>    if ($this-&gt;exists) {
-        if ($this-&gt;fireModelEvent(&apos;deleting&apos;) === false) {
-            return false;
-        }
-
-        // Here, we&apos;ll touch the owning models, verifying these timestamps get updated
-        // for the models. This will allow any caching to get broken on the parents
-        // by the timestamp. Then we will go ahead and delete the model instance.
-        $this-&gt;touchOwners();
-
-        $this-&gt;performDeleteOnModel();
-
-        $this-&gt;exists = false;
-
-        // Once the model has been deleted, we will fire off the deleted event so that
-        // the developers may hook into post-delete operations. We will then return
-        // a boolean true as the delete is presumably successful on the database.
-        $this-&gt;fireModelEvent(&apos;deleted&apos;, false);
-
-        return true;
-    }
-}
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">The code is clear. It ensures the model has a `primaryKey` and the instance exists in database firstly. Then call `performDeleteOnModel()` function to perform deletion opreation. Attention should be paid!</div><div class="line"></div><div class="line">Here we should know:</div><div class="line"></div><div class="line">&gt; An inherited member from a base class is overridden by a member inserted by a Trait. The precedence order is that members from the current class override Trait methods, which in turn override inherited methods.</div><div class="line"></div><div class="line">So the exact function executes when `performDeleteOnModel()` called is the one with the same name in `SoftDeletes` trait but not the one in `Model` class. And now we turn back to the trait:</div></pre></td></tr></table></figure>
-<pre><code>protected function performDeleteOnModel()
-{
-    if ($this-&gt;forceDeleting) {
-        return $this-&gt;newQueryWithoutScopes()-&gt;where($this-&gt;getKeyName(), $this-&gt;getKey())-&gt;forceDelete();
-    }
-
-    return $this-&gt;runSoftDelete();
-}
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Well, it calls `runSoftDelete()` we have talked about in the beginning. And this is procedure of soft detetion.</div><div class="line"></div><div class="line"># Problems on Getting</div><div class="line">The asker wants to use different `DELETED_AT` columns when deleting. It leaves much to be desired to keep soft deletion mechanism working well by overridding `getDeletedAtColumn()` only. Why the deleted models are still in results even if they have been deleted softly?</div><div class="line"></div><div class="line"></div><div class="line">When `Model` class is constructed, it will boot traits by calling their their `boot[TraitName]` method. Thus here is `bootSoftDelete()` method.</div></pre></td></tr></table></figure>
-<p>   protected static function bootTraits()<br>    {<br>        foreach (class_uses_recursive(get_called_class()) as $trait) {<br>            if (method_exists(get_called_class(), $method = ‘boot’.class_basename($trait))) {<br>                forward_static_call([get_called_class(), $method]);<br>            }<br>        }<br>    }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Now let&apos;s pour attention on the `SoftDeletes` trait again.</div></pre></td></tr></table></figure></p>
-<pre><code>public static function bootSoftDeletes()
-{
-    static::addGlobalScope(new SoftDeletingScope);
-}
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Here the trait registers a `SoftDeletingScope` class having an `apply()` method by calling `static::addGlobalScope()`. The method, which located in `Model` class stores it into `$globalScopes` array.</div></pre></td></tr></table></figure>
-<pre><code>public static function addGlobalScope(ScopeInterface $scope)
-{
-    static::$globalScopes[get_called_class()][get_class($scope)] = $scope;
-}
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">When a query is built on a model, `applyGlobalScopes()` method will be called automatically, visiting instances in `$globalScopes` array one by one and call their `apply()` method.</div></pre></td></tr></table></figure>
-<pre><code>public function applyGlobalScopes($builder)
-{
-    foreach ($this-&gt;getGlobalScopes() as $scope) {
-        $scope-&gt;apply($builder, $this);
-    }
-
-    return $builder;
-}
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">We will lift the veil of problem now. In `SoftDeletingScope` class:</div></pre></td></tr></table></figure>
-<pre><code>public function apply(Builder $builder, Model $model)
-{
-    $builder-&gt;whereNull($model-&gt;getQualifiedDeletedAtColumn());
-
-    $this-&gt;extend($builder);
-}
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">It will add a constraint on every query to select those records whose `DELETED_AT` column is null. And this is the secret of `SoftDeletes`. </div><div class="line"></div><div class="line"># Dynamic DELETED_AT Column</div><div class="line">Firstly, I need to reaffirm that I don&apos;t recommend such behaviour of using dynamic `DELETED_AT` column.</div><div class="line"></div><div class="line">In order to solve the asker&apos;s problems of dynamic `DELETED_AT` column, you need to implement your own `SoftDeletingScope` class with such `apply()` function:</div></pre></td></tr></table></figure>
-<pre><code>public function apply(Builder $builder, Model $model)
-{
-    $builder-&gt;where(function ($query){
-        $query-&gt;where(&apos;DELETED_AT_COLUMN_1&apos;,null)-&gt;orWhere(&apos;DELETED_AT_COLUMN_2&apos;,null);
-    });
-
-    $this-&gt;extend($builder);
-}
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">And then overide `bootSoftDeletes()` with it</div></pre></td></tr></table></figure>
-<pre><code>public static function bootSoftDeletes()
-{
-    static::addGlobalScope(new YourOwnSoftDeletingScope);
-}
-</code></pre><p>```</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">protected function runSoftDelete()</div><div class="line">&#123;</div><div class="line">    $query = $this-&gt;newQueryWithoutScopes()-&gt;where($this-&gt;getKeyName(), $this-&gt;getKey());</div><div class="line">    $this-&gt;&#123;$this-&gt;getDeletedAtColumn()&#125; = $time = $this-&gt;freshTimestamp();</div><div class="line">    $query-&gt;update([$this-&gt;getDeletedAtColumn() =&gt; $this-&gt;fromDateTime($time)]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Procedure-of-Delete"><a href="#Procedure-of-Delete" class="headerlink" title="Procedure of Delete()"></a>Procedure of Delete()</h1><p>What happens when we call <code>delete()</code> function on a model? </p>
+<p>Since our own model extends the <code>Illuminate\Database\Eloquent\Model</code>, we take a glance at it. Here is the <code>delete()</code> function:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">public function delete()</div><div class="line">    &#123;</div><div class="line">        if (is_null($this-&gt;getKeyName())) &#123;</div><div class="line">            throw new Exception(&apos;No primary key defined on model.&apos;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if ($this-&gt;exists) &#123;</div><div class="line">            if ($this-&gt;fireModelEvent(&apos;deleting&apos;) === false) &#123;</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            // Here, we&apos;ll touch the owning models, verifying these timestamps get updated</div><div class="line">            // for the models. This will allow any caching to get broken on the parents</div><div class="line">            // by the timestamp. Then we will go ahead and delete the model instance.</div><div class="line">            $this-&gt;touchOwners();</div><div class="line"></div><div class="line">            $this-&gt;performDeleteOnModel();</div><div class="line"></div><div class="line">            $this-&gt;exists = false;</div><div class="line"></div><div class="line">            // Once the model has been deleted, we will fire off the deleted event so that</div><div class="line">            // the developers may hook into post-delete operations. We will then return</div><div class="line">            // a boolean true as the delete is presumably successful on the database.</div><div class="line">            $this-&gt;fireModelEvent(&apos;deleted&apos;, false);</div><div class="line"></div><div class="line">            return true;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>The code is clear. It ensures the model has a <code>primaryKey</code> and the instance exists in database firstly. Then call <code>performDeleteOnModel()</code> function to perform deletion opreation. Attention should be paid!</p>
+<p>Here we should know:</p>
+<blockquote>
+<p>An inherited member from a base class is overridden by a member inserted by a Trait. The precedence order is that members from the current class override Trait methods, which in turn override inherited methods.</p>
+</blockquote>
+<p>So the exact function executes when <code>performDeleteOnModel()</code> called is the one with the same name in <code>SoftDeletes</code> trait but not the one in <code>Model</code> class. And now we turn back to the trait:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">protected function performDeleteOnModel()</div><div class="line">&#123;</div><div class="line">    if ($this-&gt;forceDeleting) &#123;</div><div class="line">        return $this-&gt;newQueryWithoutScopes()-&gt;where($this-&gt;getKeyName(), $this-&gt;getKey())-&gt;forceDelete();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return $this-&gt;runSoftDelete();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Well, it calls <code>runSoftDelete()</code> we have talked about in the beginning. And this is procedure of soft detetion.</p>
+<h1 id="Problems-on-Getting"><a href="#Problems-on-Getting" class="headerlink" title="Problems on Getting"></a>Problems on Getting</h1><p>The asker wants to use different <code>DELETED_AT</code> columns when deleting. It leaves much to be desired to keep soft deletion mechanism working well by overridding <code>getDeletedAtColumn()</code> only. Why the deleted models are still in results even if they have been deleted softly?</p>
+<p>When <code>Model</code> class is constructed, it will boot traits by calling their their <code>boot[TraitName]</code> method. Thus here is <code>bootSoftDelete()</code> method.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">protected static function bootTraits()</div><div class="line"> &#123;</div><div class="line">     foreach (class_uses_recursive(get_called_class()) as $trait) &#123;</div><div class="line">         if (method_exists(get_called_class(), $method = &apos;boot&apos;.class_basename($trait))) &#123;</div><div class="line">             forward_static_call([get_called_class(), $method]);</div><div class="line">         &#125;</div><div class="line">     &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>Now let’s pour attention on the <code>SoftDeletes</code> trait again.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">public static function bootSoftDeletes()</div><div class="line">&#123;</div><div class="line">    static::addGlobalScope(new SoftDeletingScope);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Here the trait registers a <code>SoftDeletingScope</code> class having an <code>apply()</code> method by calling <code>static::addGlobalScope()</code>. The method, which located in <code>Model</code> class stores it into <code>$globalScopes</code> array. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public static function addGlobalScope(ScopeInterface $scope)</div><div class="line">&#123;</div><div class="line">    static::$globalScopes[get_called_class()][get_class($scope)] = $scope;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>When a query is built on a model, <code>applyGlobalScopes()</code> method will be called automatically, visiting instances in <code>$globalScopes</code> array one by one and call their <code>apply()</code> method.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public function applyGlobalScopes($builder)</div><div class="line">&#123;</div><div class="line">    foreach ($this-&gt;getGlobalScopes() as $scope) &#123;</div><div class="line">        $scope-&gt;apply($builder, $this);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return $builder;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>We will lift the veil of problem now. In <code>SoftDeletingScope</code> class:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public function apply(Builder $builder, Model $model)</div><div class="line">&#123;</div><div class="line">    $builder-&gt;whereNull($model-&gt;getQualifiedDeletedAtColumn());</div><div class="line"></div><div class="line">    $this-&gt;extend($builder);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>It will add a constraint on every query to select those records whose <code>DELETED_AT</code> column is null. And this is the secret of <code>SoftDeletes</code>. </p>
+<h1 id="Dynamic-DELETED-AT-Column"><a href="#Dynamic-DELETED-AT-Column" class="headerlink" title="Dynamic DELETED_AT Column"></a>Dynamic DELETED_AT Column</h1><p>Firstly, I need to reaffirm that I don’t recommend such behaviour of using dynamic <code>DELETED_AT</code> column.</p>
+<p>In order to solve the asker’s problems of dynamic <code>DELETED_AT</code> column, you need to implement your own <code>SoftDeletingScope</code> class with such <code>apply()</code> function:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public function apply(Builder $builder, Model $model)</div><div class="line">&#123;</div><div class="line">    $builder-&gt;where(function ($query)&#123;</div><div class="line">        $query-&gt;where(&apos;DELETED_AT_COLUMN_1&apos;,null)-&gt;orWhere(&apos;DELETED_AT_COLUMN_2&apos;,null);</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    $this-&gt;extend($builder);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>And then overide <code>bootSoftDeletes()</code> with it</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public static function bootSoftDeletes()</div><div class="line">&#123;</div><div class="line">    static::addGlobalScope(new YourOwnSoftDeletingScope);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -522,9 +477,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Laravel/" rel="tag"># Laravel</a>
-          
             <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+            <a href="/tags/Laravel/" rel="tag"># Laravel</a>
           
         </div>
       
@@ -546,6 +501,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/20/浅出Spring Boot系列(一)Helloword及基本概念/" rel="prev" title="浅出Spring Boot系列(一)Helloword及基本概念">
+                浅出Spring Boot系列(一)Helloword及基本概念 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -640,7 +599,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -662,7 +621,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -697,7 +656,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SoftDeletes-Trait"><span class="nav-number">2.</span> <span class="nav-text">SoftDeletes Trait</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SoftDeletes-Trait"><span class="nav-number">2.</span> <span class="nav-text">SoftDeletes Trait</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Procedure-of-Delete"><span class="nav-number">3.</span> <span class="nav-text">Procedure of Delete()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Problems-on-Getting"><span class="nav-number">4.</span> <span class="nav-text">Problems on Getting</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dynamic-DELETED-AT-Column"><span class="nav-number">5.</span> <span class="nav-text">Dynamic DELETED_AT Column</span></a></li></ol></div>
             
 
           </div>
