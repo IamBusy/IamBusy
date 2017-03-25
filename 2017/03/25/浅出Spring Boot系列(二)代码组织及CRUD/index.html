@@ -1,0 +1,964 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java,Spring Boot," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="前言Spring Boot项目中的代码该如何进行有效组织？本文以Bookstore项目为例，进行一个简易的CRUD系统开发。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅出Spring Boot系列(二)代码组织及CRUD">
+<meta property="og:url" content="http://www.xiaolewei.com/2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/index.html">
+<meta property="og:site_name" content="I am Busy">
+<meta property="og:description" content="前言Spring Boot项目中的代码该如何进行有效组织？本文以Bookstore项目为例，进行一个简易的CRUD系统开发。">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-25%20%E4%B8%8B%E5%8D%882.52.04.png">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-25%20%E4%B8%8B%E5%8D%882.40.35.png">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-25%20%E4%B8%8B%E5%8D%884.36.46.png">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-25%20%E4%B8%8B%E5%8D%884.37.31.png">
+<meta property="og:updated_time" content="2017-03-25T09:05:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅出Spring Boot系列(二)代码组织及CRUD">
+<meta name="twitter:description" content="前言Spring Boot项目中的代码该如何进行有效组织？本文以Bookstore项目为例，进行一个简易的CRUD系统开发。">
+<meta name="twitter:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-25%20%E4%B8%8B%E5%8D%882.52.04.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'U04ORV9A7O',
+      apiKey: '630a8d1051b462e07bb3d070b4e39602',
+      indexName: 'HexoBlog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xiaolewei.com/2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/"/>
+
+
+
+
+
+  <title> 浅出Spring Boot系列(二)代码组织及CRUD | I am Busy </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4d002ba8b105089732152cd95b53ef8f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">I am Busy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="William Wei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/WechatIMG32.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I am Busy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                浅出Spring Boot系列(二)代码组织及CRUD
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-25T16:47:40+08:00">
+                2017-03-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/" class="leancloud_visitors" data-flag-title="浅出Spring Boot系列(二)代码组织及CRUD">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>Spring Boot</code>项目中的代码该如何进行有效组织？本文以<code>Bookstore</code>项目为例，进行一个简易的CRUD系统开发。</p>
+<a id="more"></a>
+<blockquote>
+<p>目录</p>
+<ul>
+<li><a href="/2017/03/20/浅出Spring%20Boot系列(一)Helloword及基本概念/">Hellowrold及基本概念</a></li>
+<li>代码组织及CRUD</li>
+</ul>
+</blockquote>
+<h1 id="建模"><a href="#建模" class="headerlink" title="建模"></a>建模</h1><p>由于是一个简易的书店系统，建模如下：</p>
+<p><img src="http://ojiqea97q.bkt.clouddn.com/jianshu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-25%20%E4%B8%8B%E5%8D%882.52.04.png" alt="建模"></p>
+<p>系统中主要存在4个对象，即用户、订单、商品、种类。一个用户对应0个或多个订单，每个订单至少包含一件商品。且每个商品都属于某个种类。</p>
+<h1 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h1><p>新建<code>model</code> package，并在其中创建上图中的4个类，另外额外多一个<code>OrderProduct</code>类，该类继承自<code>Product</code>，增加一个<code>quantity</code>属性。</p>
+<p>以<code>User</code>为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">package com.william.model;</div><div class="line"></div><div class="line">import lombok.Data;</div><div class="line">import org.springframework.data.annotation.Id;</div><div class="line"></div><div class="line">import java.util.List;</div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by william on 17/3/23.</div><div class="line"> */</div><div class="line">@Data</div><div class="line">public class User &#123;</div><div class="line"></div><div class="line">    @Id</div><div class="line">    private String id;</div><div class="line">    private String username;</div><div class="line">    private String password;</div><div class="line">    private String salt;</div><div class="line">    private String photo;</div><div class="line">    private List&lt;String&gt; roles;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>一般POJO中每个属性会创建额外的<code>Getter</code> <code>Setter</code>方法，这里通过<code>lombok</code>包，引入<code>@Data</code>注解，省略了手动写这些方法，项目编译时<code>lombok</code>自动地为我们生成对应方法。</p>
+<p>使用时只需在<code>build.gradle</code>文件中添加对<code>lombok</code>的依赖即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile(&quot;org.projectlombok:lombok&quot;)</div></pre></td></tr></table></figure>
+<h1 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h1><p>新建<code>repository</code> package，由于数据我们这里选用的是<code>mongodb</code>，所以首先引入<code>mongo</code>的依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile(&quot;org.springframework.boot:spring-boot-starter-data-mongodb&quot;)</div></pre></td></tr></table></figure>
+<p>这里需要注意的是，我们选择建立上述POJO对应的repository 的<code>Interface</code>，而不是<code>Class</code>。这里以<code>ProductRepositoy</code>为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">package com.william.repository;</div><div class="line"></div><div class="line">import com.william.model.Product;</div><div class="line">import org.springframework.data.mongodb.repository.MongoRepository;</div><div class="line">import org.springframework.data.repository.query.Param;</div><div class="line"></div><div class="line">import java.util.List;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by william on 17/3/24.</div><div class="line"> */</div><div class="line">public interface ProductRepository extends MongoRepository&lt;Product,String&gt; &#123;</div><div class="line"></div><div class="line">    List&lt;Product&gt; findByCategoryId(@Param(&quot;categoryId&quot;) String categoryId);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里我们选择继承<code>MongoRepository</code>,且模版列表中第一个参数为POJO的类型，第二个参数为主键的类型</p>
+<p>为什么我们在这里只写接口而不做实现呢？归功于<code>Spring</code>强大的依赖注入能力，当项目运行时，<code>Spring</code>会自动为我们注入该接口的实现。如果有使用过<code>Mybatis</code>，它的<code>Mapper</code>实际上也是类似的。</p>
+<p>注意到上述还包含一个<code>findByCategoryId</code>的方法，这个也是不需要实现的。</p>
+<blockquote>
+<p>The goal of Spring Data repository abstraction is to significantly reduce the amount of boilerplate code required to implement data access layers for various persistence stores.</p>
+</blockquote>
+<p>由于遵循<code>约定大于配置</code>，<code>Spring</code>会自动根据方法名转换成对应SQL语句。<br>更多的<code>query method</code>可以查看<a href="http://docs.spring.io/spring-data/data-mongo/docs/1.10.1.RELEASE/reference/html/#repositories.query-methods.details" target="_blank" rel="external">官方文档</a></p>
+<h1 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h1><p>新建<code>service</code>、<code>service.impl</code> package，前者放<code>Interface</code>文件，后者为对应的实现。由于项目不包含过多的业务逻辑，所以这一层会显得略有些淡薄，基本只需要调用<code>repostory</code>中对应方法即可。<br>以<code>CategoryService</code>的实现为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">package com.william.service.impl;</div><div class="line"></div><div class="line">import com.william.model.Category;</div><div class="line">import com.william.repository.CategoryRepository;</div><div class="line">import com.william.service.CategoryService;</div><div class="line">import org.springframework.beans.factory.annotation.Autowired;</div><div class="line">import org.springframework.data.domain.Sort;</div><div class="line">import org.springframework.stereotype.Service;</div><div class="line"></div><div class="line">import java.util.List;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by william on 17/3/25.</div><div class="line"> */</div><div class="line">@Service</div><div class="line">public class MongoCategoryServiceImpl implements CategoryService &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private CategoryRepository repository;</div><div class="line">    @Override</div><div class="line">    public Category create(Category category) &#123;</div><div class="line">        return repository.insert(category);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public Category show(String id) &#123;</div><div class="line">        return repository.findOne(id);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public Category update(Category category) &#123;</div><div class="line">        return repository.save(category);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public List&lt;Category&gt; findAll() &#123;</div><div class="line">        Sort sort = new Sort(Sort.Direction.ASC,&quot;order&quot;);</div><div class="line">        return repository.findAll(sort);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public Category destroy(String id) &#123;</div><div class="line">        Category category = repository.findOne(id);</div><div class="line">        repository.delete(id);</div><div class="line">        return category;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>实现需要添加<code>@Service</code>的Annotation</p>
+<h1 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h1><p>新建<code>controller</code> package，我们依然以资源作为分类标准，创建对应controller。以<code>CategoryController</code>为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">package com.william.controller;</div><div class="line"></div><div class="line">import com.william.model.Category;</div><div class="line">import com.william.model.Product;</div><div class="line">import com.william.service.CategoryService;</div><div class="line">import com.william.service.ProductService;</div><div class="line">import org.springframework.beans.factory.annotation.Autowired;</div><div class="line">import org.springframework.web.bind.annotation.*;</div><div class="line"></div><div class="line">import java.util.List;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by william on 17/3/24.</div><div class="line"> */</div><div class="line">@RestController</div><div class="line">@RequestMapping(&quot;/categories&quot;)</div><div class="line">public class CategoryController &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private ProductService productService;</div><div class="line">    @Autowired</div><div class="line">    private CategoryService service;</div><div class="line"></div><div class="line">    @RequestMapping(method = RequestMethod.POST)</div><div class="line">    public Category create(@RequestBody Category category)</div><div class="line">    &#123;</div><div class="line">        return service.create(category);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @RequestMapping(method = RequestMethod.GET)</div><div class="line">    public List&lt;Category&gt; getAllCategories()</div><div class="line">    &#123;</div><div class="line">        return service.findAll();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @RequestMapping(value = &quot;/&#123;id&#125;&quot;,method = RequestMethod.GET)</div><div class="line">    public Category show(@PathVariable String id)</div><div class="line">    &#123;</div><div class="line">        return service.show(id);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @RequestMapping(value = &quot;/&#123;id&#125;&quot;,method = RequestMethod.PUT)</div><div class="line">    public Category update(@PathVariable String id, @RequestBody Category category)</div><div class="line">    &#123;</div><div class="line">        category.setId(id);</div><div class="line">        return service.create(category);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @RequestMapping(value = &quot;/&#123;id&#125;&quot;,method = RequestMethod.DELETE)</div><div class="line">    public Category destroy(@PathVariable String id)</div><div class="line">    &#123;</div><div class="line">        return service.destroy(id);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @RequestMapping(&quot;/&#123;id&#125;/products&quot;)</div><div class="line">    public List&lt;Product&gt; findAllProducts(@PathVariable String id)</div><div class="line">    &#123;</div><div class="line">        return productService.findAll(service.show(id));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>@RestController</code>用于标记这是一个基于<code>Restful API</code>的controller，response将通过response body发送。</p>
+<p><code>@RequestMapping</code>用于映射对应URL，并且可显性指定请求的方法。</p>
+<p>关于<code>Restful API</code>的设计可以参考阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2014/05/restful_api.html" target="_blank" rel="external">博客</a></p>
+<p>至此一个经典的分层架构的API后台就开发完成了。完整目录结构如图：<br><img src="http://ojiqea97q.bkt.clouddn.com/jianshu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-25%20%E4%B8%8B%E5%8D%882.40.35.png" alt="目录结构"></p>
+<h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><p>创建一个<code>Category</code>资源，并添加几个对应的<code>Product</code>。<br><img src="http://ojiqea97q.bkt.clouddn.com/jianshu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-25%20%E4%B8%8B%E5%8D%884.36.46.png" alt="添加商品"></p>
+<p>以<code>GET</code>方式访问<code>/categories/{category_id}</code>,即可看到该类别下的所有商品了。<br><img src="http://ojiqea97q.bkt.clouddn.com/jianshu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-25%20%E4%B8%8B%E5%8D%884.37.31.png" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Spring-Boot/" rel="tag"># Spring Boot</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/20/浅出Spring Boot系列(一)Helloword及基本概念/" rel="next" title="浅出Spring Boot系列(一)Helloword及基本概念">
+                <i class="fa fa-chevron-left"></i> 浅出Spring Boot系列(一)Helloword及基本概念
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/"
+     data-title="浅出Spring Boot系列(二)代码组织及CRUD"
+     data-content=""
+     data-url="http://www.xiaolewei.com/2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/"
+           data-title="浅出Spring Boot系列(二)代码组织及CRUD" data-url="http://www.xiaolewei.com/2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ojiqea97q.bkt.clouddn.com/jianshu/WechatIMG32.jpeg"
+               alt="William Wei" />
+          <p class="site-author-name" itemprop="name">William Wei</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建模"><span class="nav-number">2.</span> <span class="nav-text">建模</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Model"><span class="nav-number">3.</span> <span class="nav-text">Model</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Repository"><span class="nav-number">4.</span> <span class="nav-text">Repository</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Service"><span class="nav-number">5.</span> <span class="nav-text">Service</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Controller"><span class="nav-number">6.</span> <span class="nav-text">Controller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#效果"><span class="nav-number">7.</span> <span class="nav-text">效果</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">William Wei</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"iambusy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("SvhbRSH61C2BynVJhG6qel9L-gzGzoHsz", "pB7o0CGUwVxHqQKrG4cyRv6L");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+</body>
+</html>
