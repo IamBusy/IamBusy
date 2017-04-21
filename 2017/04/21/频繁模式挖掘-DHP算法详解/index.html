@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Ant Design,React,Redux,Dva,Mock," />
+  <meta name="keywords" content="Apriori,DHP,Data Mining," />
 
 
 
@@ -87,17 +87,20 @@
 
 
 
-<meta name="description" content="前言其实并没有什么内容，就是讲讲吐槽一下最近几天学习的一些内容。前几天搞了Spring Boot的后台，原本想前端用Angular重写的，然而想借这个机会顺便接触点新东西。毕竟现在前端的状态是一觉起来又多了几个框架。">
-<meta name="keywords" content="Ant Design,React,Redux,Dva,Mock">
+<meta name="description" content="前言数据挖掘领域的频繁模式中，Apriori算法算是经典，然而该算法有如下的问题：  对数据库多次扫描 候选集数量庞大 为计算候选集支持度所需负载较重  所以有了很多改进算法，DHP是其中一个基于散列优化的算法，主要用于缩小Ck的项集个数">
+<meta name="keywords" content="Apriori,DHP,Data Mining">
 <meta property="og:type" content="article">
-<meta property="og:title" content="简记最近学习2016.3.27">
-<meta property="og:url" content="http://www.xiaolewei.com/2017/03/27/简记最近学习2016-3-27/index.html">
+<meta property="og:title" content="频繁模式挖掘-DHP算法详解">
+<meta property="og:url" content="http://www.xiaolewei.com/2017/04/21/频繁模式挖掘-DHP算法详解/index.html">
 <meta property="og:site_name" content="I am Busy">
-<meta property="og:description" content="前言其实并没有什么内容，就是讲讲吐槽一下最近几天学习的一些内容。前几天搞了Spring Boot的后台，原本想前端用Angular重写的，然而想借这个机会顺便接触点新东西。毕竟现在前端的状态是一觉起来又多了几个框架。">
-<meta property="og:updated_time" content="2017-03-27T13:21:18.000Z">
+<meta property="og:description" content="前言数据挖掘领域的频繁模式中，Apriori算法算是经典，然而该算法有如下的问题：  对数据库多次扫描 候选集数量庞大 为计算候选集支持度所需负载较重  所以有了很多改进算法，DHP是其中一个基于散列优化的算法，主要用于缩小Ck的项集个数">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/Screen%20Shot%202017-04-21%20at%202.16.48%20PM.png">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/Screen%20Shot%202017-04-21%20at%202.22.19%20PM.png">
+<meta property="og:updated_time" content="2017-04-21T07:32:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="简记最近学习2016.3.27">
-<meta name="twitter:description" content="前言其实并没有什么内容，就是讲讲吐槽一下最近几天学习的一些内容。前几天搞了Spring Boot的后台，原本想前端用Angular重写的，然而想借这个机会顺便接触点新东西。毕竟现在前端的状态是一觉起来又多了几个框架。">
+<meta name="twitter:title" content="频繁模式挖掘-DHP算法详解">
+<meta name="twitter:description" content="前言数据挖掘领域的频繁模式中，Apriori算法算是经典，然而该算法有如下的问题：  对数据库多次扫描 候选集数量庞大 为计算候选集支持度所需负载较重  所以有了很多改进算法，DHP是其中一个基于散列优化的算法，主要用于缩小Ck的项集个数">
+<meta name="twitter:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/Screen%20Shot%202017-04-21%20at%202.16.48%20PM.png">
 
 
 
@@ -125,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xiaolewei.com/2017/03/27/简记最近学习2016-3-27/"/>
+  <link rel="canonical" href="http://www.xiaolewei.com/2017/04/21/频繁模式挖掘-DHP算法详解/"/>
 
 
 
 
 
-  <title> 简记最近学习2016.3.27 | I am Busy </title>
+  <title> 频繁模式挖掘-DHP算法详解 | I am Busy </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -308,7 +311,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/03/27/简记最近学习2016-3-27/">
+    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/04/21/频繁模式挖掘-DHP算法详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="William Wei">
@@ -329,7 +332,7 @@
             
             
               
-                简记最近学习2016.3.27
+                频繁模式挖掘-DHP算法详解
               
             
           </h2>
@@ -344,8 +347,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-27T20:50:41+08:00">
-                2017-03-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-21T14:50:20+08:00">
+                2017-04-21
               </time>
             
 
@@ -367,8 +370,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Notes/" itemprop="url" rel="index">
-                    <span itemprop="name">Notes</span>
+                  <a href="/categories/BigData/" itemprop="url" rel="index">
+                    <span itemprop="name">BigData</span>
                   </a>
                 </span>
 
@@ -385,8 +388,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/27/简记最近学习2016-3-27/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/27/简记最近学习2016-3-27/" itemprop="commentCount"></span>
+                <a href="/2017/04/21/频繁模式挖掘-DHP算法详解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/21/频繁模式挖掘-DHP算法详解/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -394,7 +397,7 @@
 
           
           
-             <span id="/2017/03/27/简记最近学习2016-3-27/" class="leancloud_visitors" data-flag-title="简记最近学习2016.3.27">
+             <span id="/2017/04/21/频繁模式挖掘-DHP算法详解/" class="leancloud_visitors" data-flag-title="频繁模式挖掘-DHP算法详解">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -423,19 +426,78 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>其实并没有什么内容，就是讲讲吐槽一下最近几天学习的一些内容。<br>前几天搞了<code>Spring Boot</code>的后台，原本想前端用<code>Angular</code>重写的，然而想借这个机会顺便接触点新东西。毕竟现在前端的状态是<code>一觉起来又多了几个框架</code>。</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>数据挖掘领域的频繁模式中，<code>Apriori</code>算法算是经典，然而该算法有如下的问题：</p>
+<ol>
+<li>对数据库多次扫描</li>
+<li>候选集数量庞大</li>
+<li>为计算候选集支持度所需负载较重</li>
+</ol>
+<p>所以有了很多改进算法，<code>DHP</code>是其中一个基于散列优化的算法，主要用于缩小Ck的项集个数</p>
 <a id="more"></a>
-<h1 id="吐槽"><a href="#吐槽" class="headerlink" title="吐槽"></a>吐槽</h1><p>看了一下<code>Ant Design</code>，UI的风格个人还是比较喜欢的（相比于<code>Bootstrap</code>），所以界面部分就用它了。既然它本身是<code>React</code>的<code>Component</code>，那前端框架自然也就选用<code>React</code>了。<code>Ant Design</code>的官方<a href="https://ant.design/docs/react/practical-projects-cn" target="_blank" rel="external">项目实战</a>是使用的<code>dva</code>：</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>DHP算法生效于<code>Apriori</code>算法的<code>剪枝步</code>过程中。在第k次扫描时，生成每个事务的k+1项集，代入一个Hash函数中，生成一个Hash表，同时记录每个桶中元素个数。</p>
+<p>当生成Ck+1时，对Lk*Lk自连接产生的结果先进行代入上述Hash函数若所落的该桶的计数小于<code>最小支持阈值</code>，则该元素必定不为频繁项集，故可以过滤掉之，不放入Ck+1中</p>
+<p>由于所有具有相同Hash值的项的总个数小于<code>最小支持阈值</code>，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Hash(A,B) = 4</div><div class="line">Hash(X,Y) = 4</div></pre></td></tr></table></figure>
+<p>不妨假设4号桶元素个数小于<code>最小支持阈值</code>，则单个的 <code>(A,B)</code> 个数也必定小于<code>最小支持阈值</code>。故可排除</p>
+<h1 id="样例详解"><a href="#样例详解" class="headerlink" title="样例详解"></a>样例详解</h1><p>假设最小支持度计数为2，即min_sup = 2<br>并使用如下数据：</p>
+<table>
+<thead>
+<tr>
+<th>TransactionID</th>
+<th style="text-align:center">ProductID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td style="text-align:center">A D E</td>
+</tr>
+<tr>
+<td>T2</td>
+<td style="text-align:center">B D</td>
+</tr>
+<tr>
+<td>T3</td>
+<td style="text-align:center">B D E</td>
+</tr>
+<tr>
+<td>T4</td>
+<td style="text-align:center">C E</td>
+</tr>
+<tr>
+<td>T5</td>
+<td style="text-align:center">C D</td>
+</tr>
+<tr>
+<td>T6</td>
+<td style="text-align:center">C E</td>
+</tr>
+<tr>
+<td>T7</td>
+<td style="text-align:center">A C D E</td>
+</tr>
+<tr>
+<td>T8</td>
+<td style="text-align:center">C D E</td>
+</tr>
+</tbody>
+</table>
+<h3 id="第一次扫描"><a href="#第一次扫描" class="headerlink" title="第一次扫描"></a>第一次扫描</h3><p>生成1-项目候选集C1,并统计其支持度，得到对应L1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">C1 = &#123;&#123;A&#125; ， &#123;B&#125; ， &#123;C&#125; ， &#123;D&#125; ， &#123;E&#125;&#125;</div><div class="line"> </div><div class="line">L1 = &#123;&#123;A&#125; ， &#123;B&#125; ， &#123;C&#125; ， &#123;D&#125; ， &#123;E&#125;&#125;</div></pre></td></tr></table></figure>
+<p>在这次扫描的同时会对每个事务产生所有的2项集，即：<br><img src="http://ojiqea97q.bkt.clouddn.com/jianshu/Screen%20Shot%202017-04-21%20at%202.16.48%20PM.png" alt=""></p>
+<p>构造2项集的Hash函数，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hash(x,y) = (order(x)*10 + order(y)) % 7</div></pre></td></tr></table></figure>
 <blockquote>
-<p>dva 是一个基于 react 和 redux 的轻量应用框架，概念来自 elm，支持 side effects、热替换、动态加载、react-native、SSR 等，已在生产环境广泛应用。</p>
+<p>order()函数返回参数的序，如本例中 order(A) = 1 , order(B) = 2 ….</p>
 </blockquote>
-<p>说白了是蚂蚁的一套整合了各个框架的<code>Best Practice</code>。那就搞呗。</p>
-<p>先走了一遍<code>Dva</code>的Demo <a href="https://github.com/dvajs/dva/blob/master/examples/count" target="_blank" rel="external">Count</a>，没啥大问题，基本只涉及最核心的几个概念，<code>Model</code>、<code>Service</code>、<code>Component</code>。。。。</p>
-<p>再看了Demo <a href="https://github.com/sorrycc/blog/issues/18" target="_blank" rel="external">User Dashboard</a>，感觉不对了。。。</p>
-<p>其实这个时候去把阮一峰大神的<a href="http://es6.ruanyifeng.com" target="_blank" rel="external">ES6 教程</a>大致看完了一遍。什么是<code>Generator</code>、<code>yield</code>、<code>async</code>、<code>await</code>。。。。大致了解了一下。</p>
-<p>看到文档中用到了<code>Mockjs</code>，就又大概的看了一下它的文档。使用<code>Mockjs</code>可以给前端提供模拟数据，并拦截前端的请求，返回生成的数据。当后台还没准备好数据时，是不错的选择。</p>
-<p>回来又继续，发现<code>Redux</code>还没什么概念，现在准备去看文档。</p>
-<p>深深感受到了来自了前端的满满恶意…..吐槽完可以继续去滚看文档了。</p>
+<p>将该次扫描得到的所有2项集代入Hash函数，得到对应Hash表：<br><img src="http://ojiqea97q.bkt.clouddn.com/jianshu/Screen%20Shot%202017-04-21%20at%202.22.19%20PM.png" alt=""></p>
+<p>将L1*L1自连接，得到：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">L1 * L1 =&#123; &#123;A ,C&#125; , &#123;A ,D &#125; ,&#123;A ,E&#125; , &#123;B ,D&#125; , &#123;B ,E&#125; , &#123;C ,D &#125; , &#123;C ,E&#125; , &#123;D , E &#125; &#125;</div></pre></td></tr></table></figure></p>
+<p>对于上述结果的每个子集，代入<code>hash(x,y)</code>函数，并丢弃掉hash结果为2、4、5的子集（该桶的对应计数 &lt; min_sup）</p>
+<p>得到:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">C2 = &#123; &#123;A ,C&#125; , &#123;A ,D &#125; ,&#123;A ,E&#125; , &#123;B ,D &#125; ,  &#123;C ,D &#125; , &#123;C ,E&#125; , &#123;D , E &#125; &#125;</div></pre></td></tr></table></figure></p>
+<p>相比于没有应用Hash过滤的<code>Apriori</code>，可以多去除一个<code>{B, E}</code>项。</p>
+<h3 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h3><p>后续步骤重复上述过程，指导不能产生频繁项集，则终止。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><code>DHP</code>算法作为<code>Apriori</code>算法的一个优化，基本过程还是与<code>Apriori</code>无异，但是通过建立k项集的Hash表，再生产Ck时，可以有效过滤掉非频繁项集，从而达到压缩Ck的目的,提高剪枝效率。</p>
+<p><code>DHP</code>算法的效率高低直接受所选用的hash函数影响，需要有一个比较好的hash函数</p>
 
       
     </div>
@@ -459,15 +521,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Ant-Design/" rel="tag"># Ant Design</a>
+            <a href="/tags/Apriori/" rel="tag"># Apriori</a>
           
-            <a href="/tags/React/" rel="tag"># React</a>
+            <a href="/tags/DHP/" rel="tag"># DHP</a>
           
-            <a href="/tags/Redux/" rel="tag"># Redux</a>
-          
-            <a href="/tags/Dva/" rel="tag"># Dva</a>
-          
-            <a href="/tags/Mock/" rel="tag"># Mock</a>
+            <a href="/tags/Data-Mining/" rel="tag"># Data Mining</a>
           
         </div>
       
@@ -480,18 +538,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/21/频繁模式挖掘-DHP算法详解/" rel="next" title="频繁模式挖掘-DHP算法详解">
-                <i class="fa fa-chevron-left"></i> 频繁模式挖掘-DHP算法详解
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/" rel="prev" title="浅出Spring Boot系列(二)代码组织及CRUD">
-                浅出Spring Boot系列(二)代码组织及CRUD <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/27/简记最近学习2016-3-27/" rel="prev" title="简记最近学习2016.3.27">
+                简记最近学习2016.3.27 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -507,10 +561,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2017/03/27/简记最近学习2016-3-27/"
-     data-title="简记最近学习2016.3.27"
+        <div class="ds-share flat" data-thread-key="2017/04/21/频繁模式挖掘-DHP算法详解/"
+     data-title="频繁模式挖掘-DHP算法详解"
      data-content=""
-     data-url="http://www.xiaolewei.com/2017/03/27/简记最近学习2016-3-27/">
+     data-url="http://www.xiaolewei.com/2017/04/21/频繁模式挖掘-DHP算法详解/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -537,8 +591,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/03/27/简记最近学习2016-3-27/"
-           data-title="简记最近学习2016.3.27" data-url="http://www.xiaolewei.com/2017/03/27/简记最近学习2016-3-27/">
+      <div class="ds-thread" data-thread-key="2017/04/21/频繁模式挖掘-DHP算法详解/"
+           data-title="频繁模式挖掘-DHP算法详解" data-url="http://www.xiaolewei.com/2017/04/21/频繁模式挖掘-DHP算法详解/">
       </div>
     
   </div>
@@ -644,7 +698,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#吐槽"><span class="nav-number">2.</span> <span class="nav-text">吐槽</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#样例详解"><span class="nav-number">3.</span> <span class="nav-text">样例详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一次扫描"><span class="nav-number">3.0.1.</span> <span class="nav-text">第一次扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后续"><span class="nav-number">3.0.2.</span> <span class="nav-text">后续</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>

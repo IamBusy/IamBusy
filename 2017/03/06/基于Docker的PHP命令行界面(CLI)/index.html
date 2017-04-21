@@ -87,19 +87,17 @@
 
 
 
-<meta name="description" content="前言在Jenkins持续集成环境中构建工程时，经常需要用到诸如PHP、Nodejs等环境，如果每增加一个依赖环境，就重构一次Jenkins，那么显然工作量会非常大，且违背了使用Docker的初衷。所以特地研究并记录了一下如何使用包含了所需环境的Docker镜像来提供命令行的访问方式，这里以PHP为例。
-基本原理将工作目录以volume的方式挂载到php容器内，再在容器内运行指定的脚本，脚本执行完成">
+<meta name="description" content="前言在Jenkins持续集成环境中构建工程时，经常需要用到诸如PHP、Nodejs等环境，如果每增加一个依赖环境，就重构一次Jenkins，那么显然工作量会非常大，且违背了使用Docker的初衷。所以特地研究并记录了一下如何使用包含了所需环境的Docker镜像来提供命令行的访问方式，这里以PHP为例。 基本原理将工作目录以volume的方式挂载到php容器内，再在容器内运行指定的脚本，脚本执行完成">
+<meta name="keywords" content="Docker,PHP CLI">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于Docker的PHP命令行界面(CLI)">
 <meta property="og:url" content="http://www.xiaolewei.com/2017/03/06/基于Docker的PHP命令行界面(CLI)/index.html">
 <meta property="og:site_name" content="I am Busy">
-<meta property="og:description" content="前言在Jenkins持续集成环境中构建工程时，经常需要用到诸如PHP、Nodejs等环境，如果每增加一个依赖环境，就重构一次Jenkins，那么显然工作量会非常大，且违背了使用Docker的初衷。所以特地研究并记录了一下如何使用包含了所需环境的Docker镜像来提供命令行的访问方式，这里以PHP为例。
-基本原理将工作目录以volume的方式挂载到php容器内，再在容器内运行指定的脚本，脚本执行完成">
+<meta property="og:description" content="前言在Jenkins持续集成环境中构建工程时，经常需要用到诸如PHP、Nodejs等环境，如果每增加一个依赖环境，就重构一次Jenkins，那么显然工作量会非常大，且违背了使用Docker的初衷。所以特地研究并记录了一下如何使用包含了所需环境的Docker镜像来提供命令行的访问方式，这里以PHP为例。 基本原理将工作目录以volume的方式挂载到php容器内，再在容器内运行指定的脚本，脚本执行完成">
 <meta property="og:updated_time" content="2017-03-06T09:31:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于Docker的PHP命令行界面(CLI)">
-<meta name="twitter:description" content="前言在Jenkins持续集成环境中构建工程时，经常需要用到诸如PHP、Nodejs等环境，如果每增加一个依赖环境，就重构一次Jenkins，那么显然工作量会非常大，且违背了使用Docker的初衷。所以特地研究并记录了一下如何使用包含了所需环境的Docker镜像来提供命令行的访问方式，这里以PHP为例。
-基本原理将工作目录以volume的方式挂载到php容器内，再在容器内运行指定的脚本，脚本执行完成">
+<meta name="twitter:description" content="前言在Jenkins持续集成环境中构建工程时，经常需要用到诸如PHP、Nodejs等环境，如果每增加一个依赖环境，就重构一次Jenkins，那么显然工作量会非常大，且违背了使用Docker的初衷。所以特地研究并记录了一下如何使用包含了所需环境的Docker镜像来提供命令行的访问方式，这里以PHP为例。 基本原理将工作目录以volume的方式挂载到php容器内，再在容器内运行指定的脚本，脚本执行完成">
 
 
 
@@ -474,8 +472,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/06/基于Docker与Nginx的简易高可用热备系统/" rel="next" title="基于Docker与Nginx的简易高可用热备系统">
-                <i class="fa fa-chevron-left"></i> 基于Docker与Nginx的简易高可用热备系统
+              <a href="/2017/03/06/基于Docker版jenkins的持续集成环境搭建(一)/" rel="next" title="基于Docker版jenkins的持续集成环境搭建(一)">
+                <i class="fa fa-chevron-left"></i> 基于Docker版jenkins的持续集成环境搭建(一)
               </a>
             
           </div>
@@ -484,8 +482,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/06/基于Docker版jenkins的持续集成环境搭建(一)/" rel="prev" title="基于Docker版jenkins的持续集成环境搭建(一)">
-                基于Docker版jenkins的持续集成环境搭建(一) <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/06/基于Docker与Nginx的简易高可用热备系统/" rel="prev" title="基于Docker与Nginx的简易高可用热备系统">
+                基于Docker与Nginx的简易高可用热备系统 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -581,7 +579,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -592,7 +590,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -603,7 +601,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
