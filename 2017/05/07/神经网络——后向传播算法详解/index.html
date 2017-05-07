@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Java,Spring Boot," />
+  <meta name="keywords" content="神经网络,后向传播,Data Mining," />
 
 
 
@@ -87,21 +87,21 @@
 
 
 
-<meta name="description" content="前言最近在学习Spring Boot，特开一个系列来记录学习过程中遇到的坑。俗语讲深入浅出，深入我水平尚有限，恐难以做到，故且叫做浅出Spring Boot吧 本位为该系列第一篇文章，用于构建一个简易的Hello World">
-<meta name="keywords" content="Java,Spring Boot">
+<meta name="description" content="前言所谓神经网络是一组连接的输入／输出单元，类似于人脑中的神经细胞，其中每个连接都与一个权重相关联。学习阶段通过输入元组，不断的调整权重参数，使得它能够预测输入元组的正确类标号。  所谓类标号，是某种类别的标号。">
+<meta name="keywords" content="神经网络,后向传播,Data Mining">
 <meta property="og:type" content="article">
-<meta property="og:title" content="浅出Spring Boot系列(一)Helloword及基本概念">
-<meta property="og:url" content="http://www.xiaolewei.com/2017/03/20/浅出Spring Boot系列(一)Helloword及基本概念/index.html">
+<meta property="og:title" content="神经网络——后向传播算法详解">
+<meta property="og:url" content="http://www.xiaolewei.com/2017/05/07/神经网络——后向传播算法详解/index.html">
 <meta property="og:site_name" content="I am Busy">
-<meta property="og:description" content="前言最近在学习Spring Boot，特开一个系列来记录学习过程中遇到的坑。俗语讲深入浅出，深入我水平尚有限，恐难以做到，故且叫做浅出Spring Boot吧 本位为该系列第一篇文章，用于构建一个简易的Hello World">
-<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-20%20%E4%B8%8B%E5%8D%881.06.51.png">
-<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-20%20%E4%B8%8B%E5%8D%881.20.36.png">
-<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-20%20%E4%B8%8B%E5%8D%881.27.54.png">
-<meta property="og:updated_time" content="2017-03-25T09:05:06.000Z">
+<meta property="og:description" content="前言所谓神经网络是一组连接的输入／输出单元，类似于人脑中的神经细胞，其中每个连接都与一个权重相关联。学习阶段通过输入元组，不断的调整权重参数，使得它能够预测输入元组的正确类标号。  所谓类标号，是某种类别的标号。">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/Screen%20Shot%202017-05-07%20at%201.26.17%20PM.png">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/Screen%20Shot%202017-05-07%20at%201.44.51%20PM.png">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/Screen%20Shot%202017-05-07%20at%202.52.50%20PM.png">
+<meta property="og:updated_time" content="2017-05-07T07:18:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浅出Spring Boot系列(一)Helloword及基本概念">
-<meta name="twitter:description" content="前言最近在学习Spring Boot，特开一个系列来记录学习过程中遇到的坑。俗语讲深入浅出，深入我水平尚有限，恐难以做到，故且叫做浅出Spring Boot吧 本位为该系列第一篇文章，用于构建一个简易的Hello World">
-<meta name="twitter:image" content="http://ojiqea97q.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-20%20%E4%B8%8B%E5%8D%881.06.51.png">
+<meta name="twitter:title" content="神经网络——后向传播算法详解">
+<meta name="twitter:description" content="前言所谓神经网络是一组连接的输入／输出单元，类似于人脑中的神经细胞，其中每个连接都与一个权重相关联。学习阶段通过输入元组，不断的调整权重参数，使得它能够预测输入元组的正确类标号。  所谓类标号，是某种类别的标号。">
+<meta name="twitter:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/Screen%20Shot%202017-05-07%20at%201.26.17%20PM.png">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xiaolewei.com/2017/03/20/浅出Spring Boot系列(一)Helloword及基本概念/"/>
+  <link rel="canonical" href="http://www.xiaolewei.com/2017/05/07/神经网络——后向传播算法详解/"/>
 
 
 
 
 
-  <title> 浅出Spring Boot系列(一)Helloword及基本概念 | I am Busy </title>
+  <title> 神经网络——后向传播算法详解 | I am Busy </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -312,7 +312,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/03/20/浅出Spring Boot系列(一)Helloword及基本概念/">
+    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/05/07/神经网络——后向传播算法详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="William Wei">
@@ -333,7 +333,7 @@
             
             
               
-                浅出Spring Boot系列(一)Helloword及基本概念
+                神经网络——后向传播算法详解
               
             
           </h2>
@@ -348,8 +348,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-20T14:38:35+08:00">
-                2017-03-20
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-07T15:14:28+08:00">
+                2017-05-07
               </time>
             
 
@@ -371,8 +371,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/BigData/" itemprop="url" rel="index">
+                    <span itemprop="name">BigData</span>
                   </a>
                 </span>
 
@@ -389,8 +389,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/20/浅出Spring Boot系列(一)Helloword及基本概念/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/20/浅出Spring Boot系列(一)Helloword及基本概念/" itemprop="commentCount"></span>
+                <a href="/2017/05/07/神经网络——后向传播算法详解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/07/神经网络——后向传播算法详解/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -398,7 +398,7 @@
 
           
           
-             <span id="/2017/03/20/浅出Spring Boot系列(一)Helloword及基本概念/" class="leancloud_visitors" data-flag-title="浅出Spring Boot系列(一)Helloword及基本概念">
+             <span id="/2017/05/07/神经网络——后向传播算法详解/" class="leancloud_visitors" data-flag-title="神经网络——后向传播算法详解">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -427,51 +427,199 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在学习<code>Spring Boot</code>，特开一个系列来记录学习过程中遇到的坑。俗语讲<code>深入浅出</code>，<code>深入</code>我水平尚有限，恐难以做到，故且叫做<code>浅出Spring Boot</code>吧</p>
-<p>本位为该系列第一篇文章，用于构建一个简易的<code>Hello World</code></p>
-<a id="more"></a>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>所谓神经网络是一组连接的输入／输出单元，类似于人脑中的神经细胞，其中每个连接都与一个权重相关联。学习阶段通过输入元组，不断的调整权重参数，使得它能够预测输入元组的正确类标号。</p>
 <blockquote>
-<p>目录</p>
-<ul>
-<li>Hellowrold及基本概念</li>
-<li><a href="/2017/03/25/浅出Spring%20Boot系列(二)代码组织及CRUD/">代码组织及CRUD</a></li>
-</ul>
+<p>所谓类标号，是某种类别的标号。</p>
 </blockquote>
-<p>#工具及相关环境</p>
+<a id="more"></a>
+<h1 id="多层前馈神经网络"><a href="#多层前馈神经网络" class="headerlink" title="多层前馈神经网络"></a>多层前馈神经网络</h1><p>后向传播算法是在前馈神经网络上进行学习。多层前馈神经网络由一个输入层，一个或者多个隐藏层以及一个输出层组成。<br><img src="http://ojiqea97q.bkt.clouddn.com/jianshu/Screen%20Shot%202017-05-07%20at%201.26.17%20PM.png" alt="多层前馈神经网络拓扑机构"></p>
+<blockquote>
+<p>图中每个圆即为一个神经单元</p>
+</blockquote>
+<p>其中每一层都包含多个单元。输入层的每个单元对应于用于训练的元组的每个观测属性，输入会提供给输入层的单元，经过加权后，再提供给隐藏层的单元。而隐藏层的输出可以是另一个隐藏层，也可以是输出层。实践中隐藏层通常只有一层。</p>
+<p>之所以称该网络为前馈的，是因为权重不回送到输入层或前一层的输出单元。</p>
+<p>这里先说明一下几个关键字：</p>
+<h3 id="权重"><a href="#权重" class="headerlink" title="权重"></a>权重</h3><p>对于一个单元而言，可能同时具有多个输入，显然所有的输入并不是同等重要的，可以形象地理解为造成某一结果的原因占不同的比重，例如对于<code>LungCancer</code>，<code>Smoker</code>和<code>Drinker</code>显然前者更容易导致肺癌的产生。这里就会倾向于给予<code>Smoker</code>更大的权重。</p>
+<h3 id="偏倚"><a href="#偏倚" class="headerlink" title="偏倚"></a>偏倚</h3><p>计算各个输入的权重和时，人为的为这个和加上一个参数，这个参数就是偏倚。</p>
+<h1 id="输入处理"><a href="#输入处理" class="headerlink" title="输入处理"></a>输入处理</h1><p>对于连续型变量，通常采用一些规范化的方法，将其映射到0-1之间，如<code>最小-最大化规范</code>等。</p>
+<p>而对于离散化的数据，则常常重新编码，使每个域值都有一个输入单元。如属性A的所有可能取值为<code>{a0, a1, a2}</code>，则为其分配3个输入单元，使用<code>I0</code>,<code>I1</code>,<code>I2</code>表示，对于某一实例，若A=a1，则将输入单元I1置为1，其余置为0。</p>
+<h1 id="单元计算"><a href="#单元计算" class="headerlink" title="单元计算"></a>单元计算</h1><p>对于单个单元，其处理过程如下：<br><img src="http://ojiqea97q.bkt.clouddn.com/jianshu/Screen%20Shot%202017-05-07%20at%201.44.51%20PM.png" alt=""></p>
+<blockquote>
+<p>图中yi为上一层单元的输出值，即本单元的输入值，wij为该输入值的权重，θj为偏倚，挤压函数可以简单的理解为一个将输入值映射到较小区间0-1之间。</p>
+</blockquote>
+<p>对于各个输入值，首先计算权重和，再加上偏倚获得净输入，即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">净输入Ij = ∑ yi * Wij</div></pre></td></tr></table></figure>
+<p>将该结果作用于挤压函数，得到输出结果。对于挤压函数一般使用<a href="http://baike.baidu.com/link?url=Jqlk8BhnPMFn9O3aj6Tosjwk5VOLQ0z7nomiKldWVrll2JsOHCw9K8X4iYpEiPdInh9b4QZpM_p4AuJTpLOgL8oQlrToghKSuy2le3whsIAz2CvRu86uHUk_gS-x7-_9" target="_blank" rel="external">Logistic函数</a>，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Oj = 1/(1 + e^(-Ij) )</div></pre></td></tr></table></figure>
+<h1 id="误差计算"><a href="#误差计算" class="headerlink" title="误差计算"></a>误差计算</h1><p>神经网络经过一次学习，学习到了什么？或者说经过一次学习，神经网络该如何自我调整，来接近真理？这就是误差计算的作用。误差计算通过计算更新权重与偏倚，来使得预测结果更接近真相。</p>
+<h3 id="误差"><a href="#误差" class="headerlink" title="误差"></a>误差</h3><p>对于输出层：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Errj = Oj * (1-Oj) * (Tj-Oj)</div></pre></td></tr></table></figure>
+<p>Oj 即为该单元的实际输出，而Tj就是该训练样本的已知目标值。</p>
+<p>对于隐藏层：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Errj = Oj * (1-Oj) * ∑ Errk * Wjk</div></pre></td></tr></table></figure>
+<p>由该单元的输出单元的误差权重和，和本身输出组成。</p>
+<blockquote>
+<p>Oj * (1-Oj) 实际上时<code>Logistic函数</code>的导数</p>
+</blockquote>
+<h3 id="权重与偏倚"><a href="#权重与偏倚" class="headerlink" title="权重与偏倚"></a>权重与偏倚</h3><p>计算出误差后，即可对权重进行更新。这里先引入另一个名词 <code>学习率</code>,用<code>l</code>表示,通常取0-1之间的数，一般将l设为 1/t，这里的t为已迭代次数。</p>
+<p>权重使用如下公式进行更新：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Wij = Wij + l * Errj * Oj</div></pre></td></tr></table></figure>
+<p>对于偏倚使用如下公式更新：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">θj = θj + l * Errj</div></pre></td></tr></table></figure>
+<h3 id="更新策略"><a href="#更新策略" class="headerlink" title="更新策略"></a>更新策略</h3><p>关于更新策略，有两种方式，一种是每学习一次，就更新一次，称为<code>实例更新</code>，另一种是将计算出来的增量累计到变量中，等训练完所有元组后再更新，称为<code>周期更新</code>。由于<code>实例更新</code>通常带来更准确的效果，所以该方式更为常见。</p>
+<h1 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h1><p>这里先讲一个大概流程，后面使用实际的训练例子，可以得到更直观的感受。</p>
+<p>首先是对网络的一个初始化工作，包括建立结构，将权重和偏倚初始化为随机小数（通常为-1-1之间），输入训练元组，根据计算结果对权重和偏倚进行更新，输入下一个训练元组，重复上述过程，直到：</p>
 <ul>
-<li>Intellij JDEA</li>
-<li>JDK</li>
-<li>Gradle</li>
+<li>前一周期所有ΔW均小于某一阈值</li>
+<li>前一周琦误分类元组小于某一阈值</li>
+<li>超过指定周期数</li>
 </ul>
-<h1 id="Helloworld"><a href="#Helloworld" class="headerlink" title="Helloworld"></a>Helloworld</h1><p>Intellij IDEA中新建一个<code>Gradle</code>工程，并购选<code>Java</code>和<code>Web</code>,后面都是一些常规项目，填写<code>GroupId</code>等，不在赘述。</p>
-<p>初始项目目录结构如下：</p>
-<p><img src="http://ojiqea97q.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-20%20%E4%B8%8B%E5%8D%881.06.51.png" alt="目录结构"></p>
-<p>我们在<code>src/main</code>目录下添加<code>java</code>、<code>resources</code>两个目录，分别用于存放我们的源代码以及配置信息等。</p>
-<h3 id="build-gradle"><a href="#build-gradle" class="headerlink" title="build.gradle"></a>build.gradle</h3><p>这是一个<a href="http://docs.spring.io/spring-boot/docs/1.5.2.RELEASE/reference/htmlsingle/#getting-started" target="_blank" rel="external">官方教程</a>中的一个build文件，这里直接用即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">plugins &#123;</div><div class="line">    id &apos;org.springframework.boot&apos; version &apos;1.5.2.RELEASE&apos;</div><div class="line">    id &apos;java&apos;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">jar &#123;</div><div class="line">    baseName = &apos;bookstore&apos;</div><div class="line">    version =  &apos;0.0.1-SNAPSHOT&apos;</div><div class="line">&#125;</div><div class="line"></div><div class="line">repositories &#123;</div><div class="line">    jcenter()</div><div class="line">&#125;</div><div class="line"></div><div class="line">dependencies &#123;</div><div class="line">    compile(&quot;org.springframework.boot:spring-boot-starter-web&quot;)</div><div class="line">    testCompile(&quot;org.springframework.boot:spring-boot-starter-test&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>配置完成后,点击<code>Gradle</code>面板左上角蓝色图标，即可自动下载相关包。<br><img src="http://ojiqea97q.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-20%20%E4%B8%8B%E5%8D%881.20.36.png" alt=""></p>
-<h3 id="Application"><a href="#Application" class="headerlink" title="Application"></a>Application</h3><p>在<code>src/main/java</code>目录下新建<code>Application.java</code>文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">import org.springframework.boot.CommandLineRunner;</div><div class="line">import org.springframework.boot.SpringApplication;</div><div class="line">import org.springframework.boot.autoconfigure.SpringBootApplication;</div><div class="line">import org.springframework.context.ApplicationContext;</div><div class="line">import org.springframework.context.annotation.Bean;</div><div class="line"></div><div class="line">import java.util.Arrays;</div><div class="line"></div><div class="line">@SpringBootApplication</div><div class="line">public class Application &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        SpringApplication.run(Application.class, args);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Bean</div><div class="line">    public CommandLineRunner commandLineRunner(ApplicationContext ctx) &#123;</div><div class="line">        return args -&gt; &#123;</div><div class="line"></div><div class="line">            System.out.println(&quot;Let&apos;s inspect the beans provided by Spring Boot:&quot;);</div><div class="line"></div><div class="line">            String[] beanNames = ctx.getBeanDefinitionNames();</div><div class="line">            Arrays.sort(beanNames);</div><div class="line">            for (String beanName : beanNames) &#123;</div><div class="line">                System.out.println(beanName);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>再添加<code>HelloworldController.java</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">import org.springframework.web.bind.annotation.RestController;</div><div class="line">import org.springframework.web.bind.annotation.RequestMapping;</div><div class="line"></div><div class="line">@RestController</div><div class="line">public class HelloController &#123;</div><div class="line"></div><div class="line">    @RequestMapping(&quot;/&quot;)</div><div class="line">    public String index() &#123;</div><div class="line">        return &quot;Greetings from Spring Boot!&quot;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>到这里，一个简单的Restful 风格的微服务就完成了。</p>
-<h3 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h3><p>打开<code>Gradle</code>的面板，双击图中的<code>bootRun</code>即可将项目运行起来。<br><img src="http://ojiqea97q.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-20%20%E4%B8%8B%E5%8D%881.27.54.png" alt=""></p>
-<p>也可以通过在<code>build.gradle</code>文件同目录下运行<code>gradle bootRun</code>命令。</p>
-<p>这时访问<code>http://localhost:8080/</code>即可看到运行结果：</p>
-<h3 id="Package"><a href="#Package" class="headerlink" title="Package"></a>Package</h3><p>通过双击<code>Gradle</code>面板中的<code>build-&gt;build</code>，或者运行’gradle build’命令，即可将项目打包成<code>jar</code>文件，文件位于<code>./build/libs/[baseName+version].jar</code>。这个就可以用于部署到测试或者生产环境了。</p>
-<p>基本流程大致如此。</p>
-<h1 id="基本概念以及碰到的坑"><a href="#基本概念以及碰到的坑" class="headerlink" title="基本概念以及碰到的坑"></a>基本概念以及碰到的坑</h1><p><code>Spring Boot</code>极大的简化了java开发时需要的一大堆配置文件，按照预定高于配置的理念，尽量做到开箱即用，所以用于微服务的构建相比也是极好的。</p>
-<p>通过与<code>Spring Cloud</code>、<code>Docker</code>配合使用，可以搭建相对完善的微服务体系。</p>
-<h3 id="爬坑"><a href="#爬坑" class="headerlink" title="爬坑"></a>爬坑</h3><ul>
-<li>创建的Gradle项目，默认会在<code>build.gradle</code>文件中添加<code>group</code>、<code>version</code>内容，这些是需要去掉的，否则在运行时会由于configure error而无法启动</li>
-<li>通过双击<code>bootRun</code>方式运行spring boot时，最后会一直停留在上图所示的状态，但其实程序已经运行起来了。可以通过<code>localhost</code>访问到。</li>
-<li>就</li>
-</ul>
-<p>#参考稳定</p>
-<ul>
-<li><a href="http://docs.spring.io/spring-boot/docs/1.5.2.RELEASE/reference/htmlsingle/#getting-started" target="_blank" rel="external">官方文档</a></li>
-<li><a href="http://blog.csdn.net/yy254117440/article/details/54744515" target="_blank" rel="external">一个博客</a></li>
-</ul>
+<p>中一个条件满足。</p>
+<h1 id="样例详解"><a href="#样例详解" class="headerlink" title="样例详解"></a>样例详解</h1><p><img src="http://ojiqea97q.bkt.clouddn.com/jianshu/Screen%20Shot%202017-05-07%20at%202.52.50%20PM.png" alt="网络结构"></p>
+<p>输入值以及各项初始值如下：</p>
+<table>
+<thead>
+<tr>
+<th>x1</th>
+<th style="text-align:center">x2</th>
+<th style="text-align:right">x3</th>
+<th style="text-align:right">w14</th>
+<th style="text-align:right">w15</th>
+<th style="text-align:right">w24</th>
+<th style="text-align:right">w25</th>
+<th style="text-align:right">w34</th>
+<th style="text-align:right">w35</th>
+<th style="text-align:right">w46</th>
+<th style="text-align:right">w56</th>
+<th style="text-align:right">θ4</th>
+<th style="text-align:right">θ5</th>
+<th style="text-align:right">θ6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0.2</td>
+<td style="text-align:right">-0.3</td>
+<td style="text-align:right">0.4</td>
+<td style="text-align:right">0.1</td>
+<td style="text-align:right">-0.5</td>
+<td style="text-align:right">0.2</td>
+<td style="text-align:right">-0.3</td>
+<td style="text-align:right">-0.2</td>
+<td style="text-align:right">-0.4</td>
+<td style="text-align:right">0.2</td>
+<td style="text-align:right">0.1</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>以下计算中，部分相似的过程省略，直接给出结果。</p>
+</blockquote>
+<p>计算净输入以及输出值：</p>
+<table>
+<thead>
+<tr>
+<th>单元J</th>
+<th style="text-align:center">净输入Ij</th>
+<th style="text-align:right">输出Oj</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td style="text-align:center">0.2+0-0.5-0.4=-0.7</td>
+<td style="text-align:right">1/（1+e^(0.7)）=0.332</td>
+</tr>
+<tr>
+<td>5</td>
+<td style="text-align:center">-0.3+0+0.2+0.2=0.1</td>
+<td style="text-align:right">0.525</td>
+</tr>
+<tr>
+<td>6</td>
+<td style="text-align:center">-0.3<em>0.332-(-0.2) </em> 0.525+0.1)=-0.105</td>
+<td style="text-align:right">0.474</td>
+</tr>
+</tbody>
+</table>
+<p>计算误差：</p>
+<table>
+<thead>
+<tr>
+<th>单元j</th>
+<th style="text-align:center">Errj</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6</td>
+<td style="text-align:center">0.474 <em> (1-0.474) </em> (1-0.474) = 0.1311</td>
+</tr>
+<tr>
+<td>5</td>
+<td style="text-align:center">0.525 <em> (1-0.525) </em> 0.1311 * (-0.2) = -0.0065</td>
+</tr>
+<tr>
+<td>4</td>
+<td style="text-align:center">0.332 <em> (1-0.332) </em> 0.1311 * (-0.3) = -0.02087</td>
+</tr>
+</tbody>
+</table>
+<p>更新权重和偏倚：</p>
+<table>
+<thead>
+<tr>
+<th>权重／偏倚</th>
+<th style="text-align:center">新值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>w46</td>
+<td style="text-align:center">-0.3 + 0.9 <em> 0.1311 </em> 0.332 = -0.261</td>
+</tr>
+<tr>
+<td>w56</td>
+<td style="text-align:center">-0.138</td>
+</tr>
+<tr>
+<td>w14</td>
+<td style="text-align:center">0.2 + 0.9 <em> （-0.087）</em> 1 = 0.192</td>
+</tr>
+<tr>
+<td>w15</td>
+<td style="text-align:center">-0.306</td>
+</tr>
+<tr>
+<td>w24</td>
+<td style="text-align:center">0.4</td>
+</tr>
+<tr>
+<td>w25</td>
+<td style="text-align:center">0.1</td>
+</tr>
+<tr>
+<td>w34</td>
+<td style="text-align:center">-0.508</td>
+</tr>
+<tr>
+<td>θ6</td>
+<td style="text-align:center">0.1 + 0.9 * 0.1311 = 0.218</td>
+</tr>
+<tr>
+<td>θ5</td>
+<td style="text-align:center">0.2 + 0.9 * （-0.0065） = 0.194</td>
+</tr>
+<tr>
+<td>θ4</td>
+<td style="text-align:center">-0.408</td>
+</tr>
+</tbody>
+</table>
+<p>至此便完成了一个训练元组的迭代。</p>
 
       
     </div>
@@ -495,9 +643,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
+            <a href="/tags/神经网络/" rel="tag"># 神经网络</a>
           
-            <a href="/tags/Spring-Boot/" rel="tag"># Spring Boot</a>
+            <a href="/tags/后向传播/" rel="tag"># 后向传播</a>
+          
+            <a href="/tags/Data-Mining/" rel="tag"># Data Mining</a>
           
         </div>
       
@@ -510,18 +660,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/" rel="next" title="浅出Spring Boot系列(二)代码组织及CRUD">
-                <i class="fa fa-chevron-left"></i> 浅出Spring Boot系列(二)代码组织及CRUD
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/15/浅谈Laravel之探秘SoftDeletes/" rel="prev" title="浅谈Laravel之探秘SoftDeletes">
-                浅谈Laravel之探秘SoftDeletes <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/21/频繁模式挖掘-DHP算法详解/" rel="prev" title="频繁模式挖掘-DHP算法详解">
+                频繁模式挖掘-DHP算法详解 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -537,10 +683,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2017/03/20/浅出Spring Boot系列(一)Helloword及基本概念/"
-     data-title="浅出Spring Boot系列(一)Helloword及基本概念"
+        <div class="ds-share flat" data-thread-key="2017/05/07/神经网络——后向传播算法详解/"
+     data-title="神经网络——后向传播算法详解"
      data-content=""
-     data-url="http://www.xiaolewei.com/2017/03/20/浅出Spring Boot系列(一)Helloword及基本概念/">
+     data-url="http://www.xiaolewei.com/2017/05/07/神经网络——后向传播算法详解/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -567,8 +713,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/03/20/浅出Spring Boot系列(一)Helloword及基本概念/"
-           data-title="浅出Spring Boot系列(一)Helloword及基本概念" data-url="http://www.xiaolewei.com/2017/03/20/浅出Spring Boot系列(一)Helloword及基本概念/">
+      <div class="ds-thread" data-thread-key="2017/05/07/神经网络——后向传播算法详解/"
+           data-title="神经网络——后向传播算法详解" data-url="http://www.xiaolewei.com/2017/05/07/神经网络——后向传播算法详解/">
       </div>
     
   </div>
@@ -674,7 +820,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Helloworld"><span class="nav-number">2.</span> <span class="nav-text">Helloworld</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#build-gradle"><span class="nav-number">2.0.1.</span> <span class="nav-text">build.gradle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Application"><span class="nav-number">2.0.2.</span> <span class="nav-text">Application</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run"><span class="nav-number">2.0.3.</span> <span class="nav-text">Run</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Package"><span class="nav-number">2.0.4.</span> <span class="nav-text">Package</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念以及碰到的坑"><span class="nav-number">3.</span> <span class="nav-text">基本概念以及碰到的坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#爬坑"><span class="nav-number">3.0.1.</span> <span class="nav-text">爬坑</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多层前馈神经网络"><span class="nav-number">2.</span> <span class="nav-text">多层前馈神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#权重"><span class="nav-number">2.0.1.</span> <span class="nav-text">权重</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#偏倚"><span class="nav-number">2.0.2.</span> <span class="nav-text">偏倚</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输入处理"><span class="nav-number">3.</span> <span class="nav-text">输入处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单元计算"><span class="nav-number">4.</span> <span class="nav-text">单元计算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#误差计算"><span class="nav-number">5.</span> <span class="nav-text">误差计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#误差"><span class="nav-number">5.0.1.</span> <span class="nav-text">误差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权重与偏倚"><span class="nav-number">5.0.2.</span> <span class="nav-text">权重与偏倚</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新策略"><span class="nav-number">5.0.3.</span> <span class="nav-text">更新策略</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本流程"><span class="nav-number">6.</span> <span class="nav-text">基本流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#样例详解"><span class="nav-number">7.</span> <span class="nav-text">样例详解</span></a></li></ol></div>
             
 
           </div>
