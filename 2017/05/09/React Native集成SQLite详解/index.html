@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ComputerVision,Python," />
+  <meta name="keywords" content="JS,React Native,SQLite," />
 
 
 
@@ -87,26 +87,17 @@
 
 
 
-<meta name="description" content="前言之前处理图像二值化时使用的是经典的Otsu算法，这次要求使用Fuzzy Density Model去做一个图像二值化处理，网上参考文档除了作者的论文，几乎为零，可参考代码都没有。所以读完论文后特地记录一下。 先声明：这篇论文还没有完全理解吸收，记录自己学习过程，如果有误，欢迎交流">
-<meta name="keywords" content="ComputerVision,Python">
+<meta name="description" content="前言最近在使用React Native写一个密码管理的软件。加密后的密码准备使用SQLite进行存储，在Github上看了一下，react-native-sqlite-storage这个包是Star最高的一个。所以就选这个了，并且特记录一下整个整合工作。">
+<meta name="keywords" content="JS,React Native,SQLite">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Segmentation-基于密度的图像二值化">
-<meta property="og:url" content="http://www.xiaolewei.com/2017/03/06/Segmentation-基于密度的图像二值化/index.html">
+<meta property="og:title" content="React Native集成SQLite详解">
+<meta property="og:url" content="http://www.xiaolewei.com/2017/05/09/React Native集成SQLite详解/index.html">
 <meta property="og:site_name" content="I am Busy">
-<meta property="og:description" content="前言之前处理图像二值化时使用的是经典的Otsu算法，这次要求使用Fuzzy Density Model去做一个图像二值化处理，网上参考文档除了作者的论文，几乎为零，可参考代码都没有。所以读完论文后特地记录一下。 先声明：这篇论文还没有完全理解吸收，记录自己学习过程，如果有误，欢迎交流">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-4a6483526c39dfaa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-e4a6cd5ed5cf3f09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-cce5692617aeadc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-0d1821ff5540c668.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-66735b471fae1bdb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-b61850bb19bcd955.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-ac13a934041664dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-1801b2ecc5de57e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-03-06T09:18:11.000Z">
+<meta property="og:description" content="前言最近在使用React Native写一个密码管理的软件。加密后的密码准备使用SQLite进行存储，在Github上看了一下，react-native-sqlite-storage这个包是Star最高的一个。所以就选这个了，并且特记录一下整个整合工作。">
+<meta property="og:updated_time" content="2017-05-09T13:26:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Segmentation-基于密度的图像二值化">
-<meta name="twitter:description" content="前言之前处理图像二值化时使用的是经典的Otsu算法，这次要求使用Fuzzy Density Model去做一个图像二值化处理，网上参考文档除了作者的论文，几乎为零，可参考代码都没有。所以读完论文后特地记录一下。 先声明：这篇论文还没有完全理解吸收，记录自己学习过程，如果有误，欢迎交流">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4226917-4a6483526c39dfaa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="React Native集成SQLite详解">
+<meta name="twitter:description" content="前言最近在使用React Native写一个密码管理的软件。加密后的密码准备使用SQLite进行存储，在Github上看了一下，react-native-sqlite-storage这个包是Star最高的一个。所以就选这个了，并且特记录一下整个整合工作。">
 
 
 
@@ -134,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xiaolewei.com/2017/03/06/Segmentation-基于密度的图像二值化/"/>
+  <link rel="canonical" href="http://www.xiaolewei.com/2017/05/09/React Native集成SQLite详解/"/>
 
 
 
 
 
-  <title> Segmentation-基于密度的图像二值化 | I am Busy </title>
+  <title> React Native集成SQLite详解 | I am Busy </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -317,7 +308,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/03/06/Segmentation-基于密度的图像二值化/">
+    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/05/09/React Native集成SQLite详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="William Wei">
@@ -338,7 +329,7 @@
             
             
               
-                Segmentation-基于密度的图像二值化
+                React Native集成SQLite详解
               
             
           </h2>
@@ -353,8 +344,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-06T17:17:31+08:00">
-                2017-03-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-09T21:24:37+08:00">
+                2017-05-09
               </time>
             
 
@@ -376,8 +367,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ComputerVison/" itemprop="url" rel="index">
-                    <span itemprop="name">ComputerVison</span>
+                  <a href="/categories/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
                   </a>
                 </span>
 
@@ -394,8 +385,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/06/Segmentation-基于密度的图像二值化/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/06/Segmentation-基于密度的图像二值化/" itemprop="commentCount"></span>
+                <a href="/2017/05/09/React Native集成SQLite详解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/09/React Native集成SQLite详解/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -403,7 +394,7 @@
 
           
           
-             <span id="/2017/03/06/Segmentation-基于密度的图像二值化/" class="leancloud_visitors" data-flag-title="Segmentation-基于密度的图像二值化">
+             <span id="/2017/05/09/React Native集成SQLite详解/" class="leancloud_visitors" data-flag-title="React Native集成SQLite详解">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -432,28 +423,42 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前处理图像二值化时使用的是经典的Otsu算法，这次要求使用<a href="http://link.springer.com/content/pdf/10.1007%2F978-3-642-35326-0_13.pdf" target="_blank" rel="external">Fuzzy Density Model</a>去做一个图像二值化处理，网上参考文档除了作者的论文，几乎为零，可参考代码都没有。所以读完论文后特地记录一下。<br> <em>先声明：这篇论文还没有完全理解吸收，记录自己学习过程，如果有误，欢迎交流</em></p>
- <a id="more"></a>
-<h1 id="论文简介"><a href="#论文简介" class="headerlink" title="论文简介"></a>论文简介</h1><p>一般图像二值化的处理是对图像灰度化后，处理其直方图，取其中的一个点作为threshold，以此为界，将图片中灰度小于该点的值、大于该点的值分成两部分。</p>
-<h3 id="Fuzzy-Set-Theory"><a href="#Fuzzy-Set-Theory" class="headerlink" title="Fuzzy Set Theory"></a>Fuzzy Set Theory</h3><p>作者先介绍了一个称作Fuzzy Set的理论。令X＝｛X1,X2….Xn｝，函数μ，它将X中的每个元素映射到［0，1］区间上，即对于X中元素Xi，有： 0&lt;=μ（Xi）&lt;＝1，令A＝｛（ Xi , μ(Xi) ）｝，A即为X上的Fuzzy Set。相当于对于X中的每个元素给予了一个0－1的权重。这里的μ特别地被称为membership function。</p>
-<h3 id="Fuzzy-Set-Model"><a href="#Fuzzy-Set-Model" class="headerlink" title="Fuzzy Set Model"></a>Fuzzy Set Model</h3><p>何为图像密度？以下图为例，假设点距离圆心越近，则拥有越高的权重，那么我们可以得出（a）图中点权重之和比上以r为半径的圆面积，大于，（b）图中点权重之后比上以r为半径的圆面积</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/4226917-4a6483526c39dfaa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>论文里提到了三个membership function，分别为</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在使用<code>React Native</code>写一个密码管理的软件。加密后的密码准备使用<code>SQLite</code>进行存储，在<code>Github</code>上看了一下，<a href="https://github.com/andpor/react-native-sqlite-storage" target="_blank" rel="external">react-native-sqlite-storage</a>这个包是Star最高的一个。所以就选这个了，并且特记录一下整个整合工作。</p>
+<a id="more"></a>
+<h1 id="配置-IOS"><a href="#配置-IOS" class="headerlink" title="配置-IOS"></a>配置-IOS</h1><p>首先在RN的根目录下安装<code>sqlite</code>的包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save react-native-sqlite-storage</div></pre></td></tr></table></figure>
+<p>然后进行<code>link</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rnpm link</div></pre></td></tr></table></figure>
+<blockquote>
+<p>rnpm 即 React Native Package Manager，是react native的专门的包管理工具。</p>
+</blockquote>
+<p>如果还没有安装过<code>rnpm</code>或者<code>link</code>报错，可以尝试一下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm -g install rnpm xcode</div></pre></td></tr></table></figure>
+<p>通常情况经过上述两步即可完成依赖的配置工作。当然官方还提供了使用<code>pod</code>以及手动link的教程，由于比较繁琐这里不赘述了，留个<a href="https://github.com/andpor/react-native-sqlite-storage" target="_blank" rel="external">传送门</a></p>
+<h1 id="配置-Android"><a href="#配置-Android" class="headerlink" title="配置-Android"></a>配置-Android</h1><p>同上首先下载安装包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save react-native-sqlite-storage</div></pre></td></tr></table></figure>
+<p>然后进入<code>android</code>子目录，在<code>setting.gradle</code>文件的<code>include &#39;:app&#39;</code>上面一行添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">include &apos;:react-native-sqlite-storage&apos;</div><div class="line">project(&apos;:react-native-sqlite-storage&apos;).projectDir = new File(rootProject.projectDir, &apos;../node_modules/react-native-sqlite-storage/src/android&apos;)</div></pre></td></tr></table></figure>
+<p>再在<code>app/build.gradle</code>文件的<code>dependencies</code>中添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    ...</div><div class="line">    compile project(&apos;:react-native-sqlite-storage&apos;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后在<code>app/src/java/com/[项目名]/MainApplication.java</code>文件中添加修改成如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected List&lt;ReactPackage&gt; getPackages() &#123;</div><div class="line">  return Arrays.&lt;ReactPackage&gt;asList(</div><div class="line">      new MainReactPackage(),</div><div class="line">      new SQLitePluginPackage()</div><div class="line">  );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>至此<code>Android</code>端的配置也完成了。</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>在<code>index.ios.js</code>和<code>index.android.js</code>中添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import SQLite from &apos;react-native-sqlite-storage&apos;;</div><div class="line">SQLite.DEBUG(true);</div><div class="line">SQLite.enablePromise(true);</div></pre></td></tr></table></figure>
+<p>这样添加的好处是可以将<code>SQLite</code>作为一个全局对象去使用。包括数据库的打开、连接等操作均可以这么处理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SQLite.openDatabase(&#123;name: &apos;my.db&apos;, location: &apos;default&apos;&#125;, successcb, errorcb);</div></pre></td></tr></table></figure>
+<p>在<code>Android</code>下，由于数据库文件位于固定位置，所以<code>location</code>参数是无效的。</p>
+<p>在<code>IOS</code>下，<code>location</code>有以下3个可选参数：分别为</p>
 <ul>
-<li>Zadeh’s S-membership function<br><img src="http://upload-images.jianshu.io/upload_images/4226917-e4a6cd5ed5cf3f09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
-<li>Gamma membership function<br><img src="http://upload-images.jianshu.io/upload_images/4226917-cce5692617aeadc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
-<li>Gaussian membership function<br><img src="http://upload-images.jianshu.io/upload_images/4226917-0d1821ff5540c668.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
+<li><p><code>default</code>：数据文件会放置在<code>Library/LocalDatabase</code>子目录下，对iTunes不可见，也不会被iCloud备份</p>
+</li>
+<li><p><code>Library</code>：数据文件会放置在<code>Library</code>子目录下，对iTunes不可见，但是会iCloud备份</p>
+</li>
+<li><p><code>Documents</code>：数据文件会放置在<code>Library</code>子目录下，对iTunes可见，同时会iCloud备份</p>
+</li>
 </ul>
-<p>这里引入fdm(r,p)函数，用于计算fuzzy density，r为计算的图像区域，p为区域内的点。fdm计算结果越高，则相似度越大。</p>
-<h3 id="Threshold-Selection-Method"><a href="#Threshold-Selection-Method" class="headerlink" title="Threshold Selection Method"></a>Threshold Selection Method</h3><p>对于图像的直方图有明、暗两部分，对于Object（亮部），显然有灰度越小，越暗，权重越低，对于Background则反之，所以如果我们分别选取灰度图中最大、最小作为明暗中心，做出他们的fdm函数，大致如图<br><img src="http://upload-images.jianshu.io/upload_images/4226917-66735b471fae1bdb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>交界处即为所需要的threshold。</p>
-<h3 id="The-Rest"><a href="#The-Rest" class="headerlink" title="The Rest"></a>The Rest</h3><p>论文剩余部分对左右两个初始区域、以及threshold的适当调整做了更近一步探讨，这里暂时不记录了（主要是没有看大明白。。。），有兴趣读者可以查看作者原论文</p>
-<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><p>Lang：Python<br>Package：PIL<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line">#  Created by william wei on 17/1/7.</div><div class="line">#  Copyright © 2017年. All rights reserved.</div><div class="line"></div><div class="line">import PIL</div><div class="line">import math</div><div class="line"></div><div class="line"></div><div class="line">from PIL import Image</div><div class="line"></div><div class="line">Xmin=0</div><div class="line">Xmax=0</div><div class="line">hist = []</div><div class="line"></div><div class="line">def membership_function(x):</div><div class="line">	b = (Xmin+Xmax)/2</div><div class="line">	x = x*1.0</div><div class="line">	if x &lt;= Xmin:</div><div class="line">		return 0</div><div class="line">	if x&gt;Xmin and x&lt;=b:</div><div class="line">		return 2*math.pow( (x-Xmin)/(Xmax-Xmin), 2 )</div><div class="line">	if x&gt;b and x&lt;Xmax:</div><div class="line">		return 1-2*math.pow( (x-Xmax)/(Xmax-Xmin), 2 )</div><div class="line">	if x&gt;=Xmax:</div><div class="line">		return 1</div><div class="line">	return 0</div><div class="line"></div><div class="line">def fdm(x,y,inverse=0):</div><div class="line">	global Xmin,Xmax</div><div class="line">	result = 0</div><div class="line">	num = 0</div><div class="line">	for i in xrange(x,y):</div><div class="line">		num = num+hist[i]</div><div class="line">		if inverse==1:</div><div class="line">			result = result+hist[i]*membership_function(Xmax-(i-Xmin))</div><div class="line">		else:</div><div class="line">			result = result+hist[i]*(membership_function(i))</div><div class="line"></div><div class="line">	return result/num</div><div class="line"></div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line"></div><div class="line">	im=Image.open(&apos;cherry.png&apos;)</div><div class="line">	im = im.convert(&apos;L&apos;)</div><div class="line">	hist = im.histogram()</div><div class="line"></div><div class="line">	threshold = 0</div><div class="line"></div><div class="line">	for i in xrange(0,256):</div><div class="line">		if hist[i] &gt; 0:</div><div class="line">			Xmin = i</div><div class="line">			break;</div><div class="line">		</div><div class="line">	for i in xrange(0,256):</div><div class="line">		if hist[255-i] &gt; 0:</div><div class="line">			Xmax = 255-i</div><div class="line">			break;</div><div class="line"></div><div class="line">	for x in xrange(Xmin+1,Xmax):</div><div class="line">		left = fdm(Xmin,x,1)</div><div class="line">		right = fdm(x,Xmax)</div><div class="line"></div><div class="line">		if left&lt;right and threshold == 0:</div><div class="line">			threshold = x</div><div class="line">			print threshold</div><div class="line"></div><div class="line"></div><div class="line">	height,width = im.size</div><div class="line">	bkg = im.convert(&apos;L&apos;)</div><div class="line">	obj = im.convert(&apos;L&apos;)</div><div class="line"></div><div class="line"></div><div class="line">	for x in xrange(0,height):</div><div class="line">		for y in xrange(0,width):</div><div class="line">			pixel = im.getpixel((x,y))</div><div class="line">			print (threshold)</div><div class="line">			if pixel&lt;threshold :</div><div class="line">				obj.putpixel((x,y),0)</div><div class="line">			else:</div><div class="line">				bkg.putpixel((x,y),0)</div><div class="line"></div><div class="line">	bkg.save(&apos;bkg.png&apos;)	</div><div class="line">	obj.save(&apos;obj.png&apos;)</div></pre></td></tr></table></figure></p>
-<p>效果如图：</p>
-<ul>
-<li>原图<br><img src="http://upload-images.jianshu.io/upload_images/4226917-b61850bb19bcd955.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
-<li>Object<br><img src="http://upload-images.jianshu.io/upload_images/4226917-ac13a934041664dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
-<li>Background<br><img src="http://upload-images.jianshu.io/upload_images/4226917-1801b2ecc5de57e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
-</ul>
-<h1 id="再说点"><a href="#再说点" class="headerlink" title="再说点"></a>再说点</h1><p>效果说实话，确实不是很好，比Otsu差不少，不过这倒不是作者的问题，应该是把论文剩余部分读完的原因吧，姑且先这样，后面有时间再回来研究一下。</p>
+<p>剩下的就是关于<code>SQLite</code>的一些常规操作，不再赘述。</p>
 
       
     </div>
@@ -477,9 +482,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ComputerVision/" rel="tag"># ComputerVision</a>
+            <a href="/tags/JS/" rel="tag"># JS</a>
           
-            <a href="/tags/Python/" rel="tag"># Python</a>
+            <a href="/tags/React-Native/" rel="tag"># React Native</a>
+          
+            <a href="/tags/SQLite/" rel="tag"># SQLite</a>
           
         </div>
       
@@ -492,18 +499,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/06/基于图像处理(HOG)与数据分布特征的水位识别/" rel="next" title="基于图像处理(HOG)与数据分布特征的水位识别">
-                <i class="fa fa-chevron-left"></i> 基于图像处理(HOG)与数据分布特征的水位识别
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/06/Go-起步/" rel="prev" title="Go-起步">
-                Go-起步 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/07/神经网络——后向传播算法详解/" rel="prev" title="神经网络——后向传播算法详解">
+                神经网络——后向传播算法详解 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -519,10 +522,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2017/03/06/Segmentation-基于密度的图像二值化/"
-     data-title="Segmentation-基于密度的图像二值化"
+        <div class="ds-share flat" data-thread-key="2017/05/09/React Native集成SQLite详解/"
+     data-title="React Native集成SQLite详解"
      data-content=""
-     data-url="http://www.xiaolewei.com/2017/03/06/Segmentation-基于密度的图像二值化/">
+     data-url="http://www.xiaolewei.com/2017/05/09/React Native集成SQLite详解/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -549,8 +552,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/03/06/Segmentation-基于密度的图像二值化/"
-           data-title="Segmentation-基于密度的图像二值化" data-url="http://www.xiaolewei.com/2017/03/06/Segmentation-基于密度的图像二值化/">
+      <div class="ds-thread" data-thread-key="2017/05/09/React Native集成SQLite详解/"
+           data-title="React Native集成SQLite详解" data-url="http://www.xiaolewei.com/2017/05/09/React Native集成SQLite详解/">
       </div>
     
   </div>
@@ -656,7 +659,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#论文简介"><span class="nav-number">2.</span> <span class="nav-text">论文简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Fuzzy-Set-Theory"><span class="nav-number">2.0.1.</span> <span class="nav-text">Fuzzy Set Theory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fuzzy-Set-Model"><span class="nav-number">2.0.2.</span> <span class="nav-text">Fuzzy Set Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Threshold-Selection-Method"><span class="nav-number">2.0.3.</span> <span class="nav-text">Threshold Selection Method</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Rest"><span class="nav-number">2.0.4.</span> <span class="nav-text">The Rest</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践"><span class="nav-number">3.</span> <span class="nav-text">实践</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#再说点"><span class="nav-number">4.</span> <span class="nav-text">再说点</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置-IOS"><span class="nav-number">2.</span> <span class="nav-text">配置-IOS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置-Android"><span class="nav-number">3.</span> <span class="nav-text">配置-Android</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">4.</span> <span class="nav-text">使用</span></a></li></ol></div>
             
 
           </div>
