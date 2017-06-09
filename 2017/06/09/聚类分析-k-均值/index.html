@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JS,React Native,SQLite," />
+  <meta name="keywords" content="k-means,clustering algorithm," />
 
 
 
@@ -87,17 +87,20 @@
 
 
 
-<meta name="description" content="前言最近在使用React Native写一个密码管理的软件。加密后的密码准备使用SQLite进行存储，在Github上看了一下，react-native-sqlite-storage这个包是Star最高的一个。所以就选这个了，并且特记录一下整个整合工作。">
-<meta name="keywords" content="JS,React Native,SQLite">
+<meta name="description" content="简介聚类分析最简单的方法即，将所处理的对象按照相异性划分为多个互斥的簇。对于含有n个数据的数据集D，以及簇数k，本文所讲的划分算法将基于距离函数，将对象组划分成k个分区，每个分区代表一个簇，并尽量使簇中对象相似，不同簇中对象相异。">
+<meta name="keywords" content="k-means,clustering algorithm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="React Native集成SQLite详解">
-<meta property="og:url" content="http://www.xiaolewei.com/2017/05/09/React Native集成SQLite详解/index.html">
+<meta property="og:title" content="聚类分析-k-均值">
+<meta property="og:url" content="http://www.xiaolewei.com/2017/06/09/聚类分析-k-均值/index.html">
 <meta property="og:site_name" content="I am Busy">
-<meta property="og:description" content="前言最近在使用React Native写一个密码管理的软件。加密后的密码准备使用SQLite进行存储，在Github上看了一下，react-native-sqlite-storage这个包是Star最高的一个。所以就选这个了，并且特记录一下整个整合工作。">
-<meta property="og:updated_time" content="2017-05-09T13:26:52.000Z">
+<meta property="og:description" content="简介聚类分析最简单的方法即，将所处理的对象按照相异性划分为多个互斥的簇。对于含有n个数据的数据集D，以及簇数k，本文所讲的划分算法将基于距离函数，将对象组划分成k个分区，每个分区代表一个簇，并尽量使簇中对象相似，不同簇中对象相异。">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\sum_{p\subseteq&space;Ci}&space;dist(p,ci)^2">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?E&space;=&space;\sum_{i=1}^{k}&space;\sum_{p\subseteq&space;Ci}&space;dist(p,ci)^2">
+<meta property="og:updated_time" content="2017-06-09T11:01:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="React Native集成SQLite详解">
-<meta name="twitter:description" content="前言最近在使用React Native写一个密码管理的软件。加密后的密码准备使用SQLite进行存储，在Github上看了一下，react-native-sqlite-storage这个包是Star最高的一个。所以就选这个了，并且特记录一下整个整合工作。">
+<meta name="twitter:title" content="聚类分析-k-均值">
+<meta name="twitter:description" content="简介聚类分析最简单的方法即，将所处理的对象按照相异性划分为多个互斥的簇。对于含有n个数据的数据集D，以及簇数k，本文所讲的划分算法将基于距离函数，将对象组划分成k个分区，每个分区代表一个簇，并尽量使簇中对象相似，不同簇中对象相异。">
+<meta name="twitter:image" content="http://latex.codecogs.com/gif.latex?\sum_{p\subseteq&space;Ci}&space;dist(p,ci)^2">
 
 
 
@@ -125,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xiaolewei.com/2017/05/09/React Native集成SQLite详解/"/>
+  <link rel="canonical" href="http://www.xiaolewei.com/2017/06/09/聚类分析-k-均值/"/>
 
 
 
 
 
-  <title> React Native集成SQLite详解 | I am Busy </title>
+  <title> 聚类分析-k-均值 | I am Busy </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -308,7 +311,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/05/09/React Native集成SQLite详解/">
+    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/06/09/聚类分析-k-均值/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="William Wei">
@@ -329,7 +332,7 @@
             
             
               
-                React Native集成SQLite详解
+                聚类分析-k-均值
               
             
           </h2>
@@ -344,8 +347,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-09T21:24:37+08:00">
-                2017-05-09
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-09T18:59:52+08:00">
+                2017-06-09
               </time>
             
 
@@ -367,8 +370,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JS/" itemprop="url" rel="index">
-                    <span itemprop="name">JS</span>
+                  <a href="/categories/BigData/" itemprop="url" rel="index">
+                    <span itemprop="name">BigData</span>
                   </a>
                 </span>
 
@@ -385,8 +388,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/05/09/React Native集成SQLite详解/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/09/React Native集成SQLite详解/" itemprop="commentCount"></span>
+                <a href="/2017/06/09/聚类分析-k-均值/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/09/聚类分析-k-均值/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -394,7 +397,7 @@
 
           
           
-             <span id="/2017/05/09/React Native集成SQLite详解/" class="leancloud_visitors" data-flag-title="React Native集成SQLite详解">
+             <span id="/2017/06/09/聚类分析-k-均值/" class="leancloud_visitors" data-flag-title="聚类分析-k-均值">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -423,42 +426,25 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在使用<code>React Native</code>写一个密码管理的软件。加密后的密码准备使用<code>SQLite</code>进行存储，在<code>Github</code>上看了一下，<a href="https://github.com/andpor/react-native-sqlite-storage" target="_blank" rel="external">react-native-sqlite-storage</a>这个包是Star最高的一个。所以就选这个了，并且特记录一下整个整合工作。</p>
-<a id="more"></a>
-<h1 id="配置-IOS"><a href="#配置-IOS" class="headerlink" title="配置-IOS"></a>配置-IOS</h1><p>首先在RN的根目录下安装<code>sqlite</code>的包：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save react-native-sqlite-storage</div></pre></td></tr></table></figure>
-<p>然后进行<code>link</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rnpm link</div></pre></td></tr></table></figure>
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>聚类分析最简单的方法即，将所处理的对象按照相异性划分为多个互斥的簇。对于含有n个数据的数据集D，以及簇数k，本文所讲的划分算法将基于距离函数，将对象组划分成k个分区，每个分区代表一个簇，并尽量使簇中对象相似，不同簇中对象相异。<br><a id="more"></a></p>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>令数据集D包含n个欧氏空间中的对象，令ci为簇Ci的形心，即为该簇的代表，定义<code>dist(p,ci)</code>为对象p与该簇的代表ci的度量，其中<code>dist(x,y)</code>表示x与y的<a href="http://baike.baidu.com/link?url=7A8U9xBCJCoBYuEmfqzpkH2UTs1VNs35v7FQKWgpcOtqFqkph0_TJibM9H5yadIU23RtMVRPOu6LLVwT3p7njZlcSKkuTnaWGmCbXnSK84uhSmQUeuw5T6plyPOuwIVCbpStG7y3ZCf1Vz_Kqp3_Al4-HppFRZpLHEo-5v1bwZ-neXh7M9Dto94WaNbjmPrMQhTfytzjfADMMBEbYcLC9vFa-6DocpVrJsejF8aBs3q" target="_blank" rel="external">欧式距离</a>。使用簇内变差来衡量Ci的质量，它是Ci中所有对象和形心直接的误差的平方和：</p>
 <blockquote>
-<p>rnpm 即 React Native Package Manager，是react native的专门的包管理工具。</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=\sum_{p\subseteq&space;Ci}&space;dist(p,ci)^2" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\sum_{p\subseteq&space;Ci}&space;dist(p,ci)^2" title="\sum_{p\subseteq Ci} dist(p,ci)^2"></a></p>
 </blockquote>
-<p>如果还没有安装过<code>rnpm</code>或者<code>link</code>报错，可以尝试一下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm -g install rnpm xcode</div></pre></td></tr></table></figure>
-<p>通常情况经过上述两步即可完成依赖的配置工作。当然官方还提供了使用<code>pod</code>以及手动link的教程，由于比较繁琐这里不赘述了，留个<a href="https://github.com/andpor/react-native-sqlite-storage" target="_blank" rel="external">传送门</a></p>
-<h1 id="配置-Android"><a href="#配置-Android" class="headerlink" title="配置-Android"></a>配置-Android</h1><p>同上首先下载安装包：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save react-native-sqlite-storage</div></pre></td></tr></table></figure>
-<p>然后进入<code>android</code>子目录，在<code>setting.gradle</code>文件的<code>include &#39;:app&#39;</code>上面一行添加：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">include &apos;:react-native-sqlite-storage&apos;</div><div class="line">project(&apos;:react-native-sqlite-storage&apos;).projectDir = new File(rootProject.projectDir, &apos;../node_modules/react-native-sqlite-storage/src/android&apos;)</div></pre></td></tr></table></figure>
-<p>再在<code>app/build.gradle</code>文件的<code>dependencies</code>中添加：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    ...</div><div class="line">    compile project(&apos;:react-native-sqlite-storage&apos;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>最后在<code>app/src/java/com/[项目名]/MainApplication.java</code>文件中添加修改成如下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected List&lt;ReactPackage&gt; getPackages() &#123;</div><div class="line">  return Arrays.&lt;ReactPackage&gt;asList(</div><div class="line">      new MainReactPackage(),</div><div class="line">      new SQLitePluginPackage()</div><div class="line">  );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>至此<code>Android</code>端的配置也完成了。</p>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>在<code>index.ios.js</code>和<code>index.android.js</code>中添加</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import SQLite from &apos;react-native-sqlite-storage&apos;;</div><div class="line">SQLite.DEBUG(true);</div><div class="line">SQLite.enablePromise(true);</div></pre></td></tr></table></figure>
-<p>这样添加的好处是可以将<code>SQLite</code>作为一个全局对象去使用。包括数据库的打开、连接等操作均可以这么处理。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SQLite.openDatabase(&#123;name: &apos;my.db&apos;, location: &apos;default&apos;&#125;, successcb, errorcb);</div></pre></td></tr></table></figure>
-<p>在<code>Android</code>下，由于数据库文件位于固定位置，所以<code>location</code>参数是无效的。</p>
-<p>在<code>IOS</code>下，<code>location</code>有以下3个可选参数：分别为</p>
-<ul>
-<li><p><code>default</code>：数据文件会放置在<code>Library/LocalDatabase</code>子目录下，对iTunes不可见，也不会被iCloud备份</p>
-</li>
-<li><p><code>Library</code>：数据文件会放置在<code>Library</code>子目录下，对iTunes不可见，但是会iCloud备份</p>
-</li>
-<li><p><code>Documents</code>：数据文件会放置在<code>Library</code>子目录下，对iTunes可见，同时会iCloud备份</p>
-</li>
-</ul>
-<p>剩下的就是关于<code>SQLite</code>的一些常规操作，不再赘述。</p>
+<p>定义E为数据集中所有对象的误差平方和：</p>
+<blockquote>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=E&space;=&space;\sum_{i=1}^{k}&space;\sum_{p\subseteq&space;Ci}&space;dist(p,ci)^2" target="_blank"><img src="http://latex.codecogs.com/gif.latex?E&space;=&space;\sum_{i=1}^{k}&space;\sum_{p\subseteq&space;Ci}&space;dist(p,ci)^2" title="E = \sum_{i=1}^{k} \sum_{p\subseteq Ci} dist(p,ci)^2"></a></p>
+</blockquote>
+<h1 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h1><p>为了得到k个簇，<code>k-均值</code>算法首先在D中随机的选取k个对象，作为k个簇的中心。对于剩下的每个对象，根据其与各个簇中心的欧式距离，将其分配到最近的一个簇中。待所有对象分配完成后，对于每个簇，计算其新的形心，并将其作为该簇的代表，重复分配每个对象，重复上述步骤，直到不再发生变化。</p>
+<h1 id="实例详解"><a href="#实例详解" class="headerlink" title="实例详解"></a>实例详解</h1><p>选取二维的欧式空间，令D：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">A1(2,10), A2(2,5), A3(8,4), B1(5,8), B2(7,5), B3(6,4), C1(1,2), C2(4,9)</div></pre></td></tr></table></figure></p>
+<p>距离函数为欧式距离。假设初始时选择A1,B1,C2作为每个簇的中心（该步为随机选取），进行第一轮迭代（为方便比较，未开根号）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">dist(A1,A2) = √25</div><div class="line">dist(A1,A3) = √37</div><div class="line">dist(A1,B2) = √50</div><div class="line">dist(A1,B3) = √52</div><div class="line">dist(A1,C2) = √5</div><div class="line"></div><div class="line">dist(B1,A2) = √18</div><div class="line">dist(B1,A3) = √25</div><div class="line">dist(B1,B2) = √13</div><div class="line">dist(B1,B3) = √17</div><div class="line">dist(B1,C2) = √34</div><div class="line"></div><div class="line">dist(C1,A2) = √10</div><div class="line">dist(C1,A3) = √53</div><div class="line">dist(C1,B2) = √45</div><div class="line">dist(C1,B3) = √29</div><div class="line">dist(C1,C2) = √58</div></pre></td></tr></table></figure>
+<p>所以可以得到如下簇：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;A1,C2&#125;</div><div class="line">&#123;B1,A3,B2,B3&#125;</div><div class="line">&#123;C1,A2&#125;</div></pre></td></tr></table></figure>
+<p>重新计算各个簇的形心：<br><code>A&#39;(3，9.5)</code>、<code>B&#39;(6.5,5.25)</code>、<code>C&#39;(1.5,3.5)</code></p>
+<p>重复上述步骤重新分配D中所有对象，直到形心不再变化。</p>
+<h1 id="算法不足"><a href="#算法不足" class="headerlink" title="算法不足"></a>算法不足</h1><p>该算法时间复杂度为O(nkt)，但是k-均值是无法保证结果收敛于全局最优解，且常常终止于一个局部最优解，其常常依赖于初始值的选取，更通常的做法是选取不同的初始值，多次运行该算法。</p>
+<p>另外该算法对利群点是敏感的，当离群点被分配到某一簇时，会严重扭曲簇的平均值</p>
 
       
     </div>
@@ -482,11 +468,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JS/" rel="tag"># JS</a>
+            <a href="/tags/k-means/" rel="tag"># k-means</a>
           
-            <a href="/tags/React-Native/" rel="tag"># React Native</a>
-          
-            <a href="/tags/SQLite/" rel="tag"># SQLite</a>
+            <a href="/tags/clustering-algorithm/" rel="tag"># clustering algorithm</a>
           
         </div>
       
@@ -499,18 +483,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/09/聚类分析-k-均值/" rel="next" title="聚类分析-k-均值">
-                <i class="fa fa-chevron-left"></i> 聚类分析-k-均值
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/07/神经网络——后向传播算法详解/" rel="prev" title="神经网络——后向传播算法详解">
-                神经网络——后向传播算法详解 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/09/React Native集成SQLite详解/" rel="prev" title="React Native集成SQLite详解">
+                React Native集成SQLite详解 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -526,10 +506,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2017/05/09/React Native集成SQLite详解/"
-     data-title="React Native集成SQLite详解"
+        <div class="ds-share flat" data-thread-key="2017/06/09/聚类分析-k-均值/"
+     data-title="聚类分析-k-均值"
      data-content=""
-     data-url="http://www.xiaolewei.com/2017/05/09/React Native集成SQLite详解/">
+     data-url="http://www.xiaolewei.com/2017/06/09/聚类分析-k-均值/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -556,8 +536,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/05/09/React Native集成SQLite详解/"
-           data-title="React Native集成SQLite详解" data-url="http://www.xiaolewei.com/2017/05/09/React Native集成SQLite详解/">
+      <div class="ds-thread" data-thread-key="2017/06/09/聚类分析-k-均值/"
+           data-title="聚类分析-k-均值" data-url="http://www.xiaolewei.com/2017/06/09/聚类分析-k-均值/">
       </div>
     
   </div>
@@ -663,7 +643,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置-IOS"><span class="nav-number">2.</span> <span class="nav-text">配置-IOS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置-Android"><span class="nav-number">3.</span> <span class="nav-text">配置-Android</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">4.</span> <span class="nav-text">使用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法原理"><span class="nav-number">3.</span> <span class="nav-text">算法原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实例详解"><span class="nav-number">4.</span> <span class="nav-text">实例详解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法不足"><span class="nav-number">5.</span> <span class="nav-text">算法不足</span></a></li></ol></div>
             
 
           </div>
