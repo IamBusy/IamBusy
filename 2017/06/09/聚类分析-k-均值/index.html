@@ -94,13 +94,13 @@
 <meta property="og:url" content="http://www.xiaolewei.com/2017/06/09/聚类分析-k-均值/index.html">
 <meta property="og:site_name" content="I am Busy">
 <meta property="og:description" content="简介聚类分析最简单的方法即，将所处理的对象按照相异性划分为多个互斥的簇。对于含有n个数据的数据集D，以及簇数k，本文所讲的划分算法将基于距离函数，将对象组划分成k个分区，每个分区代表一个簇，并尽量使簇中对象相似，不同簇中对象相异。">
-<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\sum_{p\subseteq&space;Ci}&space;dist(p,ci)^2">
-<meta property="og:image" content="http://latex.codecogs.com/gif.latex?E&space;=&space;\sum_{i=1}^{k}&space;\sum_{p\subseteq&space;Ci}&space;dist(p,ci)^2">
-<meta property="og:updated_time" content="2017-06-09T11:01:14.000Z">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\sum_{p\subseteq&space;Ci}&space;dist(p,ci">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?E&space;=&space;\sum_{i=1}^{k}&space;\sum_{p\subseteq&space;Ci}&space;dist(p,ci">
+<meta property="og:updated_time" content="2017-07-04T15:14:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="聚类分析-k-均值">
 <meta name="twitter:description" content="简介聚类分析最简单的方法即，将所处理的对象按照相异性划分为多个互斥的簇。对于含有n个数据的数据集D，以及簇数k，本文所讲的划分算法将基于距离函数，将对象组划分成k个分区，每个分区代表一个簇，并尽量使簇中对象相似，不同簇中对象相异。">
-<meta name="twitter:image" content="http://latex.codecogs.com/gif.latex?\sum_{p\subseteq&space;Ci}&space;dist(p,ci)^2">
+<meta name="twitter:image" content="http://latex.codecogs.com/gif.latex?\sum_{p\subseteq&space;Ci}&space;dist(p,ci">
 
 
 
@@ -429,11 +429,13 @@
         <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>聚类分析最简单的方法即，将所处理的对象按照相异性划分为多个互斥的簇。对于含有n个数据的数据集D，以及簇数k，本文所讲的划分算法将基于距离函数，将对象组划分成k个分区，每个分区代表一个簇，并尽量使簇中对象相似，不同簇中对象相异。<br><a id="more"></a></p>
 <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>令数据集D包含n个欧氏空间中的对象，令ci为簇Ci的形心，即为该簇的代表，定义<code>dist(p,ci)</code>为对象p与该簇的代表ci的度量，其中<code>dist(x,y)</code>表示x与y的<a href="http://baike.baidu.com/link?url=7A8U9xBCJCoBYuEmfqzpkH2UTs1VNs35v7FQKWgpcOtqFqkph0_TJibM9H5yadIU23RtMVRPOu6LLVwT3p7njZlcSKkuTnaWGmCbXnSK84uhSmQUeuw5T6plyPOuwIVCbpStG7y3ZCf1Vz_Kqp3_Al4-HppFRZpLHEo-5v1bwZ-neXh7M9Dto94WaNbjmPrMQhTfytzjfADMMBEbYcLC9vFa-6DocpVrJsejF8aBs3q" target="_blank" rel="external">欧式距离</a>。使用簇内变差来衡量Ci的质量，它是Ci中所有对象和形心直接的误差的平方和：</p>
 <blockquote>
-<p><a href="http://www.codecogs.com/eqnedit.php?latex=\sum_{p\subseteq&space;Ci}&space;dist(p,ci)^2" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\sum_{p\subseteq&space;Ci}&space;dist(p,ci)^2" title="\sum_{p\subseteq Ci} dist(p,ci)^2"></a></p>
+<blockquote>
+<p><img src="http://latex.codecogs.com/gif.latex?\sum_{p\subseteq&space;Ci}&space;dist(p,ci" alt="">^2)</p>
+</blockquote>
 </blockquote>
 <p>定义E为数据集中所有对象的误差平方和：</p>
 <blockquote>
-<p><a href="http://www.codecogs.com/eqnedit.php?latex=E&space;=&space;\sum_{i=1}^{k}&space;\sum_{p\subseteq&space;Ci}&space;dist(p,ci)^2" target="_blank"><img src="http://latex.codecogs.com/gif.latex?E&space;=&space;\sum_{i=1}^{k}&space;\sum_{p\subseteq&space;Ci}&space;dist(p,ci)^2" title="E = \sum_{i=1}^{k} \sum_{p\subseteq Ci} dist(p,ci)^2"></a></p>
+<p><img src="http://latex.codecogs.com/gif.latex?E&space;=&space;\sum_{i=1}^{k}&space;\sum_{p\subseteq&space;Ci}&space;dist(p,ci" alt="">^2)</p>
 </blockquote>
 <h1 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h1><p>为了得到k个簇，<code>k-均值</code>算法首先在D中随机的选取k个对象，作为k个簇的中心。对于剩下的每个对象，根据其与各个簇中心的欧式距离，将其分配到最近的一个簇中。待所有对象分配完成后，对于每个簇，计算其新的形心，并将其作为该簇的代表，重复分配每个对象，重复上述步骤，直到不再发生变化。</p>
 <h1 id="实例详解"><a href="#实例详解" class="headerlink" title="实例详解"></a>实例详解</h1><p>选取二维的欧式空间，令D：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">A1(2,10), A2(2,5), A3(8,4), B1(5,8), B2(7,5), B3(6,4), C1(1,2), C2(4,9)</div></pre></td></tr></table></figure></p>
@@ -482,6 +484,10 @@
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/04/浅谈非小型电商系统——商品模块设计-md/" rel="next" title="浅谈非小型电商系统——商品模块设计.md">
+                <i class="fa fa-chevron-left"></i> 浅谈非小型电商系统——商品模块设计.md
+              </a>
             
           </div>
 
@@ -586,7 +592,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -597,7 +603,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -608,7 +614,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
