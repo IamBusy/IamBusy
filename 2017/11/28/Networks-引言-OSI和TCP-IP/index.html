@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Java,Mybatis," />
+  <meta name="keywords" content="Network," />
 
 
 
@@ -87,21 +87,21 @@
 
 
 
-<meta name="description" content="目录  入门 Mybatis Generator    是什么Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。 怎么做其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一">
-<meta name="keywords" content="Java,Mybatis">
+<meta name="description" content="引言 深感计算机网络方面知识欠佳，所以准备重新系统性的学习了解相关知识，通过一边读计算机网络，一边进行整理博客的方式进行。  计算机网络存在两个重要的模型体系，一个是OSI的7层模型，另一个是TCP/IP的4层模型">
+<meta name="keywords" content="Network">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入浅出Mybatis－Mybatis-Generator">
-<meta property="og:url" content="http://www.xiaolewei.com/2017/03/04/深入浅出Mybatis－Mybatis-Generator/index.html">
+<meta property="og:title" content="引言-OSI和TCP/IP">
+<meta property="og:url" content="http://www.xiaolewei.com/2017/11/28/Networks-引言-OSI和TCP-IP/index.html">
 <meta property="og:site_name" content="I am Busy">
-<meta property="og:description" content="目录  入门 Mybatis Generator    是什么Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。 怎么做其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-d0d4671d83983842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-dfee16711e64ba33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-ba0a8555b6a45f68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-03-06T08:49:21.000Z">
+<meta property="og:description" content="引言 深感计算机网络方面知识欠佳，所以准备重新系统性的学习了解相关知识，通过一边读计算机网络，一边进行整理博客的方式进行。  计算机网络存在两个重要的模型体系，一个是OSI的7层模型，另一个是TCP/IP的4层模型">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/networks/WechatIMG27926.jpeg">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/networks/Screen%20Shot%202017-11-28%20at%2023.32.02.png">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/networks/Screen%20Shot%202017-11-28%20at%2023.46.10.png">
+<meta property="og:updated_time" content="2017-11-28T15:59:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入浅出Mybatis－Mybatis-Generator">
-<meta name="twitter:description" content="目录  入门 Mybatis Generator    是什么Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。 怎么做其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4226917-d0d4671d83983842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="引言-OSI和TCP/IP">
+<meta name="twitter:description" content="引言 深感计算机网络方面知识欠佳，所以准备重新系统性的学习了解相关知识，通过一边读计算机网络，一边进行整理博客的方式进行。  计算机网络存在两个重要的模型体系，一个是OSI的7层模型，另一个是TCP/IP的4层模型">
+<meta name="twitter:image" content="http://ojiqea97q.bkt.clouddn.com/networks/WechatIMG27926.jpeg">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xiaolewei.com/2017/03/04/深入浅出Mybatis－Mybatis-Generator/"/>
+  <link rel="canonical" href="http://www.xiaolewei.com/2017/11/28/Networks-引言-OSI和TCP-IP/"/>
 
 
 
 
 
-  <title> 深入浅出Mybatis－Mybatis-Generator | I am Busy </title>
+  <title> 引言-OSI和TCP/IP | I am Busy </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -312,7 +312,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/03/04/深入浅出Mybatis－Mybatis-Generator/">
+    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/11/28/Networks-引言-OSI和TCP-IP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="William Wei">
@@ -333,7 +333,7 @@
             
             
               
-                深入浅出Mybatis－Mybatis-Generator
+                引言-OSI和TCP/IP
               
             
           </h2>
@@ -348,8 +348,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-04T23:50:25+08:00">
-                2017-03-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-28T23:57:07+08:00">
+                2017-11-28
               </time>
             
 
@@ -371,8 +371,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Network/" itemprop="url" rel="index">
+                    <span itemprop="name">Network</span>
                   </a>
                 </span>
 
@@ -389,8 +389,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/04/深入浅出Mybatis－Mybatis-Generator/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/04/深入浅出Mybatis－Mybatis-Generator/" itemprop="commentCount"></span>
+                <a href="/2017/11/28/Networks-引言-OSI和TCP-IP/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/11/28/Networks-引言-OSI和TCP-IP/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -398,7 +398,7 @@
 
           
           
-             <span id="/2017/03/04/深入浅出Mybatis－Mybatis-Generator/" class="leancloud_visitors" data-flag-title="深入浅出Mybatis－Mybatis-Generator">
+             <span id="/2017/11/28/Networks-引言-OSI和TCP-IP/" class="leancloud_visitors" data-flag-title="引言-OSI和TCP/IP">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -427,34 +427,47 @@
       
 
       
-        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><blockquote>
-<ol>
-<li><a href="http://www.jianshu.com/p/06f68617fc04" target="_blank" rel="external">入门</a></li>
-<li>Mybatis Generator</li>
-</ol>
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><blockquote>
+<p>深感计算机网络方面知识欠佳，所以准备重新系统性的学习了解相关知识，通过一边读<a href="http://product.dangdang.com/22610008.html" target="_blank" rel="external">计算机网络</a>，一边进行整理博客的方式进行。</p>
 </blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/4226917-d0d4671d83983842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Mybatis"></p>
-<h1 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h1><p>Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。</p>
-<h1 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h1><p>其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一个配置文件即可。以如下官网样例为例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;!DOCTYPE generatorConfiguration</div><div class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</div><div class="line">  &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</div><div class="line"></div><div class="line">&lt;generatorConfiguration&gt;</div><div class="line">  &lt;classPathEntry location=&quot;/Program Files/IBM/SQLLIB/java/db2java.zip&quot; /&gt;</div><div class="line"></div><div class="line">  &lt;context id=&quot;DB2Tables&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</div><div class="line">    &lt;jdbcConnection driverClass=&quot;COM.ibm.db2.jdbc.app.DB2Driver&quot;</div><div class="line">        connectionURL=&quot;jdbc:db2:TEST&quot;</div><div class="line">        userId=&quot;db2admin&quot;</div><div class="line">        password=&quot;db2admin&quot;&gt;</div><div class="line">    &lt;/jdbcConnection&gt;</div><div class="line"></div><div class="line">    &lt;javaTypeResolver &gt;</div><div class="line">      &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;</div><div class="line">    &lt;/javaTypeResolver&gt;</div><div class="line"></div><div class="line">    &lt;javaModelGenerator targetPackage=&quot;test.model&quot; targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">      &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/javaModelGenerator&gt;</div><div class="line"></div><div class="line">    &lt;sqlMapGenerator targetPackage=&quot;test.xml&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/sqlMapGenerator&gt;</div><div class="line"></div><div class="line">    &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;test.dao&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/javaClientGenerator&gt;</div><div class="line"></div><div class="line">    &lt;table schema=&quot;DB2ADMIN&quot; tableName=&quot;ALLTYPES&quot; domainObjectName=&quot;Customer&quot; &gt;</div><div class="line">      &lt;property name=&quot;useActualColumnNames&quot; value=&quot;true&quot;/&gt;</div><div class="line">      &lt;generatedKey column=&quot;ID&quot; sqlStatement=&quot;DB2&quot; identity=&quot;true&quot; /&gt;</div><div class="line">      &lt;columnOverride column=&quot;DATE_FIELD&quot; property=&quot;startDate&quot; /&gt;</div><div class="line">      &lt;ignoreColumn column=&quot;FRED&quot; /&gt;</div><div class="line">      &lt;columnOverride column=&quot;LONG_VARCHAR_FIELD&quot; jdbcType=&quot;VARCHAR&quot; /&gt;</div><div class="line">    &lt;/table&gt;</div><div class="line"></div><div class="line">  &lt;/context&gt;</div><div class="line">&lt;/generatorConfiguration&gt;</div></pre></td></tr></table></figure>
-<p>配置好了配置文件后，可以通过ant、maven等方式运行，当然也可以通过命令行的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -jar mybatis-generator-core-x.x.x.jar -configfile generatorConfig.xml</div></pre></td></tr></table></figure></p>
-<p>运行之后，就可以自动在对应位置生成相关文件。</p>
-<h1 id="Model、Client、sqlMap"><a href="#Model、Client、sqlMap" class="headerlink" title="Model、Client、sqlMap:"></a>Model、Client、sqlMap:</h1><p>配置文件中的<code>jdbcConnection</code>是数据库链接的一些配置信息，包括用户名、密码、驱动等</p>
-<p>每一个<code>&lt;table/&gt;</code>标签对应一张表，代码生成时，Mybatis Generator会扫描对应数据库中的这些表，不在配置文件中的表是会被忽略的。</p>
-<p><code>javaModelGenerator</code>,<code>sqlMapGenerator</code>,<code>javaClientGenerator</code>这三个是比较有疑惑的。需要结合他们具体的使用方式才能知道各自的作用。</p>
+<p>计算机网络存在两个重要的模型体系，一个是OSI的7层模型，另一个是TCP/IP的4层模型</p>
+<a id="more"></a>
+<h2 id="OSI模型"><a href="#OSI模型" class="headerlink" title="OSI模型"></a>OSI模型</h2><p><code>OSI</code>(Open Systems Interconnection)模型是由国际标准化组织提出的一个提案，就如何连接开发系统抽象并规定了7层模型，但是该模型却几乎从未被真正实现过。</p>
+<p><img src="http://ojiqea97q.bkt.clouddn.com/networks/WechatIMG27926.jpeg" alt="OSI模型"></p>
+<p>该模型从底向上依次为：</p>
 <ul>
-<li><p>Model<br>主要包含4类，表名为<code>Table</code>时有如下结构。<br><img src="http://upload-images.jianshu.io/upload_images/4226917-dfee16711e64ba33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>如果该表存在联合主键，则会生成该主键类(TableKey)。余下字段除<code>BLOB</code>类型外均会在记录类(Table)中，该类会继承<code>TableKey</code>（如果主键仅包含一个字段，由于不存在TableKey，该类不存在父类），<code>BLOB</code>类型的其余字段单独一个<code>TableWithBLOBs</code>类。<br>对于<code>TableExample</code>类，通过<code>Criteria</code>提供一套通用的查询接口，与<code>Laravel</code>的<code>Query Builder</code>类似，但是这里是不执行具体查询操作的，相当于只是将所需要的操作转换为对应的SQL</p>
+<li><p>物理层<br>即关注如何正确的从一个设备传输比特到另一个通过某种方式（如光纤、铜线等）连接的设备，典型问题如如何表示比特，比特持续时间，传输的方向等</p>
 </li>
-<li><p>Client<br>每个table会生成一个对应TableMapper接口以及TableSqlMapper的”实现类”，通过在TableMapper接口的方法上的SelectProvider注解，将接口对应的实现映射到TableSqlMapper。这个包更像是DAO，Example类各种查询最后是要通过这里的Mapper去执行真正的查询操作。<br><img src="http://upload-images.jianshu.io/upload_images/4226917-ba0a8555b6a45f68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<li><p>数据链路层<br>抽象为具有一定纠错检错能力等数据链路，将上层的数据拆分成数据帧，并具有一定的流量调节机制</p>
 </li>
-<li><p>sqlMap<br>Mybaits3.X后，如果Client是选择Mapper接口＋注解方式，则不会有该包。该包作用是将查询对应SQL影射到xml配置文件中。</p>
+<li><p>网络层<br>解决如何将数据从源机器发往目标机器，即如何路由，另外也需要处理拥塞问题等</p>
+</li>
+<li><p>传输层<br>接收上层数据，进行必要大小分割，正确的将数据送达另一端，且对上层透明，同时向上层提过多种服务类型，如无连接无确认服务、无连接有确认、有连接有确认。</p>
+</li>
+<li><p>会话层<br>提供诸如会话控制、令牌管理（如禁止通信双方同时进行同一操作等）等</p>
+</li>
+<li><p>表示层<br>关注所传递信息的语法和语义，避免由于机器差异导致的数据内部表示方法不一致带来的问题</p>
+</li>
+<li><p>应用层<br>各类常用应用协议，如<code>HTTP</code>、<code>FTP</code>等</p>
 </li>
 </ul>
-<p>大致这些内容。关于配置具体内容与含义可以看文末的参考文档，参考性质的内容就不写在这里了。</p>
-<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ul>
-<li><a href="http://www.mybatis.org/generator/index.html" target="_blank" rel="external">官方文档</a></li>
-<li><a href="http://blog.csdn.net/isea533/article/details/42102297" target="_blank" rel="external">配置详解</a></li>
+<h2 id="TCP-IP模型"><a href="#TCP-IP模型" class="headerlink" title="TCP/IP模型"></a>TCP/IP模型</h2><p>该模型由网络鼻祖ARPANET采用，并最终应用到全球范围内的Internet。名字就来源于该模型中最重要的两个协议<code>TCP``IP</code>协议。</p>
+<p><img src="http://ojiqea97q.bkt.clouddn.com/networks/Screen%20Shot%202017-11-28%20at%2023.32.02.png" alt=""></p>
+<p>主要包含如下4层：</p>
+<ul>
+<li><p>链路层<br>描述了满足无连接网络的最低需求，本质为主机与传输线路的一个接口</p>
+</li>
+<li><p>互联网层<br>将数据包独立的送达到接收方，且不保证数据包的到达顺序。</p>
+</li>
+<li><p>传输层<br>等同于<code>OSI</code>中的传输层，允许源主机与目标主机进行对话，主要包含<code>TCP``UDP</code>两个协议，前者为可靠的面向连接的协议，后者为不可靠的无连接的协议</p>
+</li>
+<li><p>应用层<br>各类常用应用协议，如<code>HTTP</code>、<code>FTP</code>等</p>
+</li>
 </ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>《计算机网络》这本书写作思路是根据在<code>TCP/IP</code>模型的基础上增加物理层的五层模型进行从底向上的逐层讲解。后面博客也会按照这个顺序去写。</p>
+<p>另外在解释为什么OSI模型没有能够最终应用起来，作者讲述了一个非常有趣的理论，即两头大象的启示。</p>
+<p><img src="http://ojiqea97q.bkt.clouddn.com/networks/Screen%20Shot%202017-11-28%20at%2023.46.10.png" alt=""></p>
+<p>某一个新的主题被发现后，会出现大量的研究活动，随着时间推移，热度和活动数量会逐渐趋于平稳，过段时间后企业发现了该主题，开始出现投资热潮。而对于该主题标准的相关制定工作应该处于两个波峰之间为佳。制定过早，可能由于还不成熟，往往难以获得好的结果，制定过晚，则由于公司往往已经投入了大量各种形式的资金，标准易被忽视。而<code>OSI</code>的出现正是呗夹在了中间，此时的<code>TCP/IP</code>已经广泛应用于大学科研机构等，厂商没有足够动力去支撑第二个协议栈，导致了最终的流产。</p>
 
       
     </div>
@@ -478,9 +491,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
-          
-            <a href="/tags/Mybatis/" rel="tag"># Mybatis</a>
+            <a href="/tags/Network/" rel="tag"># Network</a>
           
         </div>
       
@@ -493,18 +504,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/04/Docker修改默认时区/" rel="next" title="Docker修改默认时区">
-                <i class="fa fa-chevron-left"></i> Docker修改默认时区
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/04/深入浅出Mybatis－入门/" rel="prev" title="深入浅出Mybatis－入门">
-                深入浅出Mybatis－入门 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/31/数据结构-绪论/" rel="prev" title="数据结构-绪论">
+                数据结构-绪论 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -520,10 +527,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2017/03/04/深入浅出Mybatis－Mybatis-Generator/"
-     data-title="深入浅出Mybatis－Mybatis-Generator"
+        <div class="ds-share flat" data-thread-key="2017/11/28/Networks-引言-OSI和TCP-IP/"
+     data-title="引言-OSI和TCP/IP"
      data-content=""
-     data-url="http://www.xiaolewei.com/2017/03/04/深入浅出Mybatis－Mybatis-Generator/">
+     data-url="http://www.xiaolewei.com/2017/11/28/Networks-引言-OSI和TCP-IP/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -550,8 +557,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/03/04/深入浅出Mybatis－Mybatis-Generator/"
-           data-title="深入浅出Mybatis－Mybatis-Generator" data-url="http://www.xiaolewei.com/2017/03/04/深入浅出Mybatis－Mybatis-Generator/">
+      <div class="ds-thread" data-thread-key="2017/11/28/Networks-引言-OSI和TCP-IP/"
+           data-title="引言-OSI和TCP/IP" data-url="http://www.xiaolewei.com/2017/11/28/Networks-引言-OSI和TCP-IP/">
       </div>
     
   </div>
@@ -657,7 +664,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#是什么"><span class="nav-number">2.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怎么做"><span class="nav-number">3.</span> <span class="nav-text">怎么做</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Model、Client、sqlMap"><span class="nav-number">4.</span> <span class="nav-text">Model、Client、sqlMap:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档"><span class="nav-number">5.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#OSI模型"><span class="nav-number">1.1.</span> <span class="nav-text">OSI模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-IP模型"><span class="nav-number">1.2.</span> <span class="nav-text">TCP/IP模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">1.3.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></div>
             
 
           </div>
