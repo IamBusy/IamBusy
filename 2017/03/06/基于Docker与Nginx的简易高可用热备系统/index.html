@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Docker,Jenkins,Nginx,Reverse Proxy," />
+  <meta name="keywords" content="Docker,Nginx,Reverse Proxy,Jenkins," />
 
 
 
@@ -88,12 +88,13 @@
 
 
 <meta name="description" content="前言持续构建环境基于Docker版jenkins的持续集成环境搭建在使用过程中不可避免的需要docker stop服务容器，以完成新的版本部署。如果系统有着较高的可用性方面的要求，那么构建过程这一时间段内的”宕机”自然是无法忍受的。本文使用两层代理的方式建立一个简单的热备系统，实现新版本的无缝升级。">
-<meta name="keywords" content="Docker,Jenkins,Nginx,Reverse Proxy">
+<meta name="keywords" content="Docker,Nginx,Reverse Proxy,Jenkins">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于Docker与Nginx的简易高可用热备系统">
 <meta property="og:url" content="http://www.xiaolewei.com/2017/03/06/基于Docker与Nginx的简易高可用热备系统/index.html">
 <meta property="og:site_name" content="I am Busy">
 <meta property="og:description" content="前言持续构建环境基于Docker版jenkins的持续集成环境搭建在使用过程中不可避免的需要docker stop服务容器，以完成新的版本部署。如果系统有着较高的可用性方面的要求，那么构建过程这一时间段内的”宕机”自然是无法忍受的。本文使用两层代理的方式建立一个简单的热备系统，实现新版本的无缝升级。">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-bc584414e3a6e283.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-f7504afff7ce3daf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:updated_time" content="2017-03-06T09:28:05.000Z">
@@ -134,7 +135,7 @@
 
 
 
-  <title> 基于Docker与Nginx的简易高可用热备系统 | I am Busy </title>
+  <title> 基于Docker与Nginx的简易高可用热备系统 | I am Busy </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -145,7 +146,7 @@
 
 
 
-  <script type="text/javascript">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -426,7 +427,7 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>持续构建环境<a href="http://www.jianshu.com/p/33896fdaad77" target="_blank" rel="external">基于Docker版jenkins的持续集成环境搭建</a>在使用过程中不可避免的需要<code>docker stop</code>服务容器，以完成新的版本部署。如果系统有着较高的可用性方面的要求，那么构建过程这一时间段内的”宕机”自然是无法忍受的。本文使用两层代理的方式建立一个简单的热备系统，实现新版本的无缝升级。<br><a id="more"></a></p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>持续构建环境<a href="http://www.jianshu.com/p/33896fdaad77" target="_blank" rel="noopener">基于Docker版jenkins的持续集成环境搭建</a>在使用过程中不可避免的需要<code>docker stop</code>服务容器，以完成新的版本部署。如果系统有着较高的可用性方面的要求，那么构建过程这一时间段内的”宕机”自然是无法忍受的。本文使用两层代理的方式建立一个简单的热备系统，实现新版本的无缝升级。<br><a id="more"></a></p>
 <h1 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h1><p>Nginx、反向代理、热备、Docker</p>
 <p>#架构<br>项目中我们以API项目为例。需要部署<code>API</code>、<code>API_BACKUP</code>，二个服务容器，分别用做生产环境、生产环境的热备份。<code>API_BACKUP</code>会在<code>API</code>进行更新这段不可用期间自动提供服务。架构如图：<br><img src="http://upload-images.jianshu.io/upload_images/4226917-bc584414e3a6e283.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <h4 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h4><p><code>nginx-proxy</code>服务将作为所有其他服务的入口，承担流量分发的任务。部署一个nginx容器并监听<code>80</code>端口。并为<code>API</code>服务在<code>nginx-proxy</code>中增加如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">upstream api &#123;</div><div class="line">      server [YOUR-IP]:8080;</div><div class="line">	  server [YOUR-IP]:8081 backup; </div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">server &#123; </div><div class="line">  </div><div class="line">	listen       80; </div><div class="line">	server_name  [YOUR-SERVER-NAME]; </div><div class="line"></div><div class="line">	access_log  logs/[YOUR-SERVER-NAME]  main;</div><div class="line"></div><div class="line">	location / &#123; </div><div class="line">		proxy_pass http://api;</div><div class="line">		proxy_set_header   Host    $host; </div><div class="line">		proxy_set_header   X-Real-IP   $remote_addr; </div><div class="line">		proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for; </div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -460,11 +461,11 @@
           
             <a href="/tags/Docker/" rel="tag"># Docker</a>
           
-            <a href="/tags/Jenkins/" rel="tag"># Jenkins</a>
-          
             <a href="/tags/Nginx/" rel="tag"># Nginx</a>
           
             <a href="/tags/Reverse-Proxy/" rel="tag"># Reverse Proxy</a>
+          
+            <a href="/tags/Jenkins/" rel="tag"># Jenkins</a>
           
         </div>
       
@@ -477,8 +478,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/06/基于Docker的PHP命令行界面(CLI)/" rel="next" title="基于Docker的PHP命令行界面(CLI)">
-                <i class="fa fa-chevron-left"></i> 基于Docker的PHP命令行界面(CLI)
+              <a href="/2017/03/06/Webpack与AngularJS整合之代码逻辑与架构设计/" rel="next" title="Webpack与AngularJS整合之代码逻辑与架构设计">
+                <i class="fa fa-chevron-left"></i> Webpack与AngularJS整合之代码逻辑与架构设计
               </a>
             
           </div>
@@ -487,8 +488,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/06/Webpack与AngularJS整合之代码逻辑与架构设计/" rel="prev" title="Webpack与AngularJS整合之代码逻辑与架构设计">
-                Webpack与AngularJS整合之代码逻辑与架构设计 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/06/基于Docker的PHP命令行界面(CLI)/" rel="prev" title="基于Docker的PHP命令行界面(CLI)">
+                基于Docker的PHP命令行界面(CLI) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -584,7 +585,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -595,7 +596,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -606,7 +607,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -664,7 +665,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -930,7 +931,24 @@
   <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
   
 
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

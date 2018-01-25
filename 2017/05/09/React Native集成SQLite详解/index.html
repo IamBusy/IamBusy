@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -94,6 +94,7 @@
 <meta property="og:url" content="http://www.xiaolewei.com/2017/05/09/React Native集成SQLite详解/index.html">
 <meta property="og:site_name" content="I am Busy">
 <meta property="og:description" content="前言最近在使用React Native写一个密码管理的软件。加密后的密码准备使用SQLite进行存储，在Github上看了一下，react-native-sqlite-storage这个包是Star最高的一个。所以就选这个了，并且特记录一下整个整合工作。">
+<meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2017-05-09T13:26:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React Native集成SQLite详解">
@@ -131,7 +132,7 @@
 
 
 
-  <title> React Native集成SQLite详解 | I am Busy </title>
+  <title> React Native集成SQLite详解 | I am Busy </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -142,7 +143,7 @@
 
 
 
-  <script type="text/javascript">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -423,7 +424,7 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在使用<code>React Native</code>写一个密码管理的软件。加密后的密码准备使用<code>SQLite</code>进行存储，在<code>Github</code>上看了一下，<a href="https://github.com/andpor/react-native-sqlite-storage" target="_blank" rel="external">react-native-sqlite-storage</a>这个包是Star最高的一个。所以就选这个了，并且特记录一下整个整合工作。</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在使用<code>React Native</code>写一个密码管理的软件。加密后的密码准备使用<code>SQLite</code>进行存储，在<code>Github</code>上看了一下，<a href="https://github.com/andpor/react-native-sqlite-storage" target="_blank" rel="noopener">react-native-sqlite-storage</a>这个包是Star最高的一个。所以就选这个了，并且特记录一下整个整合工作。</p>
 <a id="more"></a>
 <h1 id="配置-IOS"><a href="#配置-IOS" class="headerlink" title="配置-IOS"></a>配置-IOS</h1><p>首先在RN的根目录下安装<code>sqlite</code>的包：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save react-native-sqlite-storage</div></pre></td></tr></table></figure>
@@ -434,7 +435,7 @@
 </blockquote>
 <p>如果还没有安装过<code>rnpm</code>或者<code>link</code>报错，可以尝试一下命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm -g install rnpm xcode</div></pre></td></tr></table></figure>
-<p>通常情况经过上述两步即可完成依赖的配置工作。当然官方还提供了使用<code>pod</code>以及手动link的教程，由于比较繁琐这里不赘述了，留个<a href="https://github.com/andpor/react-native-sqlite-storage" target="_blank" rel="external">传送门</a></p>
+<p>通常情况经过上述两步即可完成依赖的配置工作。当然官方还提供了使用<code>pod</code>以及手动link的教程，由于比较繁琐这里不赘述了，留个<a href="https://github.com/andpor/react-native-sqlite-storage" target="_blank" rel="noopener">传送门</a></p>
 <h1 id="配置-Android"><a href="#配置-Android" class="headerlink" title="配置-Android"></a>配置-Android</h1><p>同上首先下载安装包：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save react-native-sqlite-storage</div></pre></td></tr></table></figure>
 <p>然后进入<code>android</code>子目录，在<code>setting.gradle</code>文件的<code>include &#39;:app&#39;</code>上面一行添加：</p>
@@ -499,8 +500,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/09/聚类分析-k-均值/" rel="next" title="聚类分析-k-均值">
-                <i class="fa fa-chevron-left"></i> 聚类分析-k-均值
+              <a href="/2017/05/07/神经网络——后向传播算法详解/" rel="next" title="神经网络——后向传播算法详解">
+                <i class="fa fa-chevron-left"></i> 神经网络——后向传播算法详解
               </a>
             
           </div>
@@ -509,8 +510,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/07/神经网络——后向传播算法详解/" rel="prev" title="神经网络——后向传播算法详解">
-                神经网络——后向传播算法详解 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/09/聚类分析-k-均值/" rel="prev" title="聚类分析-k-均值">
+                聚类分析-k-均值 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -606,7 +607,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -617,7 +618,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -628,7 +629,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -686,7 +687,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -952,7 +953,24 @@
   <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
   
 
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

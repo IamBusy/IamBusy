@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -94,6 +94,7 @@
 <meta property="og:url" content="http://www.xiaolewei.com/2017/03/27/简记最近学习2016-3-27/index.html">
 <meta property="og:site_name" content="I am Busy">
 <meta property="og:description" content="前言其实并没有什么内容，就是讲讲吐槽一下最近几天学习的一些内容。前几天搞了Spring Boot的后台，原本想前端用Angular重写的，然而想借这个机会顺便接触点新东西。毕竟现在前端的状态是一觉起来又多了几个框架。">
+<meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2017-03-27T13:21:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简记最近学习2016.3.27">
@@ -131,7 +132,7 @@
 
 
 
-  <title> 简记最近学习2016.3.27 | I am Busy </title>
+  <title> 简记最近学习2016.3.27 | I am Busy </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -142,7 +143,7 @@
 
 
 
-  <script type="text/javascript">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -425,14 +426,14 @@
       
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>其实并没有什么内容，就是讲讲吐槽一下最近几天学习的一些内容。<br>前几天搞了<code>Spring Boot</code>的后台，原本想前端用<code>Angular</code>重写的，然而想借这个机会顺便接触点新东西。毕竟现在前端的状态是<code>一觉起来又多了几个框架</code>。</p>
 <a id="more"></a>
-<h1 id="吐槽"><a href="#吐槽" class="headerlink" title="吐槽"></a>吐槽</h1><p>看了一下<code>Ant Design</code>，UI的风格个人还是比较喜欢的（相比于<code>Bootstrap</code>），所以界面部分就用它了。既然它本身是<code>React</code>的<code>Component</code>，那前端框架自然也就选用<code>React</code>了。<code>Ant Design</code>的官方<a href="https://ant.design/docs/react/practical-projects-cn" target="_blank" rel="external">项目实战</a>是使用的<code>dva</code>：</p>
+<h1 id="吐槽"><a href="#吐槽" class="headerlink" title="吐槽"></a>吐槽</h1><p>看了一下<code>Ant Design</code>，UI的风格个人还是比较喜欢的（相比于<code>Bootstrap</code>），所以界面部分就用它了。既然它本身是<code>React</code>的<code>Component</code>，那前端框架自然也就选用<code>React</code>了。<code>Ant Design</code>的官方<a href="https://ant.design/docs/react/practical-projects-cn" target="_blank" rel="noopener">项目实战</a>是使用的<code>dva</code>：</p>
 <blockquote>
 <p>dva 是一个基于 react 和 redux 的轻量应用框架，概念来自 elm，支持 side effects、热替换、动态加载、react-native、SSR 等，已在生产环境广泛应用。</p>
 </blockquote>
 <p>说白了是蚂蚁的一套整合了各个框架的<code>Best Practice</code>。那就搞呗。</p>
-<p>先走了一遍<code>Dva</code>的Demo <a href="https://github.com/dvajs/dva/blob/master/examples/count" target="_blank" rel="external">Count</a>，没啥大问题，基本只涉及最核心的几个概念，<code>Model</code>、<code>Service</code>、<code>Component</code>。。。。</p>
-<p>再看了Demo <a href="https://github.com/sorrycc/blog/issues/18" target="_blank" rel="external">User Dashboard</a>，感觉不对了。。。</p>
-<p>其实这个时候去把阮一峰大神的<a href="http://es6.ruanyifeng.com" target="_blank" rel="external">ES6 教程</a>大致看完了一遍。什么是<code>Generator</code>、<code>yield</code>、<code>async</code>、<code>await</code>。。。。大致了解了一下。</p>
+<p>先走了一遍<code>Dva</code>的Demo <a href="https://github.com/dvajs/dva/blob/master/examples/count" target="_blank" rel="noopener">Count</a>，没啥大问题，基本只涉及最核心的几个概念，<code>Model</code>、<code>Service</code>、<code>Component</code>。。。。</p>
+<p>再看了Demo <a href="https://github.com/sorrycc/blog/issues/18" target="_blank" rel="noopener">User Dashboard</a>，感觉不对了。。。</p>
+<p>其实这个时候去把阮一峰大神的<a href="http://es6.ruanyifeng.com" target="_blank" rel="noopener">ES6 教程</a>大致看完了一遍。什么是<code>Generator</code>、<code>yield</code>、<code>async</code>、<code>await</code>。。。。大致了解了一下。</p>
 <p>看到文档中用到了<code>Mockjs</code>，就又大概的看了一下它的文档。使用<code>Mockjs</code>可以给前端提供模拟数据，并拦截前端的请求，返回生成的数据。当后台还没准备好数据时，是不错的选择。</p>
 <p>回来又继续，发现<code>Redux</code>还没什么概念，现在准备去看文档。</p>
 <p>深深感受到了来自了前端的满满恶意…..吐槽完可以继续去滚看文档了。</p>
@@ -480,8 +481,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/21/频繁模式挖掘-DHP算法详解/" rel="next" title="频繁模式挖掘-DHP算法详解">
-                <i class="fa fa-chevron-left"></i> 频繁模式挖掘-DHP算法详解
+              <a href="/2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/" rel="next" title="浅出Spring Boot系列(二)代码组织及CRUD">
+                <i class="fa fa-chevron-left"></i> 浅出Spring Boot系列(二)代码组织及CRUD
               </a>
             
           </div>
@@ -490,8 +491,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/" rel="prev" title="浅出Spring Boot系列(二)代码组织及CRUD">
-                浅出Spring Boot系列(二)代码组织及CRUD <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/21/频繁模式挖掘-DHP算法详解/" rel="prev" title="频繁模式挖掘-DHP算法详解">
+                频繁模式挖掘-DHP算法详解 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -587,7 +588,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -598,7 +599,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -609,7 +610,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -667,7 +668,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -933,7 +934,24 @@
   <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
   
 
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

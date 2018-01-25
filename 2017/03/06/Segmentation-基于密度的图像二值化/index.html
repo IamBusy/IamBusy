@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -94,6 +94,7 @@
 <meta property="og:url" content="http://www.xiaolewei.com/2017/03/06/Segmentation-基于密度的图像二值化/index.html">
 <meta property="og:site_name" content="I am Busy">
 <meta property="og:description" content="前言之前处理图像二值化时使用的是经典的Otsu算法，这次要求使用Fuzzy Density Model去做一个图像二值化处理，网上参考文档除了作者的论文，几乎为零，可参考代码都没有。所以读完论文后特地记录一下。 先声明：这篇论文还没有完全理解吸收，记录自己学习过程，如果有误，欢迎交流">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-4a6483526c39dfaa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-e4a6cd5ed5cf3f09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-cce5692617aeadc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -140,7 +141,7 @@
 
 
 
-  <title> Segmentation-基于密度的图像二值化 | I am Busy </title>
+  <title> Segmentation-基于密度的图像二值化 | I am Busy </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -151,7 +152,7 @@
 
 
 
-  <script type="text/javascript">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -432,7 +433,7 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前处理图像二值化时使用的是经典的Otsu算法，这次要求使用<a href="http://link.springer.com/content/pdf/10.1007%2F978-3-642-35326-0_13.pdf" target="_blank" rel="external">Fuzzy Density Model</a>去做一个图像二值化处理，网上参考文档除了作者的论文，几乎为零，可参考代码都没有。所以读完论文后特地记录一下。<br> <em>先声明：这篇论文还没有完全理解吸收，记录自己学习过程，如果有误，欢迎交流</em></p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前处理图像二值化时使用的是经典的Otsu算法，这次要求使用<a href="http://link.springer.com/content/pdf/10.1007%2F978-3-642-35326-0_13.pdf" target="_blank" rel="noopener">Fuzzy Density Model</a>去做一个图像二值化处理，网上参考文档除了作者的论文，几乎为零，可参考代码都没有。所以读完论文后特地记录一下。<br> <em>先声明：这篇论文还没有完全理解吸收，记录自己学习过程，如果有误，欢迎交流</em></p>
  <a id="more"></a>
 <h1 id="论文简介"><a href="#论文简介" class="headerlink" title="论文简介"></a>论文简介</h1><p>一般图像二值化的处理是对图像灰度化后，处理其直方图，取其中的一个点作为threshold，以此为界，将图片中灰度小于该点的值、大于该点的值分成两部分。</p>
 <h3 id="Fuzzy-Set-Theory"><a href="#Fuzzy-Set-Theory" class="headerlink" title="Fuzzy Set Theory"></a>Fuzzy Set Theory</h3><p>作者先介绍了一个称作Fuzzy Set的理论。令X＝｛X1,X2….Xn｝，函数μ，它将X中的每个元素映射到［0，1］区间上，即对于X中元素Xi，有： 0&lt;=μ（Xi）&lt;＝1，令A＝｛（ Xi , μ(Xi) ）｝，A即为X上的Fuzzy Set。相当于对于X中的每个元素给予了一个0－1的权重。这里的μ特别地被称为membership function。</p>
@@ -492,8 +493,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/06/基于图像处理(HOG)与数据分布特征的水位识别/" rel="next" title="基于图像处理(HOG)与数据分布特征的水位识别">
-                <i class="fa fa-chevron-left"></i> 基于图像处理(HOG)与数据分布特征的水位识别
+              <a href="/2017/03/06/Go-起步/" rel="next" title="Go-起步">
+                <i class="fa fa-chevron-left"></i> Go-起步
               </a>
             
           </div>
@@ -502,8 +503,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/06/Go-起步/" rel="prev" title="Go-起步">
-                Go-起步 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/06/基于图像处理(HOG)与数据分布特征的水位识别/" rel="prev" title="基于图像处理(HOG)与数据分布特征的水位识别">
+                基于图像处理(HOG)与数据分布特征的水位识别 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -599,7 +600,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -610,7 +611,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -621,7 +622,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -679,7 +680,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -945,7 +946,24 @@
   <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
   
 
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

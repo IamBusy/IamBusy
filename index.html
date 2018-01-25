@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -91,6 +91,7 @@
 <meta property="og:title" content="I am Busy">
 <meta property="og:url" content="http://www.xiaolewei.com/index.html">
 <meta property="og:site_name" content="I am Busy">
+<meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="I am Busy">
 
@@ -126,7 +127,7 @@
 
 
 
-  <title> I am Busy </title>
+  <title> I am Busy </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -137,7 +138,7 @@
 
 
 
-  <script type="text/javascript">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -305,6 +306,174 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2018/01/25/决策树中几个重要量/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="William Wei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/WechatIMG32.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I am Busy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/01/25/决策树中几个重要量/" itemprop="url">
+                  决策树中几个重要量
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-25T20:14:31+08:00">
+                2018-01-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Data-Mining/" itemprop="url" rel="index">
+                    <span itemprop="name">Data Mining</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/25/决策树中几个重要量/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/01/25/决策树中几个重要量/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/01/25/决策树中几个重要量/" class="leancloud_visitors" data-flag-title="决策树中几个重要量">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得</p>
+<h1 id="信息"><a href="#信息" class="headerlink" title="信息"></a>信息</h1><blockquote>
+<p>信息是用来消除随机不定性的东西 –香农</p>
+</blockquote>
+<p>其实这句话挺难理解的。<br>对于具有多个特征的事物的集合，有一个分类，使得每个分类都有一个类标号表示。我们使用事物属于某个类的概率来衡量这个类所具有的信息。概率越大，则信息越少，极端情况下，如果网络之前通信，只能发送1，即概率为1，那么我们自然无法接受到任何有用信息，因为全部都是1.</p>
+
+$$I(x_i)=-\log_2p(x_i)$$
+
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/11/28/Networks-引言-OSI和TCP-IP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -425,7 +594,7 @@
       
         
           <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><blockquote>
-<p>深感计算机网络方面知识欠佳，所以准备重新系统性的学习了解相关知识，通过一边读<a href="http://product.dangdang.com/22610008.html">计算机网络</a>，一边进行整理博客的方式进行。</p>
+<p>深感计算机网络方面知识欠佳，所以准备重新系统性的学习了解相关知识，通过一边读<a href="http://product.dangdang.com/22610008.html" target="_blank" rel="noopener">计算机网络</a>，一边进行整理博客的方式进行。</p>
 </blockquote>
 <p>计算机网络存在两个重要的模型体系，一个是OSI的7层模型，另一个是TCP/IP的4层模型</p>
           <!--noindex-->
@@ -759,7 +928,7 @@
         
           
             <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>深感自己基础过于薄弱，想借着实习这段时间补一下基础，那就先从数据结构开始吧。可又怕了这漫漫路途，于是开这个系列，一则记录学习感悟，二来督促自己完成这个过程。</p>
-<p>书的话还是当时大二用的<a href="http://product.dangdang.com/23342722.html" target="_blank" rel="external">《数据结构(C++版)》</a></p>
+<p>书的话还是当时大二用的<a href="http://product.dangdang.com/23342722.html" target="_blank" rel="noopener">《数据结构(C++版)》</a></p>
 
           
         
@@ -919,7 +1088,7 @@
 
       
         
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>公司上马新项目，这个过程中重新研究了关于电商系统中的一些东西，参阅了shopNC的<a href="http://product.dangdang.com/23617052.html">《高性能电子商务平台构建：架构、设计与开发》</a>(这本书说实话差强人意，一则设计思想讲的过少，另外通篇的代码也几乎没有太多参考价值)，也看了网上不少博客，特记录一下学习心得与感悟。</p>
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>公司上马新项目，这个过程中重新研究了关于电商系统中的一些东西，参阅了shopNC的<a href="http://product.dangdang.com/23617052.html" target="_blank" rel="noopener">《高性能电子商务平台构建：架构、设计与开发》</a>(这本书说实话差强人意，一则设计思想讲的过少，另外通篇的代码也几乎没有太多参考价值)，也看了网上不少博客，特记录一下学习心得与感悟。</p>
 <p>对于一个电商系统，商品模块显然是其核心功能，商品模块设计的好坏将直接决定后续的开发进度和维护成本。</p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1250,7 +1419,7 @@
 
       
         
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在使用<code>React Native</code>写一个密码管理的软件。加密后的密码准备使用<code>SQLite</code>进行存储，在<code>Github</code>上看了一下，<a href="https://github.com/andpor/react-native-sqlite-storage">react-native-sqlite-storage</a>这个包是Star最高的一个。所以就选这个了，并且特记录一下整个整合工作。</p>
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在使用<code>React Native</code>写一个密码管理的软件。加密后的密码准备使用<code>SQLite</code>进行存储，在<code>Github</code>上看了一下，<a href="https://github.com/andpor/react-native-sqlite-storage" target="_blank" rel="noopener">react-native-sqlite-storage</a>这个包是Star最高的一个。所以就选这个了，并且特记录一下整个整合工作。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/05/09/React Native集成SQLite详解/#more" rel="contents">
@@ -1791,171 +1960,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="William Wei">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/WechatIMG32.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I am Busy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/" itemprop="url">
-                  浅出Spring Boot系列(二)代码组织及CRUD
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-25T16:47:40+08:00">
-                2017-03-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/" class="leancloud_visitors" data-flag-title="浅出Spring Boot系列(二)代码组织及CRUD">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>Spring Boot</code>项目中的代码该如何进行有效组织？本文以<code>Bookstore</code>项目为例，进行一个简易的CRUD系统开发。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2005,7 +2009,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -2016,7 +2020,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -2027,7 +2031,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -2069,7 +2073,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -2331,7 +2335,24 @@
   <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
   
 
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -94,6 +94,7 @@
 <meta property="og:url" content="http://www.xiaolewei.com/2017/03/25/浅出Spring Boot系列(二)代码组织及CRUD/index.html">
 <meta property="og:site_name" content="I am Busy">
 <meta property="og:description" content="前言Spring Boot项目中的代码该如何进行有效组织？本文以Bookstore项目为例，进行一个简易的CRUD系统开发。">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-25%20%E4%B8%8B%E5%8D%882.52.04.png">
 <meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-25%20%E4%B8%8B%E5%8D%882.40.35.png">
 <meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-25%20%E4%B8%8B%E5%8D%884.36.46.png">
@@ -136,7 +137,7 @@
 
 
 
-  <title> 浅出Spring Boot系列(二)代码组织及CRUD | I am Busy </title>
+  <title> 浅出Spring Boot系列(二)代码组织及CRUD | I am Busy </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -147,7 +148,7 @@
 
 
 
-  <script type="text/javascript">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -456,7 +457,7 @@
 <blockquote>
 <p>The goal of Spring Data repository abstraction is to significantly reduce the amount of boilerplate code required to implement data access layers for various persistence stores.</p>
 </blockquote>
-<p>由于遵循<code>约定大于配置</code>，<code>Spring</code>会自动根据方法名转换成对应SQL语句。<br>更多的<code>query method</code>可以查看<a href="http://docs.spring.io/spring-data/data-mongo/docs/1.10.1.RELEASE/reference/html/#repositories.query-methods.details" target="_blank" rel="external">官方文档</a></p>
+<p>由于遵循<code>约定大于配置</code>，<code>Spring</code>会自动根据方法名转换成对应SQL语句。<br>更多的<code>query method</code>可以查看<a href="http://docs.spring.io/spring-data/data-mongo/docs/1.10.1.RELEASE/reference/html/#repositories.query-methods.details" target="_blank" rel="noopener">官方文档</a></p>
 <h1 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h1><p>新建<code>service</code>、<code>service.impl</code> package，前者放<code>Interface</code>文件，后者为对应的实现。由于项目不包含过多的业务逻辑，所以这一层会显得略有些淡薄，基本只需要调用<code>repostory</code>中对应方法即可。<br>以<code>CategoryService</code>的实现为例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">package com.william.service.impl;</div><div class="line"></div><div class="line">import com.william.model.Category;</div><div class="line">import com.william.repository.CategoryRepository;</div><div class="line">import com.william.service.CategoryService;</div><div class="line">import org.springframework.beans.factory.annotation.Autowired;</div><div class="line">import org.springframework.data.domain.Sort;</div><div class="line">import org.springframework.stereotype.Service;</div><div class="line"></div><div class="line">import java.util.List;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by william on 17/3/25.</div><div class="line"> */</div><div class="line">@Service</div><div class="line">public class MongoCategoryServiceImpl implements CategoryService &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private CategoryRepository repository;</div><div class="line">    @Override</div><div class="line">    public Category create(Category category) &#123;</div><div class="line">        return repository.insert(category);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public Category show(String id) &#123;</div><div class="line">        return repository.findOne(id);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public Category update(Category category) &#123;</div><div class="line">        return repository.save(category);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public List&lt;Category&gt; findAll() &#123;</div><div class="line">        Sort sort = new Sort(Sort.Direction.ASC,&quot;order&quot;);</div><div class="line">        return repository.findAll(sort);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public Category destroy(String id) &#123;</div><div class="line">        Category category = repository.findOne(id);</div><div class="line">        repository.delete(id);</div><div class="line">        return category;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>实现需要添加<code>@Service</code>的Annotation</p>
@@ -464,7 +465,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">package com.william.controller;</div><div class="line"></div><div class="line">import com.william.model.Category;</div><div class="line">import com.william.model.Product;</div><div class="line">import com.william.service.CategoryService;</div><div class="line">import com.william.service.ProductService;</div><div class="line">import org.springframework.beans.factory.annotation.Autowired;</div><div class="line">import org.springframework.web.bind.annotation.*;</div><div class="line"></div><div class="line">import java.util.List;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by william on 17/3/24.</div><div class="line"> */</div><div class="line">@RestController</div><div class="line">@RequestMapping(&quot;/categories&quot;)</div><div class="line">public class CategoryController &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private ProductService productService;</div><div class="line">    @Autowired</div><div class="line">    private CategoryService service;</div><div class="line"></div><div class="line">    @RequestMapping(method = RequestMethod.POST)</div><div class="line">    public Category create(@RequestBody Category category)</div><div class="line">    &#123;</div><div class="line">        return service.create(category);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @RequestMapping(method = RequestMethod.GET)</div><div class="line">    public List&lt;Category&gt; getAllCategories()</div><div class="line">    &#123;</div><div class="line">        return service.findAll();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @RequestMapping(value = &quot;/&#123;id&#125;&quot;,method = RequestMethod.GET)</div><div class="line">    public Category show(@PathVariable String id)</div><div class="line">    &#123;</div><div class="line">        return service.show(id);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @RequestMapping(value = &quot;/&#123;id&#125;&quot;,method = RequestMethod.PUT)</div><div class="line">    public Category update(@PathVariable String id, @RequestBody Category category)</div><div class="line">    &#123;</div><div class="line">        category.setId(id);</div><div class="line">        return service.create(category);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @RequestMapping(value = &quot;/&#123;id&#125;&quot;,method = RequestMethod.DELETE)</div><div class="line">    public Category destroy(@PathVariable String id)</div><div class="line">    &#123;</div><div class="line">        return service.destroy(id);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @RequestMapping(&quot;/&#123;id&#125;/products&quot;)</div><div class="line">    public List&lt;Product&gt; findAllProducts(@PathVariable String id)</div><div class="line">    &#123;</div><div class="line">        return productService.findAll(service.show(id));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><code>@RestController</code>用于标记这是一个基于<code>Restful API</code>的controller，response将通过response body发送。</p>
 <p><code>@RequestMapping</code>用于映射对应URL，并且可显性指定请求的方法。</p>
-<p>关于<code>Restful API</code>的设计可以参考阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2014/05/restful_api.html" target="_blank" rel="external">博客</a></p>
+<p>关于<code>Restful API</code>的设计可以参考阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2014/05/restful_api.html" target="_blank" rel="noopener">博客</a></p>
 <p>至此一个经典的分层架构的API后台就开发完成了。完整目录结构如图：<br><img src="http://ojiqea97q.bkt.clouddn.com/jianshu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-25%20%E4%B8%8B%E5%8D%882.40.35.png" alt="目录结构"></p>
 <h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><p>创建一个<code>Category</code>资源，并添加几个对应的<code>Product</code>。<br><img src="http://ojiqea97q.bkt.clouddn.com/jianshu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-25%20%E4%B8%8B%E5%8D%884.36.46.png" alt="添加商品"></p>
 <p>以<code>GET</code>方式访问<code>/categories/{category_id}</code>,即可看到该类别下的所有商品了。<br><img src="http://ojiqea97q.bkt.clouddn.com/jianshu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-03-25%20%E4%B8%8B%E5%8D%884.37.31.png" alt=""></p>
@@ -506,8 +507,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/27/简记最近学习2016-3-27/" rel="next" title="简记最近学习2016.3.27">
-                <i class="fa fa-chevron-left"></i> 简记最近学习2016.3.27
+              <a href="/2017/03/20/浅出Spring Boot系列(一)Helloword及基本概念/" rel="next" title="浅出Spring Boot系列(一)Helloword及基本概念">
+                <i class="fa fa-chevron-left"></i> 浅出Spring Boot系列(一)Helloword及基本概念
               </a>
             
           </div>
@@ -516,8 +517,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/20/浅出Spring Boot系列(一)Helloword及基本概念/" rel="prev" title="浅出Spring Boot系列(一)Helloword及基本概念">
-                浅出Spring Boot系列(一)Helloword及基本概念 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/27/简记最近学习2016-3-27/" rel="prev" title="简记最近学习2016.3.27">
+                简记最近学习2016.3.27 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -613,7 +614,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -624,7 +625,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -635,7 +636,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -693,7 +694,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -959,7 +960,24 @@
   <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
   
 
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

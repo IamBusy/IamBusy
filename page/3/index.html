@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -91,6 +91,7 @@
 <meta property="og:title" content="I am Busy">
 <meta property="og:url" content="http://www.xiaolewei.com/page/3/index.html">
 <meta property="og:site_name" content="I am Busy">
+<meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="I am Busy">
 
@@ -126,7 +127,7 @@
 
 
 
-  <title> I am Busy </title>
+  <title> I am Busy </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -137,7 +138,7 @@
 
 
 
-  <script type="text/javascript">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -295,6 +296,171 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/03/06/Segmentation-基于密度的图像二值化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="William Wei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ojiqea97q.bkt.clouddn.com/jianshu/WechatIMG32.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I am Busy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/06/Segmentation-基于密度的图像二值化/" itemprop="url">
+                  Segmentation-基于密度的图像二值化
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-06T17:17:31+08:00">
+                2017-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ComputerVison/" itemprop="url" rel="index">
+                    <span itemprop="name">ComputerVison</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/06/Segmentation-基于密度的图像二值化/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/06/Segmentation-基于密度的图像二值化/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/03/06/Segmentation-基于密度的图像二值化/" class="leancloud_visitors" data-flag-title="Segmentation-基于密度的图像二值化">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前处理图像二值化时使用的是经典的Otsu算法，这次要求使用<a href="http://link.springer.com/content/pdf/10.1007%2F978-3-642-35326-0_13.pdf" target="_blank" rel="noopener">Fuzzy Density Model</a>去做一个图像二值化处理，网上参考文档除了作者的论文，几乎为零，可参考代码都没有。所以读完论文后特地记录一下。<br> <em>先声明：这篇论文还没有完全理解吸收，记录自己学习过程，如果有误，欢迎交流</em></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/06/Segmentation-基于密度的图像二值化/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -758,7 +924,7 @@
           
             <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><blockquote>
 <ol>
-<li><a href="http://www.jianshu.com/p/06f68617fc04" target="_blank" rel="external">入门</a></li>
+<li><a href="http://www.jianshu.com/p/06f68617fc04" target="_blank" rel="noopener">入门</a></li>
 <li>Mybatis Generator</li>
 </ol>
 </blockquote>
@@ -781,8 +947,8 @@
 </ul>
 <p>大致这些内容。关于配置具体内容与含义可以看文末的参考文档，参考性质的内容就不写在这里了。</p>
 <h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ul>
-<li><a href="http://www.mybatis.org/generator/index.html" target="_blank" rel="external">官方文档</a></li>
-<li><a href="http://blog.csdn.net/isea533/article/details/42102297" target="_blank" rel="external">配置详解</a></li>
+<li><a href="http://www.mybatis.org/generator/index.html" target="_blank" rel="noopener">官方文档</a></li>
+<li><a href="http://blog.csdn.net/isea533/article/details/42102297" target="_blank" rel="noopener">配置详解</a></li>
 </ul>
 
           
@@ -944,12 +1110,12 @@
       
         
           
-            <h1 id="写在系列前"><a href="#写在系列前" class="headerlink" title="写在系列前"></a>写在系列前</h1><p>这学期在上<a href="http://www.se.sjtu.edu.cn/teacher/teacherdetail.aspx?id=9" target="_blank" rel="external">陈昊鹏</a>老师的<code>企业级应用系统体系架构</code>这门课，载体为Java EE。这个系列用来记录Java Web开发过程中关于Mybatis的学习与使用过程。</p>
+            <h1 id="写在系列前"><a href="#写在系列前" class="headerlink" title="写在系列前"></a>写在系列前</h1><p>这学期在上<a href="http://www.se.sjtu.edu.cn/teacher/teacherdetail.aspx?id=9" target="_blank" rel="noopener">陈昊鹏</a>老师的<code>企业级应用系统体系架构</code>这门课，载体为Java EE。这个系列用来记录Java Web开发过程中关于Mybatis的学习与使用过程。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/4226917-d0d4671d83983842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Mybatis"></p>
 <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><blockquote>
 <ol>
 <li>入门</li>
-<li><a href="http://www.jianshu.com/p/f1b3f317311b" target="_blank" rel="external">Mybatis Generator</a></li>
+<li><a href="http://www.jianshu.com/p/f1b3f317311b" target="_blank" rel="noopener">Mybatis Generator</a></li>
 </ol>
 </blockquote>
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>学习一个新东西前，如果能对他有一个比较直观的印象与定位，那么接下来的学习过程就会顺畅很多。所以本文主要是我对Mybatis的一个简单入门性的总结介绍（前提还是需要些必要的概念认知）。<br><em>PS:文末有参考列表</em></p>
@@ -964,10 +1130,10 @@
 </ul>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>对Mybatis形成个大概模样，它是做什么的，怎么做的。一些参考：</p>
 <ul>
-<li><a href="http://blog.csdn.net/jiuqiyuliang/article/details/45132493" target="_blank" rel="external">简单Demo</a></li>
-<li><a href="http://www.cnblogs.com/dongying/p/4031382.html" target="_blank" rel="external">另一个Demo</a></li>
-<li><a href="http://blog.csdn.net/jiuqiyuliang/article/details/45378065" target="_blank" rel="external">Mybatis、Hibernate对比</a></li>
-<li><a href="https://www.zhihu.com/question/21104468" target="_blank" rel="external">知乎上的讨论</a></li>
+<li><a href="http://blog.csdn.net/jiuqiyuliang/article/details/45132493" target="_blank" rel="noopener">简单Demo</a></li>
+<li><a href="http://www.cnblogs.com/dongying/p/4031382.html" target="_blank" rel="noopener">另一个Demo</a></li>
+<li><a href="http://blog.csdn.net/jiuqiyuliang/article/details/45378065" target="_blank" rel="noopener">Mybatis、Hibernate对比</a></li>
+<li><a href="https://www.zhihu.com/question/21104468" target="_blank" rel="noopener">知乎上的讨论</a></li>
 </ul>
 
           
@@ -1049,7 +1215,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1060,7 +1226,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1071,7 +1237,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -1113,7 +1279,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1375,7 +1541,24 @@
   <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
   
 
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

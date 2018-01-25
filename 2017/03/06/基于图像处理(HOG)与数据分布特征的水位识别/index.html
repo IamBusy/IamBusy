@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -94,6 +94,7 @@
 <meta property="og:url" content="http://www.xiaolewei.com/2017/03/06/基于图像处理(HOG)与数据分布特征的水位识别/index.html">
 <meta property="og:site_name" content="I am Busy">
 <meta property="og:description" content="Update代码已经上传到github上了，可以点这里  Cutting一直说这要整理一下Computer Vision课程的大作业，拖了好久。这两天忙着写一个订单处理的第三方库，陷入了僵局，所以换个口味，把根据图像中的标尺识别水位深度的大作业整理一下。">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-a326ddde8e81ca8f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-94d3d32f0e578fd1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-352b423a6fe28fce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -143,7 +144,7 @@
 
 
 
-  <title> 基于图像处理(HOG)与数据分布特征的水位识别 | I am Busy </title>
+  <title> 基于图像处理(HOG)与数据分布特征的水位识别 | I am Busy </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -154,7 +155,7 @@
 
 
 
-  <script type="text/javascript">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -435,7 +436,7 @@
       
 
       
-        <h4 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h4><p>代码已经上传到github上了，可以点<a href="https://github.com/IamBusy/WaterLevelRecognition" target="_blank" rel="external">这里</a></p>
+        <h4 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h4><p>代码已经上传到github上了，可以点<a href="https://github.com/IamBusy/WaterLevelRecognition" target="_blank" rel="noopener">这里</a></p>
 <hr>
 <h1 id="Cutting"><a href="#Cutting" class="headerlink" title="Cutting"></a>Cutting</h1><p>一直说这要整理一下Computer Vision课程的大作业，拖了好久。这两天忙着写一个订单处理的第三方库，陷入了僵局，所以换个口味，把根据图像中的标尺识别水位深度的大作业整理一下。<br><a id="more"></a></p>
 <h1 id="Requirement"><a href="#Requirement" class="headerlink" title="Requirement"></a>Requirement</h1><blockquote>
@@ -445,7 +446,7 @@
 <li>能否解决存在的多种问题，其中包括：<br>a. 标尺刻度靠近水面的部分可能由于长期浸泡在污水中出现污渍而无法识别。<br>b. 水面可能出现的雾气，造成识别困难。<br>c. 标尺可能有一定的弧度，造成精确度量存在问题。 </li>
 <li>计算效率：使用任意目前流行的Intel i3处理器及更快的处理器，每个4096*4096像素分辨率以内的图像测量时间不超过20秒（包含图像读取及数据值输出）。<br>3.系统完整性。 </li>
 </ol>
-<p>使用语言：Visual C++（可使用OpenCV）<br><a href="http://ojiqea97q.bkt.clouddn.com/computerVision/measure_imgs1130.zip" target="_blank" rel="external">部分附件</a></p>
+<p>使用语言：Visual C++（可使用OpenCV）<br><a href="http://ojiqea97q.bkt.clouddn.com/computerVision/measure_imgs1130.zip" target="_blank" rel="noopener">部分附件</a></p>
 </blockquote>
 <p><img src="http://upload-images.jianshu.io/upload_images/4226917-a326ddde8e81ca8f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="样例图"></p>
 <h1 id="Train-of-Thought"><a href="#Train-of-Thought" class="headerlink" title="Train of Thought"></a>Train of Thought</h1><p>整个过程大致分为四个阶段：图像预处理、识别、过滤、数据处理</p>
@@ -513,8 +514,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/06/Webpack与AngularJS整合之代码逻辑与架构设计/" rel="next" title="Webpack与AngularJS整合之代码逻辑与架构设计">
-                <i class="fa fa-chevron-left"></i> Webpack与AngularJS整合之代码逻辑与架构设计
+              <a href="/2017/03/06/Segmentation-基于密度的图像二值化/" rel="next" title="Segmentation-基于密度的图像二值化">
+                <i class="fa fa-chevron-left"></i> Segmentation-基于密度的图像二值化
               </a>
             
           </div>
@@ -523,8 +524,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/06/Segmentation-基于密度的图像二值化/" rel="prev" title="Segmentation-基于密度的图像二值化">
-                Segmentation-基于密度的图像二值化 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/06/Webpack与AngularJS整合之代码逻辑与架构设计/" rel="prev" title="Webpack与AngularJS整合之代码逻辑与架构设计">
+                Webpack与AngularJS整合之代码逻辑与架构设计 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -620,7 +621,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -631,7 +632,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -642,7 +643,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -700,7 +701,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -966,7 +967,24 @@
   <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
   
 
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -94,6 +94,7 @@
 <meta property="og:url" content="http://www.xiaolewei.com/2017/03/06/Webpack与AngularJS整合之代码逻辑与架构设计/index.html">
 <meta property="og:site_name" content="I am Busy">
 <meta property="og:description" content="前言公司项目的前端使用Ionic开发，但是代码的组织方式略显臃肿，代码的书写规范性不佳。一方面造成了严重的性能瓶颈，另一方面也无法应对未来频繁的需求变更，所以准备结合构建工具对前端做设计重构。考察了各个构建工具包括Glup、Grunt、Webpack之后还是决定使用Webpack（最新的主流一般都不会有错的）。查阅了不少资料，大部分是关注的技术细节，对于如何进行代码的组织设计较少，所以本文更多的关">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-cc40a6bf4e502215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-c887d72dcacd7a47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-95816bb208052823.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -135,7 +136,7 @@
 
 
 
-  <title> Webpack与AngularJS整合之代码逻辑与架构设计 | I am Busy </title>
+  <title> Webpack与AngularJS整合之代码逻辑与架构设计 | I am Busy </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -146,7 +147,7 @@
 
 
 
-  <script type="text/javascript">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -435,7 +436,7 @@
 <li>AngularJS</li>
 <li>Webpack</li>
 </ul>
-<h1 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h1><p>Webpack通过一个入口文件(当然可以多入口，不是重点)，将所有依赖文件打包到一个文件中，从而减少SAP应用初次加载时http请求到个数。并且可以通过各种loader去处理优化不同的文件，如js、css、svg等。一般一个通行的做法是将webpack构建时的配置信息写入到一个名为 “webpack.config.js”的文件中。这部分的基础知识以及demo一般稍作学习便可掌握。<a href="http://webpack.github.io/docs/motivation.html" target="_blank" rel="external">官网文档</a>本身很不错。</p>
+<h1 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h1><p>Webpack通过一个入口文件(当然可以多入口，不是重点)，将所有依赖文件打包到一个文件中，从而减少SAP应用初次加载时http请求到个数。并且可以通过各种loader去处理优化不同的文件，如js、css、svg等。一般一个通行的做法是将webpack构建时的配置信息写入到一个名为 “webpack.config.js”的文件中。这部分的基础知识以及demo一般稍作学习便可掌握。<a href="http://webpack.github.io/docs/motivation.html" target="_blank" rel="noopener">官网文档</a>本身很不错。</p>
 <p>所以目录可以这样组织：<br><img src="http://upload-images.jianshu.io/upload_images/4226917-cc40a6bf4e502215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <ul>
 <li>app:存放源代码</li>
@@ -481,7 +482,7 @@
 <li>app.config.js 配置信息</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">module.exports.providerConfig = [&apos;$httpProvider&apos;, &apos;CacheFactoryProvider&apos;,</div><div class="line">    function($httpProvider, CacheFactoryProvider) &#123;</div><div class="line"></div><div class="line">        var param = function(obj) &#123;</div><div class="line">            var query = &apos;&apos;,</div><div class="line">                name, value, fullSubName, subName, subValue, innerObj, i;</div><div class="line">            for (name in obj) &#123;</div><div class="line">                value = obj[name];</div><div class="line">                if (value instanceof Array) &#123;</div><div class="line">                    for (i = 0; i &lt; value.length; ++i) &#123;</div><div class="line">                        subValue = value[i];</div><div class="line">                        fullSubName = name + &apos;[&apos; + i + &apos;]&apos;;</div><div class="line">                        innerObj = &#123;&#125;;</div><div class="line">                        innerObj[fullSubName] = subValue;</div><div class="line">                        query += param(innerObj) + &apos;&amp;&apos;;</div><div class="line">                    &#125;</div><div class="line">                &#125; else if (value instanceof Object) &#123;</div><div class="line">                    for (subName in value) &#123;</div><div class="line">                        subValue = value[subName];</div><div class="line">                        fullSubName = name + &apos;[&apos; + subName + &apos;]&apos;;</div><div class="line">                        innerObj = &#123;&#125;;</div><div class="line">                        innerObj[fullSubName] = subValue;</div><div class="line">                        query += param(innerObj) + &apos;&amp;&apos;;</div><div class="line">                    &#125;</div><div class="line">                &#125; else if (value !== undefined &amp;&amp; value !== null) query += encodeURIComponent(name) + &apos;=&apos; + encodeURIComponent(value) + &apos;&amp;&apos;;</div><div class="line">            &#125;</div><div class="line">            return query.length ? query.substr(0, query.length - 1) : query;</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        $httpProvider.defaults.transformRequest = function(obj) &#123;</div><div class="line">            return angular.isObject(obj) &amp;&amp; String(obj) !== &apos;[object File]&apos; ? param(obj) : obj;</div><div class="line">        &#125;;</div><div class="line">        $httpProvider.defaults.headers.post = &#123;</div><div class="line">            &apos;Content-Type&apos;: &apos;application/x-www-form-urlencoded&apos;</div><div class="line">        &#125;</div><div class="line">        $httpProvider.defaults.headers.put = &#123;</div><div class="line">            &apos;Content-Type&apos;: &apos;application/x-www-form-urlencoded&apos;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        angular.extend(CacheFactoryProvider.defaults, &#123;</div><div class="line">            maxAge: 15 * 60 * 1000,</div><div class="line"></div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">];</div><div class="line"></div><div class="line">module.exports.routing = [&apos;$urlRouterProvider&apos;, &apos;$locationProvider&apos;,</div><div class="line">    function($urlRouterProvider, $locationProvider) &#123;</div><div class="line">        $locationProvider.html5Mode(true);</div><div class="line"></div><div class="line">        $urlRouterProvider.otherwise(&apos;/signin&apos;);</div><div class="line">    &#125;</div><div class="line">];</div></pre></td></tr></table></figure>
-<h1 id="More"><a href="#More" class="headerlink" title="More"></a>More</h1><p>这篇文章主要讲个大致思路，项目<a href="https://github.com/IamBusy/webpack-angular" target="_blank" rel="external">webpack-angular</a>的完整代码已经放到github上面，有需要可以参考。代码的组织方式本身就是仁者见仁，智者见智，没有最好一说，所以还是希望可以一起探讨。</p>
+<h1 id="More"><a href="#More" class="headerlink" title="More"></a>More</h1><p>这篇文章主要讲个大致思路，项目<a href="https://github.com/IamBusy/webpack-angular" target="_blank" rel="noopener">webpack-angular</a>的完整代码已经放到github上面，有需要可以参考。代码的组织方式本身就是仁者见仁，智者见智，没有最好一说，所以还是希望可以一起探讨。</p>
 
       
     </div>
@@ -520,8 +521,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/06/基于Docker与Nginx的简易高可用热备系统/" rel="next" title="基于Docker与Nginx的简易高可用热备系统">
-                <i class="fa fa-chevron-left"></i> 基于Docker与Nginx的简易高可用热备系统
+              <a href="/2017/03/06/基于图像处理(HOG)与数据分布特征的水位识别/" rel="next" title="基于图像处理(HOG)与数据分布特征的水位识别">
+                <i class="fa fa-chevron-left"></i> 基于图像处理(HOG)与数据分布特征的水位识别
               </a>
             
           </div>
@@ -530,8 +531,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/06/基于图像处理(HOG)与数据分布特征的水位识别/" rel="prev" title="基于图像处理(HOG)与数据分布特征的水位识别">
-                基于图像处理(HOG)与数据分布特征的水位识别 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/06/基于Docker与Nginx的简易高可用热备系统/" rel="prev" title="基于Docker与Nginx的简易高可用热备系统">
+                基于Docker与Nginx的简易高可用热备系统 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -627,7 +628,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -638,7 +639,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -649,7 +650,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -707,7 +708,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -973,7 +974,24 @@
   <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
   
 
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 
