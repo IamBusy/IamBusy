@@ -87,18 +87,34 @@
 
 
 
-<meta name="description" content="一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得 信息 信息是用来消除随机不定性的东西 –香农  其实这句话挺难理解的。对于具有多个特征的事物的集合，有一个分类，使得每个分类都有一个类标号表示。我们使用事物属于某个类的概率来衡量这个类所具有的信息。概率越大，则信息越少，极端情况下，如果网络之前通信，只能发送1，即概率为1，那么我们自然无法接受到任何有用信息，因为全部">
+<meta name="description" content="title: 决策树中几个重要量date: 2018-01-27 12:12:13 tags:一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得 信息 信息是用来消除随机不定性的东西 –香农  其实这句话挺难理解的。对于具有多个特征的事物的集合，有一个分类，使得每个分类都有一个类标号表示。我们使用事物属于某个类的概率来衡量这个类所具有的信息。概率越大，则信息越少，极">
 <meta name="keywords" content="Data Mining,desicion tree,classfication">
 <meta property="og:type" content="article">
 <meta property="og:title" content="决策树中几个重要量">
 <meta property="og:url" content="http://www.xiaolewei.com/2018/01/25/决策树中几个重要量/index.html">
 <meta property="og:site_name" content="I am Busy">
-<meta property="og:description" content="一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得 信息 信息是用来消除随机不定性的东西 –香农  其实这句话挺难理解的。对于具有多个特征的事物的集合，有一个分类，使得每个分类都有一个类标号表示。我们使用事物属于某个类的概率来衡量这个类所具有的信息。概率越大，则信息越少，极端情况下，如果网络之前通信，只能发送1，即概率为1，那么我们自然无法接受到任何有用信息，因为全部">
+<meta property="og:description" content="title: 决策树中几个重要量date: 2018-01-27 12:12:13 tags:一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得 信息 信息是用来消除随机不定性的东西 –香农  其实这句话挺难理解的。对于具有多个特征的事物的集合，有一个分类，使得每个分类都有一个类标号表示。我们使用事物属于某个类的概率来衡量这个类所具有的信息。概率越大，则信息越少，极">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-01-25T13:49:38.000Z">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/215343243024809069106482238251135216032.gif">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/216578013145312253662992296592181897632.gif">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/216965237620474220046628237658444081568.gif">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/217353226805860774104407034269772097952.gif">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/217738375344708541727723061705993693600.gif">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/218201761852495470415760642346993920416.gif">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/218601247678088144344354858449989609888.gif">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/219232627204825443705586602352535480736.gif">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/219643197050353863215900179130542270880.gif">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/220032657344261982131779624616332175776.gif">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/220408545853931407570983150963189950880.gif">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/220811745895782750210865816677563312544.gif">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/221207042136141669841442615938679384480.gif">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/221726634686979467933348992386341874080.gif">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/222201261294182295302504698170328295840.gif">
+<meta property="og:updated_time" content="2018-01-27T08:48:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="决策树中几个重要量">
-<meta name="twitter:description" content="一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得 信息 信息是用来消除随机不定性的东西 –香农  其实这句话挺难理解的。对于具有多个特征的事物的集合，有一个分类，使得每个分类都有一个类标号表示。我们使用事物属于某个类的概率来衡量这个类所具有的信息。概率越大，则信息越少，极端情况下，如果网络之前通信，只能发送1，即概率为1，那么我们自然无法接受到任何有用信息，因为全部">
+<meta name="twitter:description" content="title: 决策树中几个重要量date: 2018-01-27 12:12:13 tags:一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得 信息 信息是用来消除随机不定性的东西 –香农  其实这句话挺难理解的。对于具有多个特征的事物的集合，有一个分类，使得每个分类都有一个类标号表示。我们使用事物属于某个类的概率来衡量这个类所具有的信息。概率越大，则信息越少，极">
+<meta name="twitter:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/215343243024809069106482238251135216032.gif">
 
 
 
@@ -424,14 +440,79 @@
       
 
       
-        <p>一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得</p>
+        <hr>
+<p>title: 决策树中几个重要量<br>date: 2018-01-27 12:12:13</p>
+<h2 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h2><p>一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得</p>
 <h1 id="信息"><a href="#信息" class="headerlink" title="信息"></a>信息</h1><blockquote>
 <p>信息是用来消除随机不定性的东西 –香农</p>
 </blockquote>
 <p>其实这句话挺难理解的。<br>对于具有多个特征的事物的集合，有一个分类，使得每个分类都有一个类标号表示。我们使用事物属于某个类的概率来衡量这个类所具有的信息。概率越大，则信息越少，极端情况下，如果网络之前通信，只能发送1，即概率为1，那么我们自然无法接受到任何有用信息，因为全部都是1.</p>
-
-$$I(x_i)=-\log_2p(x_i)$$
-
+<p><img src="http://ojiqea97q.bkt.clouddn.com/blog/latex/215343243024809069106482238251135216032.gif" alt=""></p>
+<a id="more"></a>
+<p>举个例子：</p>
+<blockquote>
+<p>我们有一些男生的集合，每个男生都具有身高、长相、是否有钱这3个特征属性，假设他们都去了相亲节目，我们用女生是否选择与男生牵手作为分类的依据，即类标号，那么我们可以得到：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>身高</th>
+<th>长相</th>
+<th>是否有钱</th>
+<th>是否牵手</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>矮</td>
+<td>帅</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>高</td>
+<td>帅</td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>挨</td>
+<td>帅</td>
+<td>是</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
+<p>只看结果即类标号的话，牵手的概率为1/3， 没有牵手的概率为2/3<br>所以我们使用上述公式可以认为牵手这个类具有的信息约为<img src="http://ojiqea97q.bkt.clouddn.com/blog/latex/216578013145312253662992296592181897632.gif" alt="">，而没有牵手具有信息<img src="http://ojiqea97q.bkt.clouddn.com/blog/latex/216965237620474220046628237658444081568.gif" alt=""></p>
+<h1 id="信息熵"><a href="#信息熵" class="headerlink" title="信息熵"></a>信息熵</h1><p>用于衡量随机变量的混乱负责程度，值越大，越混乱负责，越难以预测。定义为信息的期望：</p>
+<p><img src="http://ojiqea97q.bkt.clouddn.com/blog/latex/217353226805860774104407034269772097952.gif" alt=""></p>
+<p>可以计算出上表中的信息熵为 <img src="http://ojiqea97q.bkt.clouddn.com/blog/latex/217738375344708541727723061705993693600.gif" alt=""></p>
+<h1 id="条件信息熵"><a href="#条件信息熵" class="headerlink" title="条件信息熵"></a>条件信息熵</h1><p>所谓条件信息熵，指如果我们已知了某个特征或者条件的情况下的熵的情况。<br>如果根据某个特征A将数据集分为了v分，定义为：</p>
+<p><img src="http://ojiqea97q.bkt.clouddn.com/blog/latex/218201761852495470415760642346993920416.gif" alt=""></p>
+<p>引用知乎上网友的例子：</p>
+<blockquote>
+<p>X(明天下雨)是一个随机变量，X的熵可以算出来， Y(明天阴天)也是随机变量，在阴天情况下下雨的信息熵我们如果也知道的话（此处需要知道其联合概率分布或是通过数据估计）即是条件熵。</p>
+</blockquote>
+<p>依然以上面的为例，我们计算已知特征身高的情况下的条件熵：<br><img src="http://ojiqea97q.bkt.clouddn.com/blog/latex/218601247678088144344354858449989609888.gif" alt=""></p>
+<p>也就是在上述数据的情况下，如果我们知道了身高情况，那么随机性就会消失，熵为0，确实身高高的都牵手成功，矮的都失败了，符合我们上面谈到的熵的意义。</p>
+<h1 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h1><p>直观感受，随着我们掌握的信息越多，那么随机与混乱程度就会下降，仍然以下雨为例，明天下雨与否我们是无从得知的，假设熵为2，那么如果我们知道了明天是阴天，直觉是明天下雨是一个大概率事件，在这个条件下我们假设熵为0.1，熵越大，越随机，那么我们定义信息增益为：</p>
+<p><img src="http://ojiqea97q.bkt.clouddn.com/blog/latex/219232627204825443705586602352535480736.gif" alt=""></p>
+<p>即如果知道A特征，我们可以减少多少熵，该值越大，自然越应该成为划分的依据。这个就是决策树模型如ID3，常用的一个方法。</p>
+<h1 id="信息增益率"><a href="#信息增益率" class="headerlink" title="信息增益率"></a>信息增益率</h1><p>信息增益模型偏向具有多输出的测试，如果我们在上面的例子中加入男生的名字，那么会发现以名字作为划分将会得到最大的信息增益，因为 </p>
+<p><img src="http://ojiqea97q.bkt.clouddn.com/blog/latex/219643197050353863215900179130542270880.gif" alt=""> </p>
+<p>而这并不是我们期望的。</p>
+<p>为了克服这种偏移，ID3的后继模型，C4.5提出了增益率。首先定义分裂信息：</p>
+<p><img src="http://ojiqea97q.bkt.clouddn.com/blog/latex/220032657344261982131779624616332175776.gif" alt=""></p>
+<p>这个的定义类似于Info(D)，但是前者是以特征为分类依据，而后者以类标号为分类依据。再定义增益率：</p>
+<p><img src="http://ojiqea97q.bkt.clouddn.com/blog/latex/220408545853931407570983150963189950880.gif" alt=""></p>
+<p>即可将信息增益规范化，但是在信息趋向于0时，该比率会有较大抖动。另外基于信息增益或者增益率的划分是不强制要求二分的。</p>
+<h1 id="基尼指数"><a href="#基尼指数" class="headerlink" title="基尼指数"></a>基尼指数</h1><p>基尼指数是用来衡量一个数据集的不纯度，该值越大，那么不纯度越高，定义为:</p>
+<p><img src="http://ojiqea97q.bkt.clouddn.com/blog/latex/220811745895782750210865816677563312544.gif" alt=""></p>
+<p>基尼指数会强制进行二元划分，所以以某个特征如A进行一次划分后会产生两个划分D1和D2，定义：</p>
+<p><img src="http://ojiqea97q.bkt.clouddn.com/blog/latex/221207042136141669841442615938679384480.gif" alt=""></p>
+<p>由于强制二分，那么对A如果是离散值或者连续值是存在多种划分方式的，一般对于离散值选择其中一个子集作为D1，该子集的补集作为D2，而连续值则需要在排序后，选择相邻两个数的中点将小于等于该值的作为D1，大于 该值的作为D2，并且对A的划分需要穷举所有可能，选择具有最小 <img src="http://ojiqea97q.bkt.clouddn.com/blog/latex/221726634686979467933348992386341874080.gif" alt="">的划分作为该特征属性的划分，通过划分后，不纯度降低了：</p>
+<p><img src="http://ojiqea97q.bkt.clouddn.com/blog/latex/222201261294182295302504698170328295840.gif" alt=""></p>
+<p>所以选择使上值最小的属性，极为分裂属性。</p>
 
       
     </div>
@@ -632,7 +713,7 @@ $$I(x_i)=-\log_2p(x_i)$$
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#信息"><span class="nav-number">1.</span> <span class="nav-text">信息</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tags"><span class="nav-number">1.</span> <span class="nav-text">tags:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#信息"><span class="nav-number"></span> <span class="nav-text">信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#信息熵"><span class="nav-number"></span> <span class="nav-text">信息熵</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#条件信息熵"><span class="nav-number"></span> <span class="nav-text">条件信息熵</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#信息增益"><span class="nav-number"></span> <span class="nav-text">信息增益</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#信息增益率"><span class="nav-number"></span> <span class="nav-text">信息增益率</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基尼指数"><span class="nav-number"></span> <span class="nav-text">基尼指数</span></a></div>
             
 
           </div>
@@ -921,24 +1002,7 @@ $$I(x_i)=-\log_2p(x_i)$$
   <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
   
 
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

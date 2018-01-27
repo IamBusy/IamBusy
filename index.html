@@ -425,17 +425,21 @@
 
       
         
-          
-            <p>一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得</p>
+          <hr>
+<p>title: 决策树中几个重要量<br>date: 2018-01-27 12:12:13</p>
+<h2 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h2><p>一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得</p>
 <h1 id="信息"><a href="#信息" class="headerlink" title="信息"></a>信息</h1><blockquote>
 <p>信息是用来消除随机不定性的东西 –香农</p>
 </blockquote>
 <p>其实这句话挺难理解的。<br>对于具有多个特征的事物的集合，有一个分类，使得每个分类都有一个类标号表示。我们使用事物属于某个类的概率来衡量这个类所具有的信息。概率越大，则信息越少，极端情况下，如果网络之前通信，只能发送1，即概率为1，那么我们自然无法接受到任何有用信息，因为全部都是1.</p>
-
-$$I(x_i)=-\log_2p(x_i)$$
-
-
-          
+<p><img src="http://ojiqea97q.bkt.clouddn.com/blog/latex/215343243024809069106482238251135216032.gif" alt=""></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/25/决策树中几个重要量/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2335,24 +2339,7 @@ $$I(x_i)=-\log_2p(x_i)$$
   <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
   
 
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
