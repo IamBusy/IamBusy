@@ -87,13 +87,13 @@
 
 
 
-<meta name="description" content="title: 决策树中几个重要量date: 2018-01-27 12:12:13 tags:一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得 信息 信息是用来消除随机不定性的东西 –香农  其实这句话挺难理解的。对于具有多个特征的事物的集合，有一个分类，使得每个分类都有一个类标号表示。我们使用事物属于某个类的概率来衡量这个类所具有的信息。概率越大，则信息越少，极">
+<meta name="description" content="一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得 信息 信息是用来消除随机不定性的东西 –香农  其实这句话挺难理解的。对于具有多个特征的事物的集合，有一个分类，使得每个分类都有一个类标号表示。我们使用事物属于某个类的概率来衡量这个类所具有的信息。概率越大，则信息越少，极端情况下，如果网络之前通信，只能发送1，即概率为1，那么我们自然无法接受到任何有用信息，因为全部">
 <meta name="keywords" content="Data Mining,desicion tree,classfication">
 <meta property="og:type" content="article">
 <meta property="og:title" content="决策树中几个重要量">
 <meta property="og:url" content="http://www.xiaolewei.com/2018/01/25/决策树中几个重要量/index.html">
 <meta property="og:site_name" content="I am Busy">
-<meta property="og:description" content="title: 决策树中几个重要量date: 2018-01-27 12:12:13 tags:一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得 信息 信息是用来消除随机不定性的东西 –香农  其实这句话挺难理解的。对于具有多个特征的事物的集合，有一个分类，使得每个分类都有一个类标号表示。我们使用事物属于某个类的概率来衡量这个类所具有的信息。概率越大，则信息越少，极">
+<meta property="og:description" content="一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得 信息 信息是用来消除随机不定性的东西 –香农  其实这句话挺难理解的。对于具有多个特征的事物的集合，有一个分类，使得每个分类都有一个类标号表示。我们使用事物属于某个类的概率来衡量这个类所具有的信息。概率越大，则信息越少，极端情况下，如果网络之前通信，只能发送1，即概率为1，那么我们自然无法接受到任何有用信息，因为全部">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/215343243024809069106482238251135216032.gif">
 <meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/216578013145312253662992296592181897632.gif">
@@ -110,10 +110,10 @@
 <meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/221207042136141669841442615938679384480.gif">
 <meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/221726634686979467933348992386341874080.gif">
 <meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/222201261294182295302504698170328295840.gif">
-<meta property="og:updated_time" content="2018-01-27T08:48:15.000Z">
+<meta property="og:updated_time" content="2018-01-27T08:49:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="决策树中几个重要量">
-<meta name="twitter:description" content="title: 决策树中几个重要量date: 2018-01-27 12:12:13 tags:一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得 信息 信息是用来消除随机不定性的东西 –香农  其实这句话挺难理解的。对于具有多个特征的事物的集合，有一个分类，使得每个分类都有一个类标号表示。我们使用事物属于某个类的概率来衡量这个类所具有的信息。概率越大，则信息越少，极">
+<meta name="twitter:description" content="一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得 信息 信息是用来消除随机不定性的东西 –香农  其实这句话挺难理解的。对于具有多个特征的事物的集合，有一个分类，使得每个分类都有一个类标号表示。我们使用事物属于某个类的概率来衡量这个类所具有的信息。概率越大，则信息越少，极端情况下，如果网络之前通信，只能发送1，即概率为1，那么我们自然无法接受到任何有用信息，因为全部">
 <meta name="twitter:image" content="http://ojiqea97q.bkt.clouddn.com/blog/latex/215343243024809069106482238251135216032.gif">
 
 
@@ -440,9 +440,7 @@
       
 
       
-        <hr>
-<p>title: 决策树中几个重要量<br>date: 2018-01-27 12:12:13</p>
-<h2 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h2><p>一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得</p>
+        <p>一下几个概念是决策树模型中常用名词，也较为抽象难以理解，特记录一下自己的学习心得</p>
 <h1 id="信息"><a href="#信息" class="headerlink" title="信息"></a>信息</h1><blockquote>
 <p>信息是用来消除随机不定性的东西 –香农</p>
 </blockquote>
@@ -713,7 +711,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tags"><span class="nav-number">1.</span> <span class="nav-text">tags:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#信息"><span class="nav-number"></span> <span class="nav-text">信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#信息熵"><span class="nav-number"></span> <span class="nav-text">信息熵</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#条件信息熵"><span class="nav-number"></span> <span class="nav-text">条件信息熵</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#信息增益"><span class="nav-number"></span> <span class="nav-text">信息增益</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#信息增益率"><span class="nav-number"></span> <span class="nav-text">信息增益率</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基尼指数"><span class="nav-number"></span> <span class="nav-text">基尼指数</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#信息"><span class="nav-number">1.</span> <span class="nav-text">信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#信息熵"><span class="nav-number">2.</span> <span class="nav-text">信息熵</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#条件信息熵"><span class="nav-number">3.</span> <span class="nav-text">条件信息熵</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#信息增益"><span class="nav-number">4.</span> <span class="nav-text">信息增益</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#信息增益率"><span class="nav-number">5.</span> <span class="nav-text">信息增益率</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基尼指数"><span class="nav-number">6.</span> <span class="nav-text">基尼指数</span></a></li></ol></div>
             
 
           </div>
