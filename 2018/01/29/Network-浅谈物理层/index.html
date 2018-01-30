@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Docker,Jenkins,DooD,CI," />
+  <meta name="keywords" content="Network," />
 
 
 
@@ -87,21 +87,23 @@
 
 
 
-<meta name="description" content="前言前一篇对jenkins的环境搭建做了简单介绍，这一篇内容主要是如何借助jenkins，自动构建并run一个目标docker。基本流程是当gitlab上有新的push产生时，触发jenkins构建任务，jenkins在pull项目并完成如build／make等上线前的准备工作后，将build／make后的文件打包到docker中，并将其run起来。">
-<meta name="keywords" content="Docker,Jenkins,DooD,CI">
+<meta name="description" content="简述物理层主要任务是将比特成功的在两台机器之间进行传输。所以问题主要集中在选用何种传输介质，如何传输以及高效的传输等。  物理层由于涉及硬件，不作过多讨论，就其中重点内容作简单介绍展开。  传输介质常见的可以用于传输的物理介质主要包含以下几种： 双绞线两根相互绝缘的直径约为1毫米的铜线以螺旋形式紧紧绞在一起，形成类似DNA分子链的结构。两根铜线绞在一起后所产生的干扰波可以相互抵消，显著降低电线的辐">
+<meta name="keywords" content="Network">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于Docker版jenkins的持续集成环境搭建(二)">
-<meta property="og:url" content="http://www.xiaolewei.com/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/index.html">
+<meta property="og:title" content="Network-浅谈物理层">
+<meta property="og:url" content="http://www.xiaolewei.com/2018/01/29/Network-浅谈物理层/index.html">
 <meta property="og:site_name" content="I am Busy">
-<meta property="og:description" content="前言前一篇对jenkins的环境搭建做了简单介绍，这一篇内容主要是如何借助jenkins，自动构建并run一个目标docker。基本流程是当gitlab上有新的push产生时，触发jenkins构建任务，jenkins在pull项目并完成如build／make等上线前的准备工作后，将build／make后的文件打包到docker中，并将其run起来。">
+<meta property="og:description" content="简述物理层主要任务是将比特成功的在两台机器之间进行传输。所以问题主要集中在选用何种传输介质，如何传输以及高效的传输等。  物理层由于涉及硬件，不作过多讨论，就其中重点内容作简单介绍展开。  传输介质常见的可以用于传输的物理介质主要包含以下几种： 双绞线两根相互绝缘的直径约为1毫米的铜线以螺旋形式紧紧绞在一起，形成类似DNA分子链的结构。两根铜线绞在一起后所产生的干扰波可以相互抵消，显著降低电线的辐">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-783723e3524cedc7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-9eacc3a2b6f26a87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-03-06T09:34:55.000Z">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/network/WechatIMG484.jpeg">
+<meta property="og:image" content="https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=5ae1e2cb8c5494ee932f074b4c9c8b9b/eac4b74543a9822666c348538a82b9014a90eb40.jpg">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/network/002dho0Vzy759GymSeb37.jpeg">
+<meta property="og:image" content="http://ojiqea97q.bkt.clouddn.com/network/Screen%20Shot%202018-01-07%20at%2011.14.02%20PM.png">
+<meta property="og:updated_time" content="2018-01-29T15:40:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="基于Docker版jenkins的持续集成环境搭建(二)">
-<meta name="twitter:description" content="前言前一篇对jenkins的环境搭建做了简单介绍，这一篇内容主要是如何借助jenkins，自动构建并run一个目标docker。基本流程是当gitlab上有新的push产生时，触发jenkins构建任务，jenkins在pull项目并完成如build／make等上线前的准备工作后，将build／make后的文件打包到docker中，并将其run起来。">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4226917-783723e3524cedc7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="Network-浅谈物理层">
+<meta name="twitter:description" content="简述物理层主要任务是将比特成功的在两台机器之间进行传输。所以问题主要集中在选用何种传输介质，如何传输以及高效的传输等。  物理层由于涉及硬件，不作过多讨论，就其中重点内容作简单介绍展开。  传输介质常见的可以用于传输的物理介质主要包含以下几种： 双绞线两根相互绝缘的直径约为1毫米的铜线以螺旋形式紧紧绞在一起，形成类似DNA分子链的结构。两根铜线绞在一起后所产生的干扰波可以相互抵消，显著降低电线的辐">
+<meta name="twitter:image" content="http://ojiqea97q.bkt.clouddn.com/network/WechatIMG484.jpeg">
 
 
 
@@ -129,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xiaolewei.com/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/"/>
+  <link rel="canonical" href="http://www.xiaolewei.com/2018/01/29/Network-浅谈物理层/"/>
 
 
 
 
 
-  <title> 基于Docker版jenkins的持续集成环境搭建(二) | I am Busy </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Network-浅谈物理层 | I am Busy </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -312,7 +314,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/">
+    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2018/01/29/Network-浅谈物理层/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="William Wei">
@@ -333,7 +335,7 @@
             
             
               
-                基于Docker版jenkins的持续集成环境搭建(二)
+                Network-浅谈物理层
               
             
           </h2>
@@ -348,8 +350,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-06T17:33:33+08:00">
-                2017-03-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-29T23:38:41+08:00">
+                2018-01-29
               </time>
             
 
@@ -371,8 +373,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/Network/" itemprop="url" rel="index">
+                    <span itemprop="name">Network</span>
                   </a>
                 </span>
 
@@ -389,8 +391,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/" itemprop="commentCount"></span>
+                <a href="/2018/01/29/Network-浅谈物理层/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/01/29/Network-浅谈物理层/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -398,7 +400,7 @@
 
           
           
-             <span id="/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/" class="leancloud_visitors" data-flag-title="基于Docker版jenkins的持续集成环境搭建(二)">
+             <span id="/2018/01/29/Network-浅谈物理层/" class="leancloud_visitors" data-flag-title="Network-浅谈物理层">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -427,46 +429,40 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前一篇对jenkins的环境搭建做了简单介绍，这一篇内容主要是如何借助jenkins，自动构建并run一个目标docker。基本流程是当gitlab上有新的push产生时，触发jenkins构建任务，jenkins在pull项目并完成如build／make等上线前的准备工作后，将build／make后的文件打包到docker中，并将其run起来。<br><a id="more"></a></p>
-<h1 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h1><p>Docker、DooD(Docker outside of Docker)、CI、Jenkins</p>
-<h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h1><ul>
-<li>Docker / <a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener">Dockerfile</a> / <a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener">Docker Compose</a></li>
-</ul>
-<h1 id="重构Jenkins镜像"><a href="#重构Jenkins镜像" class="headerlink" title="重构Jenkins镜像"></a>重构Jenkins镜像</h1><p>新建Dockerfile，以官方Jenkins为基本镜像(不建议使用alpine的版本，虽然镜像文件比较小，但是后面的过程中遇到了很多问题，最好还是果断弃坑回到ubuntu)，将jenkins用户加入到docker的group中，原因后面会说，并安装nodejs（这个可选）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">FROM jenkins</div><div class="line"></div><div class="line">USER root</div><div class="line">ARG dockerGid=978</div><div class="line"></div><div class="line"></div><div class="line">ENV NODE_VERSION 6.9.4</div><div class="line"></div><div class="line">#add jenkins to docker group and install nodejs/npm</div><div class="line"></div><div class="line">RUN echo &quot;docker:x:$&#123;dockerGid&#125;:jenkins&quot; &gt;&gt; /etc/group \</div><div class="line">	&amp;&amp; cd /home \</div><div class="line">	&amp;&amp; curl -SLO &quot;https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz&quot; \</div><div class="line">	&amp;&amp; xz -d &quot;node-v$NODE_VERSION-linux-x64.tar.xz&quot; \</div><div class="line">	&amp;&amp; tar xvf &quot;node-v$NODE_VERSION-linux-x64.tar&quot; \</div><div class="line">	&amp;&amp; ln -s /home/node-v$NODE_VERSION-linux-x64/bin/node /usr/local/bin/node \</div><div class="line">	&amp;&amp; ln -s /home/node-v$NODE_VERSION-linux-x64/bin/npm /usr/local/bin/npm \</div><div class="line">	&amp;&amp; rm -rf &quot;node-v$NODE_VERSION-linux-x64.tar&quot;</div><div class="line"></div><div class="line"></div><div class="line">USER jenkins</div></pre></td></tr></table></figure></p>
-<p>这里的dockerGid参数为host上docker用户组的groupid，运行命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker build -t local_jenkins .</div></pre></td></tr></table></figure></p>
-<p>构建自己的本地jenkins镜像</p>
-<h1 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h1><p>这里选择使用docker compose工具，将各项参数写到文件中。</p>
-<p><strong> <em> 这里相比上一篇多了两个挂载点，一个是/bin/docker，一个是/var/run/docker.sock。实现DooD（Docker outside of Docker)的关键就在这里，通过将docker、docker.scok暴露到jenkins的容器中，由于jenkins用户已在docker的组中，故有权限使用docker命令，且run起来的container实际上就是是运行在host主机上。</em> </strong></p>
-<ul>
-<li>docker-compose.yml文件：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">version: &apos;2&apos;</div><div class="line">services:</div><div class="line">  my_jenkins:</div><div class="line">    image: local_jenkins</div><div class="line">    volumes:</div><div class="line">      - /root/docker/jenkins:/var/jenkins_home</div><div class="line">      - /bin/docker:/usr/bin/docker</div><div class="line">      - /var/run/docker.sock:/var/run/docker.sock</div><div class="line"></div><div class="line">    ports:</div><div class="line">      - &quot;9000:8080&quot;</div></pre></td></tr></table></figure>
-<p>运行命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker-compose up</div></pre></td></tr></table></figure></p>
-<p>我们定制好的jenkins container就可以正常工作了。</p>
-<h1 id="构建任务"><a href="#构建任务" class="headerlink" title="构建任务"></a>构建任务</h1><p>首先是一些准备工作。目标任务是一个AngularJS的前端项目(可以参看我的另一篇文章<a href="http://www.jianshu.com/p/e45ace90d77c" target="_blank" rel="noopener">webpack-angular</a>，基本类似)，需要nodejs／npm准备环境，由于全部为静态文件，所以选用nginx作为服务器。</p>
-<p>目标Container的Dockerfile：将webpack构建后的文件（位于build目录）拷贝到容器的html目录内。不推荐使用挂载点的方式进行，尽量减少容器的依赖。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">FROM nginx:stable-alpine</div><div class="line"></div><div class="line">COPY ./build/* /usr/share/nginx/html/</div></pre></td></tr></table></figure></p>
-<p>我这里是直接把Dockerfile文件放在了前端项目的根目录下。</p>
-<ol>
-<li>登录Jenkins，新建一个自由风格的软件项目。</li>
-<li>源码管理选择git，并添加Repository URL、Credentials</li>
-<li>构建触发器选择Gitlab trigger(如果不存在该选项，则自行到jenkins的插件管理页面安装该插件)<br><img src="http://upload-images.jianshu.io/upload_images/4226917-783723e3524cedc7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
-<li>构建选择 Execute Shell，命令如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">npm update;</div><div class="line">npm start test;</div><div class="line">docker stop front_dev || true;</div><div class="line">docker rm front_dev || true;</div><div class="line">docker build -t front_dev .;</div><div class="line">docker run --name front_dev -p 10080:80 -d front_dev;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>这里有几个注意点：</p>
-<ul>
-<li><strong> docker stop／rm 命令后加上 || true</strong><br>当shell中有命令执行失败时，jenkins会判定构建失败，从而结束构建工作。加上||true，无论当前front_dev 是否在运行，是否有，该命令都返回执行成功，使shell可以继续执行下去</li>
-<li><p><strong>docker run -d </strong><br>-d 表示容器以daemon状态运行，有些镜像run之后会处于挂起状态，使得构建的shell脚本一直无法结束</p>
-</li>
-<li><p>shell中的front_dev为镜像、容器名字，可以自行重命名</p>
-</li>
-</ul>
-<h1 id="Gitlab-Trigger"><a href="#Gitlab-Trigger" class="headerlink" title="Gitlab Trigger"></a>Gitlab Trigger</h1><p>登录gitlab，进入项目页面。右上角选择Webhooks：<br><img src="http://upload-images.jianshu.io/upload_images/4226917-9eacc3a2b6f26a87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>在设置页面的URL中填写 <strong>在构建Jenkins任务选择Gitlab Triggers上方出现的Service URL</strong>。点击Add。<br>添加完成后可以点击Test按钮或者进行git push操作，查看是否可以触发自动构建任务。</p>
-<p>至此，持续集成环境的主流程基本完成。流程中后续可以继续添加测试等环节。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="http://container-solutions.com/running-docker-in-jenkins-in-docker/" target="_blank" rel="noopener">http://container-solutions.com/running-docker-in-jenkins-in-docker/</a></li>
-<li><a href="http://container-solutions.com/continuous-delivery-with-docker-on-mesos-in-less-than-a-minute/" target="_blank" rel="noopener">http://container-solutions.com/continuous-delivery-with-docker-on-mesos-in-less-than-a-minute/</a></li>
-</ul>
+        <h1 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h1><p>物理层主要任务是将比特成功的在两台机器之间进行传输。所以问题主要集中在选用何种传输介质，如何传输以及高效的传输等。</p>
+<blockquote>
+<p>物理层由于涉及硬件，不作过多讨论，就其中重点内容作简单介绍展开。</p>
+</blockquote>
+<h1 id="传输介质"><a href="#传输介质" class="headerlink" title="传输介质"></a>传输介质</h1><p>常见的可以用于传输的物理介质主要包含以下几种：</p>
+<h3 id="双绞线"><a href="#双绞线" class="headerlink" title="双绞线"></a>双绞线</h3><p>两根相互绝缘的直径约为1毫米的铜线以螺旋形式紧紧绞在一起，形成类似DNA分子链的结构。两根铜线绞在一起后所产生的干扰波可以相互抵消，显著降低电线的辐射。</p>
+<a id="more"></a>
+<p>信号通常以两根铜线之间的电压差表示，这样可以具有更好的抗干扰能力。既可以传输模拟信号，也可以传输数字信号，一般可以传输几千米距离而不发生明显衰减。</p>
+<p>常见的网线即由四根这样的双绞线组合而成</p>
+<h3 id="同轴电缆"><a href="#同轴电缆" class="headerlink" title="同轴电缆"></a>同轴电缆</h3><p>铜芯的外层包裹一层绝缘材料，再套上一层密织的网状导体并最外再覆盖上塑料外套即位同轴电缆，它具有更高的带宽以及更好的抗干扰性。</p>
+<p>铜芯中传导交流电进行信号传输，而高频电流会辐射电磁波，损耗信号功率，而网状导体可以很好的解决该问题，屏蔽辐射。</p>
+<h3 id="光纤"><a href="#光纤" class="headerlink" title="光纤"></a>光纤</h3><p>光在两种介质交界处会产生折射现象，而选取适当的介质与入射角，可以使光发生全反射。高纯度的二氧化硅（玻璃）即是这样的适当介质。将直径约为50微米的玻璃芯外覆盖另一层折射率稍低的玻璃层，并套上塑料封套即为光纤。</p>
+<p>通常将有光脉冲视作信号1，无光脉冲视作信号0，进行信号传输。</p>
+<h1 id="数字调制"><a href="#数字调制" class="headerlink" title="数字调制"></a>数字调制</h1><p>即解决如何传输问题。不同的物理介质具有不同的表示和传送比特的方式，而将比特转换成具体的物理介质上的状态或反之的过程称为数字调制。即可以理解为，计算机通过数字调制的方式将比特数据发送到具体的物理介质上，而接受端同样的从物理介质上通过数字调制的方式恢复出发送方的比特。</p>
+<p>我们称信号的传输占据传输介质零到最大值所有频率的方式成为基带传输。下面为集中常见编码方式<br><img src="http://ojiqea97q.bkt.clouddn.com/network/WechatIMG484.jpeg" alt="编码方式"></p>
+<h3 id="不归零-NRZ"><a href="#不归零-NRZ" class="headerlink" title="不归零 NRZ"></a>不归零 NRZ</h3><p>用一次电压跳变来表示1，电压不变表示0，如图上的(b)。这种编码方式效率高，但是对同步时钟有较高的要求，试想，对于连续的20个0，接受器很可能会认为是21或者19个0。所以这种方式一般需要额外一根时钟线用来同步时钟。</p>
+<h3 id="不归零逆转-NRZI"><a href="#不归零逆转-NRZI" class="headerlink" title="不归零逆转 NRZI"></a>不归零逆转 NRZI</h3><blockquote>
+<p>上图中的c总感觉有些问题</p>
+</blockquote>
+<p>该编码方式遇到0时进行电压跳变，遇到1时维持电压不变。与上面的不归零正好相反。<br><img src="https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=5ae1e2cb8c5494ee932f074b4c9c8b9b/eac4b74543a9822666c348538a82b9014a90eb40.jpg" alt="NRZI">当然同样会遇到如果连续的1过长，难以同步的问题，解决办法就是每出现连续的6个1时，再后面插入一个0，解码时则当遇到6个1时，跳过后面的一个0。</p>
+<h3 id="曼彻斯特"><a href="#曼彻斯特" class="headerlink" title="曼彻斯特"></a>曼彻斯特</h3><p>将时钟信号与数据信号进行异或，即每个周期中间均有一次跳变，从低电压跳变为高电压表示0，从高电压跳变到低电压表示1，这样可以很好的解决同步问题，但是相应的，这种编码方式会需要更多的带宽。<br><img src="http://ojiqea97q.bkt.clouddn.com/network/002dho0Vzy759GymSeb37.jpeg" alt="曼彻斯特"></p>
+<h1 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h1><p>解决了如何传输之后就是考虑如何高效的传输，如何最大程度的利用传输介质。这里有大概这么几种复用技术</p>
+<h3 id="頻分复用-FDM"><a href="#頻分复用-FDM" class="headerlink" title="頻分复用 FDM"></a>頻分复用 FDM</h3><p>即将传输介质上根据频率划分为不同信道，供不同用户使用。例如FM无线广播，他在500-1500KHz上给不同的信道分配不同频率</p>
+<h3 id="时分复用-TDM"><a href="#时分复用-TDM" class="headerlink" title="时分复用 TDM"></a>时分复用 TDM</h3><p>用户以循环方式轮流获得使用时间，总的输出流是各个输入流的片段混合，如有必要会增加保护时间片。<br><img src="http://ojiqea97q.bkt.clouddn.com/network/Screen%20Shot%202018-01-07%20at%2011.14.02%20PM.png" alt=""></p>
+<h3 id="码分复用-CDM"><a href="#码分复用-CDM" class="headerlink" title="码分复用 CDM"></a>码分复用 CDM</h3><p>它把一个窄带信号扩展到一个较宽的频带上，从而允许不同用户的多个信号共享相同的频带，又被称为码分多址CDMA。</p>
+<p>该模式将每个比特时间分成m个片段，称为<code>码片</code>，通常情况下为64或128个。为每个用户或站分配唯一的m位码，称为<code>码片序列</code>，且所有序列两两正交，对任意序列S和T，有S·T=0。当发送数据时，用户发送改序列表示1，该序列的相反数表示0。而信道上传输的为多个站的信号的线形叠加。接受端为了恢复某一站的信号，会使用该站对应码片序列点乘上信道上的叠加信号。</p>
+<p>举个例子，不妨令m=8，为A分配序列（-1，-1，-1，+1，+1，-1，+1，+1），则A发送该序列表示1，发送（+1，+1，+1，-1，-1，+1，-1，-1）表示0。</p>
+<p>现有如下四个站的码片序列：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">A=(-1,-1,-1,+1,+1,-1,+1,+1)</div><div class="line">B=(-1,-1,+1,-1,+1,+1,+1,-1)</div><div class="line">C=(-1,+1,-1,+1,+1,+1,-1,-1)</div><div class="line">D=(-1,+1,-1,-1,-1,-1,+1,-1)</div></pre></td></tr></table></figure>
+<p>同一时间内，每个站既可以发送1，也可以发送0，也可以保持沉默。不妨假设现时间BC同时发送1，则信道上传输的信号为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(-1,-1,+1,-1,+1,+1,+1,-1) + (-1,+1,-1,+1,+1,+1,-1,-1) = (-2,0,0,0,+2,+2,0,-2)</div></pre></td></tr></table></figure>
+<p>为了得到C站发送的信号，我们将C的码片序列点乘该信号：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(-2,0,0,0,+2,+2,0,-2)·(-1,+1,-1,+1,+1,+1,-1,-1) = 1</div></pre></td></tr></table></figure>
+<p>从而恢复出C站发送信号为1。</p>
 
       
     </div>
@@ -490,13 +486,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Docker/" rel="tag"># Docker</a>
-          
-            <a href="/tags/Jenkins/" rel="tag"># Jenkins</a>
-          
-            <a href="/tags/DooD/" rel="tag"># DooD</a>
-          
-            <a href="/tags/CI/" rel="tag"># CI</a>
+            <a href="/tags/Network/" rel="tag"># Network</a>
           
         </div>
       
@@ -509,8 +499,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/06/基于Docker版jenkins的持续集成环境搭建(一)/" rel="next" title="基于Docker版jenkins的持续集成环境搭建(一)">
-                <i class="fa fa-chevron-left"></i> 基于Docker版jenkins的持续集成环境搭建(一)
+              <a href="/2018/01/25/决策树中几个重要量/" rel="next" title="决策树中几个重要量">
+                <i class="fa fa-chevron-left"></i> 决策树中几个重要量
               </a>
             
           </div>
@@ -518,10 +508,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/09/浅谈laravel Container及其项目实践/" rel="prev" title="浅谈laravel Container及其项目实践">
-                浅谈laravel Container及其项目实践 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -536,10 +522,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/"
-     data-title="基于Docker版jenkins的持续集成环境搭建(二)"
+        <div class="ds-share flat" data-thread-key="2018/01/29/Network-浅谈物理层/"
+     data-title="Network-浅谈物理层"
      data-content=""
-     data-url="http://www.xiaolewei.com/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/">
+     data-url="http://www.xiaolewei.com/2018/01/29/Network-浅谈物理层/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -566,8 +552,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/"
-           data-title="基于Docker版jenkins的持续集成环境搭建(二)" data-url="http://www.xiaolewei.com/2017/03/06/基于Docker版jenkins的持续集成环境搭建(二)/">
+      <div class="ds-thread" data-thread-key="2018/01/29/Network-浅谈物理层/"
+           data-title="Network-浅谈物理层" data-url="http://www.xiaolewei.com/2018/01/29/Network-浅谈物理层/">
       </div>
     
   </div>
@@ -673,7 +659,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键字"><span class="nav-number">2.</span> <span class="nav-text">关键字</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#预备知识"><span class="nav-number">3.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重构Jenkins镜像"><span class="nav-number">4.</span> <span class="nav-text">重构Jenkins镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动容器"><span class="nav-number">5.</span> <span class="nav-text">启动容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构建任务"><span class="nav-number">6.</span> <span class="nav-text">构建任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Gitlab-Trigger"><span class="nav-number">7.</span> <span class="nav-text">Gitlab Trigger</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简述"><span class="nav-number">1.</span> <span class="nav-text">简述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#传输介质"><span class="nav-number">2.</span> <span class="nav-text">传输介质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#双绞线"><span class="nav-number">2.0.1.</span> <span class="nav-text">双绞线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同轴电缆"><span class="nav-number">2.0.2.</span> <span class="nav-text">同轴电缆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#光纤"><span class="nav-number">2.0.3.</span> <span class="nav-text">光纤</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数字调制"><span class="nav-number">3.</span> <span class="nav-text">数字调制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#不归零-NRZ"><span class="nav-number">3.0.1.</span> <span class="nav-text">不归零 NRZ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不归零逆转-NRZI"><span class="nav-number">3.0.2.</span> <span class="nav-text">不归零逆转 NRZI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#曼彻斯特"><span class="nav-number">3.0.3.</span> <span class="nav-text">曼彻斯特</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多路复用"><span class="nav-number">4.</span> <span class="nav-text">多路复用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#頻分复用-FDM"><span class="nav-number">4.0.1.</span> <span class="nav-text">頻分复用 FDM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时分复用-TDM"><span class="nav-number">4.0.2.</span> <span class="nav-text">时分复用 TDM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#码分复用-CDM"><span class="nav-number">4.0.3.</span> <span class="nav-text">码分复用 CDM</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
