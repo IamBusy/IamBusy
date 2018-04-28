@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="I am Busy">
 <meta property="og:description" content="具有相同timestamp的数据覆盖问题问题描述：通过Python客户端，批量写入具有相同timestamp的point时，发现数据库最后只写入了最后一个point。 解决方案 How does InfluxDB handle duplicate points? A point is uniquely identified by the measurement name, tag set, and">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-04-28T09:21:45.000Z">
+<meta property="og:updated_time" content="2018-04-28T09:25:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Influxdb使用中碰到的一些坑">
 <meta name="twitter:description" content="具有相同timestamp的数据覆盖问题问题描述：通过Python客户端，批量写入具有相同timestamp的point时，发现数据库最后只写入了最后一个point。 解决方案 How does InfluxDB handle duplicate points? A point is uniquely identified by the measurement name, tag set, and">
@@ -429,8 +429,9 @@
 <p>How does InfluxDB handle duplicate points?</p>
 <p>A point is uniquely identified by the measurement name, tag set, and timestamp.<br>If you submit a new point with the same measurement, tag set, and timestamp as an existing point,<br>the field set becomes the union of the old field set and the new field set,<br>where any ties go to the new field set. This is the intended behavior.</p>
 </blockquote>
+<a id="more"></a>
 <p>对于同一个measurement中，具有相同timestamp和tags的数据，Influxdb将总是会用最新的数据替换掉老的数据，可以认为measurement、timestamp和tags组成了一个unique键， 即<code>series</code>。</p>
-<h1 id="partial-write-max-values-per-tag-limit-exceeded-100009-100000"><a href="#partial-write-max-values-per-tag-limit-exceeded-100009-100000" class="headerlink" title="partial write: max-values-per-tag limit exceeded(100009/100000)"></a>partial write: max-values-per-tag limit exceeded(100009/100000)</h1><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>写入数据时，抛出<code>Partial Write</code>的异常：</p>
+<h1 id="max-values-per-tag-limit-exceeded"><a href="#max-values-per-tag-limit-exceeded" class="headerlink" title="max-values-per-tag limit exceeded"></a>max-values-per-tag limit exceeded</h1><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>写入数据时，抛出<code>Partial Write</code>的异常：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"error"</span>: <span class="string">"partial write: max-values-per-tag limit exceeded (100000/100000): measurement=\"ad_wharf\" tag=\"count_time\" value=\"count_time\" dropped=1"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h3><blockquote>
 <p>The maximum number of tag values allowed per tag key. The default setting is 100000. Change the setting to 0 to allow an unlimited number of tag values per tag key. If a tag value causes the number of tag values of a tag key to exceed max-values-per-tag InfluxDB will not write the point, and it returns a partial write error.</p>
@@ -634,7 +635,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#具有相同timestamp的数据覆盖问题"><span class="nav-number">1.</span> <span class="nav-text">具有相同timestamp的数据覆盖问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述："><span class="nav-number">1.0.1.</span> <span class="nav-text">问题描述：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">1.0.2.</span> <span class="nav-text">解决方案</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#partial-write-max-values-per-tag-limit-exceeded-100009-100000"><span class="nav-number">2.</span> <span class="nav-text">partial write: max-values-per-tag limit exceeded(100009/100000)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述"><span class="nav-number">2.0.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案-1"><span class="nav-number">2.0.2.</span> <span class="nav-text">解决方案</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#具有相同timestamp的数据覆盖问题"><span class="nav-number">1.</span> <span class="nav-text">具有相同timestamp的数据覆盖问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述："><span class="nav-number">1.0.1.</span> <span class="nav-text">问题描述：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">1.0.2.</span> <span class="nav-text">解决方案</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#max-values-per-tag-limit-exceeded"><span class="nav-number">2.</span> <span class="nav-text">max-values-per-tag limit exceeded</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述"><span class="nav-number">2.0.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案-1"><span class="nav-number">2.0.2.</span> <span class="nav-text">解决方案</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

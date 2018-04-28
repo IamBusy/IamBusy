@@ -425,23 +425,18 @@
 
       
         
-          
-            <h1 id="具有相同timestamp的数据覆盖问题"><a href="#具有相同timestamp的数据覆盖问题" class="headerlink" title="具有相同timestamp的数据覆盖问题"></a>具有相同timestamp的数据覆盖问题</h1><h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><p>通过Python客户端，批量写入具有相同timestamp的point时，发现数据库最后只写入了最后一个point。</p>
+          <h1 id="具有相同timestamp的数据覆盖问题"><a href="#具有相同timestamp的数据覆盖问题" class="headerlink" title="具有相同timestamp的数据覆盖问题"></a>具有相同timestamp的数据覆盖问题</h1><h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><p>通过Python客户端，批量写入具有相同timestamp的point时，发现数据库最后只写入了最后一个point。</p>
 <h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><blockquote>
 <p>How does InfluxDB handle duplicate points?</p>
 <p>A point is uniquely identified by the measurement name, tag set, and timestamp.<br>If you submit a new point with the same measurement, tag set, and timestamp as an existing point,<br>the field set becomes the union of the old field set and the new field set,<br>where any ties go to the new field set. This is the intended behavior.</p>
 </blockquote>
-<p>对于同一个measurement中，具有相同timestamp和tags的数据，Influxdb将总是会用最新的数据替换掉老的数据，可以认为measurement、timestamp和tags组成了一个unique键， 即<code>series</code>。</p>
-<h1 id="partial-write-max-values-per-tag-limit-exceeded-100009-100000"><a href="#partial-write-max-values-per-tag-limit-exceeded-100009-100000" class="headerlink" title="partial write: max-values-per-tag limit exceeded(100009/100000)"></a>partial write: max-values-per-tag limit exceeded(100009/100000)</h1><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>写入数据时，抛出<code>Partial Write</code>的异常：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"error"</span>: <span class="string">"partial write: max-values-per-tag limit exceeded (100000/100000): measurement=\"ad_wharf\" tag=\"count_time\" value=\"count_time\" dropped=1"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h3><blockquote>
-<p>The maximum number of tag values allowed per tag key. The default setting is 100000. Change the setting to 0 to allow an unlimited number of tag values per tag key. If a tag value causes the number of tag values of a tag key to exceed max-values-per-tag InfluxDB will not write the point, and it returns a partial write error.</p>
-<p>Any existing tag keys with tag values that exceed max-values-per-tag will continue to accept writes, but writes that create a new tag value will fail.</p>
-<p>Environment variable: <code>INFLUXDB_DATA_MAX_VALUES_PER_TAG</code></p>
-</blockquote>
-<p>启动Influxdb时增加<code>INFLUXDB_DATA_MAX_VALUES_PER_TAG</code>环境变量，设置为所需要的值，如果设为0，则表示不限制tag value的数量。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/28/Influxdb使用中碰到的一些坑/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
