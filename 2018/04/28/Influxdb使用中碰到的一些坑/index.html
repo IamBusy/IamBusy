@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Java,Mybatis," />
+  <meta name="keywords" content="Influxdb," />
 
 
 
@@ -87,22 +87,18 @@
 
 
 
-<meta name="description" content="目录  入门 Mybatis Generator    是什么Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。 怎么做其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一">
-<meta name="keywords" content="Java,Mybatis">
+<meta name="description" content="具有相同timestamp的数据覆盖问题问题描述：通过Python客户端，批量写入具有相同timestamp的point时，发现数据库最后只写入了最后一个point。 解决方案 How does InfluxDB handle duplicate points? A point is uniquely identified by the measurement name, tag set, and">
+<meta name="keywords" content="Influxdb">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入浅出Mybatis－Mybatis-Generator">
-<meta property="og:url" content="http://www.xiaolewei.com/2017/03/04/深入浅出Mybatis－Mybatis-Generator/index.html">
+<meta property="og:title" content="Influxdb使用中碰到的一些坑">
+<meta property="og:url" content="http://www.xiaolewei.com/2018/04/28/Influxdb使用中碰到的一些坑/index.html">
 <meta property="og:site_name" content="I am Busy">
-<meta property="og:description" content="目录  入门 Mybatis Generator    是什么Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。 怎么做其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一">
+<meta property="og:description" content="具有相同timestamp的数据覆盖问题问题描述：通过Python客户端，批量写入具有相同timestamp的point时，发现数据库最后只写入了最后一个point。 解决方案 How does InfluxDB handle duplicate points? A point is uniquely identified by the measurement name, tag set, and">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-d0d4671d83983842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-dfee16711e64ba33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4226917-ba0a8555b6a45f68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-03-06T08:49:21.000Z">
+<meta property="og:updated_time" content="2018-04-28T09:21:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入浅出Mybatis－Mybatis-Generator">
-<meta name="twitter:description" content="目录  入门 Mybatis Generator    是什么Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。 怎么做其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4226917-d0d4671d83983842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="Influxdb使用中碰到的一些坑">
+<meta name="twitter:description" content="具有相同timestamp的数据覆盖问题问题描述：通过Python客户端，批量写入具有相同timestamp的point时，发现数据库最后只写入了最后一个point。 解决方案 How does InfluxDB handle duplicate points? A point is uniquely identified by the measurement name, tag set, and">
 
 
 
@@ -130,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xiaolewei.com/2017/03/04/深入浅出Mybatis－Mybatis-Generator/"/>
+  <link rel="canonical" href="http://www.xiaolewei.com/2018/04/28/Influxdb使用中碰到的一些坑/"/>
 
 
 
 
 
-  <title> 深入浅出Mybatis－Mybatis-Generator | I am Busy </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Influxdb使用中碰到的一些坑 | I am Busy </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -313,7 +309,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2017/03/04/深入浅出Mybatis－Mybatis-Generator/">
+    <link itemprop="mainEntityOfPage" href="http://www.xiaolewei.com/2018/04/28/Influxdb使用中碰到的一些坑/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="William Wei">
@@ -334,7 +330,7 @@
             
             
               
-                深入浅出Mybatis－Mybatis-Generator
+                Influxdb使用中碰到的一些坑
               
             
           </h2>
@@ -349,8 +345,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-04T23:50:25+08:00">
-                2017-03-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-28T17:20:18+08:00">
+                2018-04-28
               </time>
             
 
@@ -372,8 +368,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Influxdb/" itemprop="url" rel="index">
+                    <span itemprop="name">Influxdb</span>
                   </a>
                 </span>
 
@@ -390,8 +386,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/04/深入浅出Mybatis－Mybatis-Generator/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/04/深入浅出Mybatis－Mybatis-Generator/" itemprop="commentCount"></span>
+                <a href="/2018/04/28/Influxdb使用中碰到的一些坑/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/04/28/Influxdb使用中碰到的一些坑/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -399,7 +395,7 @@
 
           
           
-             <span id="/2017/03/04/深入浅出Mybatis－Mybatis-Generator/" class="leancloud_visitors" data-flag-title="深入浅出Mybatis－Mybatis-Generator">
+             <span id="/2018/04/28/Influxdb使用中碰到的一些坑/" class="leancloud_visitors" data-flag-title="Influxdb使用中碰到的一些坑">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -428,34 +424,20 @@
       
 
       
-        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><blockquote>
-<ol>
-<li><a href="http://www.jianshu.com/p/06f68617fc04" target="_blank" rel="noopener">入门</a></li>
-<li>Mybatis Generator</li>
-</ol>
+        <h1 id="具有相同timestamp的数据覆盖问题"><a href="#具有相同timestamp的数据覆盖问题" class="headerlink" title="具有相同timestamp的数据覆盖问题"></a>具有相同timestamp的数据覆盖问题</h1><h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><p>通过Python客户端，批量写入具有相同timestamp的point时，发现数据库最后只写入了最后一个point。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><blockquote>
+<p>How does InfluxDB handle duplicate points?</p>
+<p>A point is uniquely identified by the measurement name, tag set, and timestamp.<br>If you submit a new point with the same measurement, tag set, and timestamp as an existing point,<br>the field set becomes the union of the old field set and the new field set,<br>where any ties go to the new field set. This is the intended behavior.</p>
 </blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/4226917-d0d4671d83983842.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Mybatis"></p>
-<h1 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h1><p>Mybatis Generator是Mybatis的代码生成工具，它根据数据库的表结构信息，逆向生成Java代码中对应的POJO类、DAO层以及映射文件等。对数据库的基本操作CRUD等都可以直接通过它创建的类调用完成，省去了手动写这些重复代码的工作。</p>
-<h1 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h1><p>其实要使用Mybatis Generator除了下载jar包之后，只需要额外多一个配置文件即可。以如下官网样例为例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;!DOCTYPE generatorConfiguration</div><div class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</div><div class="line">  &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</div><div class="line"></div><div class="line">&lt;generatorConfiguration&gt;</div><div class="line">  &lt;classPathEntry location=&quot;/Program Files/IBM/SQLLIB/java/db2java.zip&quot; /&gt;</div><div class="line"></div><div class="line">  &lt;context id=&quot;DB2Tables&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</div><div class="line">    &lt;jdbcConnection driverClass=&quot;COM.ibm.db2.jdbc.app.DB2Driver&quot;</div><div class="line">        connectionURL=&quot;jdbc:db2:TEST&quot;</div><div class="line">        userId=&quot;db2admin&quot;</div><div class="line">        password=&quot;db2admin&quot;&gt;</div><div class="line">    &lt;/jdbcConnection&gt;</div><div class="line"></div><div class="line">    &lt;javaTypeResolver &gt;</div><div class="line">      &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;</div><div class="line">    &lt;/javaTypeResolver&gt;</div><div class="line"></div><div class="line">    &lt;javaModelGenerator targetPackage=&quot;test.model&quot; targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">      &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/javaModelGenerator&gt;</div><div class="line"></div><div class="line">    &lt;sqlMapGenerator targetPackage=&quot;test.xml&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/sqlMapGenerator&gt;</div><div class="line"></div><div class="line">    &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;test.dao&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</div><div class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</div><div class="line">    &lt;/javaClientGenerator&gt;</div><div class="line"></div><div class="line">    &lt;table schema=&quot;DB2ADMIN&quot; tableName=&quot;ALLTYPES&quot; domainObjectName=&quot;Customer&quot; &gt;</div><div class="line">      &lt;property name=&quot;useActualColumnNames&quot; value=&quot;true&quot;/&gt;</div><div class="line">      &lt;generatedKey column=&quot;ID&quot; sqlStatement=&quot;DB2&quot; identity=&quot;true&quot; /&gt;</div><div class="line">      &lt;columnOverride column=&quot;DATE_FIELD&quot; property=&quot;startDate&quot; /&gt;</div><div class="line">      &lt;ignoreColumn column=&quot;FRED&quot; /&gt;</div><div class="line">      &lt;columnOverride column=&quot;LONG_VARCHAR_FIELD&quot; jdbcType=&quot;VARCHAR&quot; /&gt;</div><div class="line">    &lt;/table&gt;</div><div class="line"></div><div class="line">  &lt;/context&gt;</div><div class="line">&lt;/generatorConfiguration&gt;</div></pre></td></tr></table></figure>
-<p>配置好了配置文件后，可以通过ant、maven等方式运行，当然也可以通过命令行的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -jar mybatis-generator-core-x.x.x.jar -configfile generatorConfig.xml</div></pre></td></tr></table></figure></p>
-<p>运行之后，就可以自动在对应位置生成相关文件。</p>
-<h1 id="Model、Client、sqlMap"><a href="#Model、Client、sqlMap" class="headerlink" title="Model、Client、sqlMap:"></a>Model、Client、sqlMap:</h1><p>配置文件中的<code>jdbcConnection</code>是数据库链接的一些配置信息，包括用户名、密码、驱动等</p>
-<p>每一个<code>&lt;table/&gt;</code>标签对应一张表，代码生成时，Mybatis Generator会扫描对应数据库中的这些表，不在配置文件中的表是会被忽略的。</p>
-<p><code>javaModelGenerator</code>,<code>sqlMapGenerator</code>,<code>javaClientGenerator</code>这三个是比较有疑惑的。需要结合他们具体的使用方式才能知道各自的作用。</p>
-<ul>
-<li><p>Model<br>主要包含4类，表名为<code>Table</code>时有如下结构。<br><img src="http://upload-images.jianshu.io/upload_images/4226917-dfee16711e64ba33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>如果该表存在联合主键，则会生成该主键类(TableKey)。余下字段除<code>BLOB</code>类型外均会在记录类(Table)中，该类会继承<code>TableKey</code>（如果主键仅包含一个字段，由于不存在TableKey，该类不存在父类），<code>BLOB</code>类型的其余字段单独一个<code>TableWithBLOBs</code>类。<br>对于<code>TableExample</code>类，通过<code>Criteria</code>提供一套通用的查询接口，与<code>Laravel</code>的<code>Query Builder</code>类似，但是这里是不执行具体查询操作的，相当于只是将所需要的操作转换为对应的SQL</p>
-</li>
-<li><p>Client<br>每个table会生成一个对应TableMapper接口以及TableSqlMapper的”实现类”，通过在TableMapper接口的方法上的SelectProvider注解，将接口对应的实现映射到TableSqlMapper。这个包更像是DAO，Example类各种查询最后是要通过这里的Mapper去执行真正的查询操作。<br><img src="http://upload-images.jianshu.io/upload_images/4226917-ba0a8555b6a45f68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-</li>
-<li><p>sqlMap<br>Mybaits3.X后，如果Client是选择Mapper接口＋注解方式，则不会有该包。该包作用是将查询对应SQL影射到xml配置文件中。</p>
-</li>
-</ul>
-<p>大致这些内容。关于配置具体内容与含义可以看文末的参考文档，参考性质的内容就不写在这里了。</p>
-<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ul>
-<li><a href="http://www.mybatis.org/generator/index.html" target="_blank" rel="noopener">官方文档</a></li>
-<li><a href="http://blog.csdn.net/isea533/article/details/42102297" target="_blank" rel="noopener">配置详解</a></li>
-</ul>
+<p>对于同一个measurement中，具有相同timestamp和tags的数据，Influxdb将总是会用最新的数据替换掉老的数据，可以认为measurement、timestamp和tags组成了一个unique键， 即<code>series</code>。</p>
+<h1 id="partial-write-max-values-per-tag-limit-exceeded-100009-100000"><a href="#partial-write-max-values-per-tag-limit-exceeded-100009-100000" class="headerlink" title="partial write: max-values-per-tag limit exceeded(100009/100000)"></a>partial write: max-values-per-tag limit exceeded(100009/100000)</h1><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>写入数据时，抛出<code>Partial Write</code>的异常：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"error"</span>: <span class="string">"partial write: max-values-per-tag limit exceeded (100000/100000): measurement=\"ad_wharf\" tag=\"count_time\" value=\"count_time\" dropped=1"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h3><blockquote>
+<p>The maximum number of tag values allowed per tag key. The default setting is 100000. Change the setting to 0 to allow an unlimited number of tag values per tag key. If a tag value causes the number of tag values of a tag key to exceed max-values-per-tag InfluxDB will not write the point, and it returns a partial write error.</p>
+<p>Any existing tag keys with tag values that exceed max-values-per-tag will continue to accept writes, but writes that create a new tag value will fail.</p>
+<p>Environment variable: <code>INFLUXDB_DATA_MAX_VALUES_PER_TAG</code></p>
+</blockquote>
+<p>启动Influxdb时增加<code>INFLUXDB_DATA_MAX_VALUES_PER_TAG</code>环境变量，设置为所需要的值，如果设为0，则表示不限制tag value的数量。</p>
 
       
     </div>
@@ -479,9 +461,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
-          
-            <a href="/tags/Mybatis/" rel="tag"># Mybatis</a>
+            <a href="/tags/Influxdb/" rel="tag"># Influxdb</a>
           
         </div>
       
@@ -494,8 +474,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/04/深入浅出Mybatis－入门/" rel="next" title="深入浅出Mybatis－入门">
-                <i class="fa fa-chevron-left"></i> 深入浅出Mybatis－入门
+              <a href="/2018/01/29/Network-浅谈物理层/" rel="next" title="Network-浅谈物理层">
+                <i class="fa fa-chevron-left"></i> Network-浅谈物理层
               </a>
             
           </div>
@@ -503,10 +483,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/04/Docker修改默认时区/" rel="prev" title="Docker修改默认时区">
-                Docker修改默认时区 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -521,10 +497,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2017/03/04/深入浅出Mybatis－Mybatis-Generator/"
-     data-title="深入浅出Mybatis－Mybatis-Generator"
+        <div class="ds-share flat" data-thread-key="2018/04/28/Influxdb使用中碰到的一些坑/"
+     data-title="Influxdb使用中碰到的一些坑"
      data-content=""
-     data-url="http://www.xiaolewei.com/2017/03/04/深入浅出Mybatis－Mybatis-Generator/">
+     data-url="http://www.xiaolewei.com/2018/04/28/Influxdb使用中碰到的一些坑/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -551,8 +527,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/03/04/深入浅出Mybatis－Mybatis-Generator/"
-           data-title="深入浅出Mybatis－Mybatis-Generator" data-url="http://www.xiaolewei.com/2017/03/04/深入浅出Mybatis－Mybatis-Generator/">
+      <div class="ds-thread" data-thread-key="2018/04/28/Influxdb使用中碰到的一些坑/"
+           data-title="Influxdb使用中碰到的一些坑" data-url="http://www.xiaolewei.com/2018/04/28/Influxdb使用中碰到的一些坑/">
       </div>
     
   </div>
@@ -658,7 +634,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#是什么"><span class="nav-number">2.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怎么做"><span class="nav-number">3.</span> <span class="nav-text">怎么做</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Model、Client、sqlMap"><span class="nav-number">4.</span> <span class="nav-text">Model、Client、sqlMap:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档"><span class="nav-number">5.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#具有相同timestamp的数据覆盖问题"><span class="nav-number">1.</span> <span class="nav-text">具有相同timestamp的数据覆盖问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述："><span class="nav-number">1.0.1.</span> <span class="nav-text">问题描述：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">1.0.2.</span> <span class="nav-text">解决方案</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#partial-write-max-values-per-tag-limit-exceeded-100009-100000"><span class="nav-number">2.</span> <span class="nav-text">partial write: max-values-per-tag limit exceeded(100009/100000)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述"><span class="nav-number">2.0.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案-1"><span class="nav-number">2.0.2.</span> <span class="nav-text">解决方案</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
